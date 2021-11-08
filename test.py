@@ -1,2 +1,3 @@
-print("HELLO WORLD")
-print("WELCOME TO HACK TECH")
+print("HELLO WORLD\n")
+
+print("WELCOME TO HACK TECH\n")
