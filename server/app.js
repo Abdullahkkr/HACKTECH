@@ -24,13 +24,58 @@ const init_db = `
 
 `
 
-// Create DB
-app.get('/createdb', (req, res) => {
-    let sql = 'CREATE DATABASE nodemysql';
+
+// Initialize tables
+app.get('/initialize-tables', (req, res) => {
+    db.query(init_db, (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.send('Hacktech tables created...');
+    });
+});
+
+// Admin sign up
+app.get('/admin-signup', (req, res) => {
+    let sql = `INSERT INTO Admin VALUES( ${req.query.admin-id}, ${req.query.name}, ${req.query.password})`;
     db.query(sql, (err, result) => {
         if (err) throw err;
         console.log(result);
-        res.send('Database created...');
+        res.send('Added an Admin...');
+    });
+});
+
+// Customer sign up
+app.get('/customer-signup', (req, res) => {
+    let sql = `INSERT INTO Customers VALUES( ${req.query.customer-id}, ${req.query.name}, ${req.query.address}, ${req.query.past-orders}, ${req.query.email}, ${req.query.contact-number}, ${req.query.cnic}, ${req.query.password})`;
+    db.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.send('Customer signed up successfully...');
+    });
+}); 
+
+// Admin login
+app.get('/admin-login', (req, res) => {
+    let sql = `Select Name from Admin where Admin_ID = ${req.query.admin-id} and Password = ${req.query.password}`;
+    db.query(sql, (err, result) => {
+        if (err){
+            console.log(err.message);
+            throw err;
+        }
+        console.log(result); // doubt on it as we dont know whats in result. Check by running when faraz has made tables
+        res.send('Admin has logged in successfully...');
+    });
+});
+
+// Customer login
+
+// Create DB
+app.get('/createdb', (req, res) => {
+    let sql = 'CREATE DATABASE Hacktech';
+    db.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.send('Hacktech database created...');
     });
 });
 
