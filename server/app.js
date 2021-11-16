@@ -6,7 +6,7 @@ const db = mysql.createConnection({
     host : 'localhost',
     user : 'root',
     password : '',
-    database : 'nodemysql',
+    database : 'hacktech',
     multipleStatements :true
 });
 
@@ -21,6 +21,24 @@ db.connect((err) => {
 const app = express();
 
 // Faraz initialize all queries here
+// const init_db = `
+// CREATE TABLE Admin(Name VARCHAR(50), Admin_ID int(5), Password VARCHAR(64), PRIMARY KEY (Admin_ID));
+// CREATE TABLE Orders(Unit_ID int(10), Order_ID int(10), Order_Confirmation bool, Order_Date date, Delivery_Date date, Courier_Service_Name VARCHAR(50), Customer_ID int(8), Order_Status VARCHAR(20), PRIMARY KEY (Order_ID));
+// CREATE TABLE Inventory(Unit_ID int(10), Brand VARCHAR(50), Features VARCHAR(5000), Product_Name VARCHAR(100), Colour VARCHAR(20), Description VARCHAR(5000), Images VARCHAR(10), Cost_Price int(20), Selling_Price int(20), Admin_ID int(5), PRIMARY KEY (Unit_ID), FOREIGN KEY (Admin_ID) REFERENCES Admin(Admin_ID));
+// CREATE TABLE Customers(Customer_ID int(8), Customer_Name VARCHAR(50), Address VARCHAR(1000), Past_Orders int(200), Email VARCHAR(50), Contact_Number int(12), CNIC_Number int(13), Password VARCHAR(64), PRIMARY KEY (Customer_ID));
+// CREATE TABLE Accounts(Customer_ID int(8), Password VARCHAR(64), PRIMARY KEY (Customer_ID), FOREIGN KEY (Customer_ID) REFERENCES Customers(Customer_ID));
+// CREATE TABLE Printer(Unit_ID int(10), Wireless VARCHAR(3), Type VARCHAR(50), Portable VARCHAR(3), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
+// CREATE TABLE Camera(Unit_ID int(10), Lens VARCHAR(50), Touch VARCHAR(3), Tripod_Compatibility VARCHAR(3), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
+// CREATE TABLE Scanner(Unit_ID int(10), Resolution VARCHAR(20), Type VARCHAR(20), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
+// CREATE TABLE VG_Console(Unit_ID int(10), Memory VARCHAR(20), Disc_Compatibility VARCHAR(3), Controller VARCHAR(20), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
+// CREATE TABLE Projector(Unit_ID int(10), Bulb VARCHAR(50), Projection_Distance int(20), Image_size int(20), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
+// CREATE TABLE TV(Unit_ID int(10), Screen_Size VARCHAR(20), Smart VARCHAR(3), Screen_Type VARCHAR(30), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
+// CREATE TABLE Tablet(Unit_ID int(10), RAM VARCHAR(20), Memory VARCHAR(20), SIM VARCHAR(3), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
+// CREATE TABLE Mobile_Phone(Unit_ID int(10), RAM VARCHAR(20), Memory VARCHAR(20), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
+// CREATE TABLE Desktop(Unit_ID int(10), Processor VARCHAR(20), RAM VARCHAR(20), Graphic_Card VARCHAR(50), PSU VARCHAR(30), Memory VARCHAR(20), Cooling_System VARCHAR(20), RGB VARCHAR(20), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
+// CREATE TABLE Laptop(Unit_ID int(10), Size VARCHAR(20), RAM VARCHAR(20), Processor VARCHAR(20), SSD VARCHAR(20), Generation VARCHAR(20), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
+// `;
+
 const init_db = `
 CREATE TABLE Admin(Name VARCHAR(50), Admin_ID int(5), Password VARCHAR(64), PRIMARY KEY (Admin_ID));
 CREATE TABLE Orders(Unit_ID int(10), Order_ID int(10), Order_Confirmation bool, Order_Date date, Delivery_Date date, Courier_Service_Name VARCHAR(50), Customer_ID int(8), Order_Status VARCHAR(20), PRIMARY KEY (Order_ID));
@@ -53,36 +71,57 @@ app.get('/initialize-tables', (req, res) => {
 
 // Admin sign up
 app.get('/admin-signup', (req, res) => {
-    let sql = `INSERT INTO Admin VALUES( ${req.query.admin-id}, ${req.query.name}, ${req.query.password})`;
+    let sql = `INSERT INTO Admin VALUES(${req.query.Name}, ${req.query.Admin_ID}, ${req.query.Password})`;
     db.query(sql, (err, result) => {
-        if (err) throw err;
+        if (err) {
+            res.send('Admin already exists...');
+            throw err;
+        }
         console.log(result);
         res.send('Added an Admin...');
     });
 });
 
+
+
 // Customer sign up
 app.get('/customer-signup', (req, res) => {
-    let sql = `INSERT INTO Customers VALUES( ${req.query.customer-id}, ${req.query.name}, ${req.query.address}, ${req.query.past-orders}, ${req.query.email}, ${req.query.contact-number}, ${req.query.cnic}, ${req.query.password})`;
+    // let sql = `INSERT INTO Customers VALUES(${req.query.Customer_ID}, ${req.query.Customer_Name}, ${req.query.Address}, ${req.query.Past_Orders}, ${req.query.Email}, ${req.query.Contact_Number}, ${req.query.CNIC_Number}, ${req.query.Password})`;
+    const sql = `INSERT INTO Customers VALUES(${req.query.Customer_ID}, ${req.query.Customer_Name}, ${req.query.Address}, ${req.query.Past_Orders}, ${req.query.Email}, ${req.query.Contact_Number}, ${req.query.CNIC_Number})`;
     db.query(sql, (err, result) => {
         if (err) {
+            res.send('Error in signing up the customer');
             console.log(err.message);
             throw err;
         }
         console.log(result);
+
+        // inserting into accounts
+        const sql2 = `INSERT INTO Accounts VALUES(${req.query.Customer_ID},${req.query.Password})`;
+        db.query(sql2, (err, result) => {
+            if (err) {
+                res.send('Error in signing up the customer');
+                console.log(err.message);
+                throw err;
+            }
+            console.log(result);
+        });
+
+
         res.send('Customer signed up successfully...');
-    });
+    });    
 }); 
 
 // Admin login
 app.get('/admin-login', (req, res) => {
-    let sql = `Select Name from Admin where Admin_ID = ${req.query.admin-id} and Password = ${req.query.password}`;
+    let sql = `Select Name from Admin where Admin_ID = ${req.query.Admin_ID} and Password = ${req.query.Password}`;
     db.query(sql, (err, result) => {
         if (err){
+            res.send("admin credentials are wrong");
             console.log(err.message);
             throw err;
         }
-        console.log(result); // doubt on it as we dont know whats in result. Check by running when faraz has made tables
+        console.log(result); 
         res.send('Admin has logged in successfully...');
     });
 });
