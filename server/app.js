@@ -128,14 +128,15 @@ app.get('/admin-login', (req, res) => {
 
 // Customer login
 app.get('/customer-login', (req, res) => {
-    let sql = `Select Name from Admin where Admin_ID = ${req.query.admin-id} and Password = ${req.query.password}`;
+    let sql = `Select * from Accounts where Admin_ID = ${req.query.customer-id} and Password = ${req.query.password}`;
     db.query(sql, (err, result) => {
         if (err){
+            console.log('customer login error')
             console.log(err.message);
             throw err;
         }
         console.log(result); // doubt on it as we dont know whats in result. Check by running when faraz has made tables
-        res.send('Admin has logged in successfully...');
+        res.send('Customer has logged in successfully...');
     });
 });
 
