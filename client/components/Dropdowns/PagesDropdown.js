@@ -27,7 +27,18 @@ const PagesDropdown = () => {
           dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover();
         }}
       >
-        Demo Pages
+      <div className="btn-wrapper text-center px-10 py-5">
+                  <button
+                    className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-6 rounded shadow hover:shadow-lg outline-black focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                    // className="bg-white active:bg-blueGray-50 text-blueGray-700 px-6 py-6 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xl ease-linear transition-all duration-150"
+                   //upr wala was original
+                    type="button"
+                   
+                  >
+                    
+                    menu ≡
+                  </button>
+                </div>
       </a>
       <div
         ref={popoverDropdownRef}
@@ -36,14 +47,14 @@ const PagesDropdown = () => {
           "bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
         }
       >
-        <span
+        {/* <span
           className={
             "text-sm pt-2 pb-0 px-4 font-bold block w-full whitespace-nowrap bg-transparent text-blueGray-400"
           }
         >
           Admin Layout
-        </span>
-        <Link href="/admin/dashboard">
+        </span> */}
+        {/* <Link href="/admin/dashboard">
           <a
             href="#pablo"
             className={
@@ -52,8 +63,8 @@ const PagesDropdown = () => {
           >
             Dashboard
           </a>
-        </Link>
-        <Link href="/admin/settings">
+        </Link> */}
+        {/* <Link href="/admin/settings">
           <a
             href="#pablo"
             className={
@@ -62,8 +73,8 @@ const PagesDropdown = () => {
           >
             Settings
           </a>
-        </Link>
-        <Link href="/admin/tables">
+        </Link> */}
+        {/* <Link href="/admin/tables">
           <a
             href="#pablo"
             className={
@@ -82,14 +93,14 @@ const PagesDropdown = () => {
           >
             Maps
           </a>
-        </Link>
+        </Link> */}
         <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
         <span
           className={
             "text-sm pt-2 pb-0 px-4 font-bold block w-full whitespace-nowrap bg-transparent text-blueGray-400"
           }
         >
-          Auth Layout
+          Options:
         </span>
         <Link href="/auth/login">
           <a
@@ -108,18 +119,18 @@ const PagesDropdown = () => {
               "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
             }
           >
-            Register
+            Sign Up
           </a>
         </Link>
         <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
-        <span
+        {/* <span
           className={
             "text-sm pt-2 pb-0 px-4 font-bold block w-full whitespace-nowrap bg-transparent text-blueGray-400"
           }
         >
           No Layout
-        </span>
-        <Link href="/landing">
+        </span> */}
+        {/* <Link href="/landing">
           <a
             href="#pablo"
             className={
@@ -128,8 +139,8 @@ const PagesDropdown = () => {
           >
             Landing
           </a>
-        </Link>
-        <Link href="/profile">
+        </Link> */}
+        {/* <Link href="/profile">
           <a
             href="#pablo"
             className={
@@ -137,8 +148,8 @@ const PagesDropdown = () => {
             }
           >
             Profile
-          </a>
-        </Link>
+          </a> */}
+        {/* </Link> */}
       </div>
     </>
   );
