@@ -75,11 +75,26 @@ app.get('/admin-signup', (req, res) => {
     let sql = `INSERT INTO Admin VALUES(${req.query.Name}, ${req.query.Admin_ID}, ${req.query.Password})`;
     db.query(sql, (err, result) => {
         if (err) {
-            res.send('Admin already exists...');
-            throw err;
+            res.send({
+                'isSuccessful':false,
+                'accountType':'',
+                'Name': '',
+                'error': true,
+                'message': err
+            });
         }
-        console.log(result);
-        res.send('Added an Admin...');
+        else
+        {
+            console.log(result);
+            // res.send('Added an Admin...');
+            res.send({
+                'isSuccessful':true,
+                'accountType':'Admin',
+                'Name': req.query.Name,
+                'error': false,
+                'message': 'Admin has signed up successfully'
+            });
+        }
     });
 });
 
@@ -90,25 +105,60 @@ app.get('/customer-signup', (req, res) => {
     const sql = `INSERT INTO Customers VALUES(${req.query.Customer_ID}, ${req.query.Customer_Name}, ${req.query.Address}, ${req.query.Past_Orders}, ${req.query.Email}, ${req.query.Contact_Number}, ${req.query.CNIC_Number})`;
     db.query(sql, (err, result) => {
         if (err) {
-            res.send('Error in signing up the customer');
+            res.send({
+                'isSuccessful':false,
+                'accountType':'',
+                'Name': '',
+                'error': true,
+                'message': err
+            });
+
             console.log(err.message);
-            throw err;
+            // throw err;
         }
-        console.log(result);
-
-        // inserting into accounts
-        const sql2 = `INSERT INTO Accounts VALUES(${req.query.Customer_ID},${req.query.Password})`;
-        db.query(sql2, (err, result) => {
-            if (err) {
-                res.send('Error in signing up the customer');
-                console.log(err.message);
-                throw err;
-            }
+        else
+        {
             console.log(result);
-        });
+
+            // inserting into accounts
+            const sql2 = `INSERT INTO Accounts VALUES(${req.query.Customer_ID},${req.query.Password})`;
+            db.query(sql2, (err, result) => {
+                if (err) {
+                    res.send({
+                        'isSuccessful':false,
+                        'accountType':'',
+                        'Name': '',
+                        'error': true,
+                        'message': err
+                    });
+
+                    console.log(err.message);
+                    // throw err;
+                }
+                else
+                {
+                    console.log(result);
+                    // res.send('Customer signed up successfully...');
+                    res.send({
+                    'isSuccessful':true,
+                    'accountType':'Customer',
+                    'Name': req.query.Customer_Name,
+                    'error': false,
+                    'message': 'Customer has signed up successfully'
+                    });
+                }
+            });
+        }
 
 
-        res.send('Customer signed up successfully...');
+        // // res.send('Customer signed up successfully...');
+        // res.send({
+        //     'isSuccessful':true,
+        //     'accountType':'Customer',
+        //     'Name': result[0].Customer_Name,
+        //     'error': false,
+        //     'message': 'Customer has signed up successfully'
+        // });
     });    
 }); 
 
@@ -185,7 +235,7 @@ app.get('/login', (req, res) => {
     const Customer_ID =  req.query.IeD;
     const Admin_ID = req.query.IeD; 
 
-    const sql =  `Select * from Accounts where Customer_ID = ${Customer_ID} and Password = ${req.query.Password}`;
+    const sql =  `Select * from Accounts, Customers where Accounts.Customer_ID = Customers.Customer_ID and Accounts.Customer_ID = ${Customer_ID} and Accounts.Password = ${req.query.Password}`;
     
     db.query(sql, (err, result) => {
         if (err){
@@ -208,7 +258,7 @@ app.get('/login', (req, res) => {
             res.send({
                 'isSuccessful':true,
                 'accountType':'Customer',
-                'Name':result[0].Name,
+                'Name':result[0].Customer_Name,
                 'error': false,
                 'message': 'Customer has logged in successfully'
             });
