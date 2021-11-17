@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 
+
 // layout for page
+
 
 import Auth from "layouts/Auth.js";
 
 export default function Login() {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
   return (
     <>
       <div className="container mx-auto px-10 py-20 h-full">
@@ -41,34 +46,38 @@ export default function Login() {
               </div>
               <div className="flex-auto px-4 lg:px-10 py-15 pt-0">
                 <div className="text-blueGray-500 text-center">
-                  <small>sign in with credentials</small>
+                  <small>Sign In With Credentials</small>
                 </div>
                 <form>
-                  <div className="relative w-full mb-5 py-4">
+                <div className="relative w-full mb-3">
                     <label
-                      className="block uppercase text-blueGray-400 text-xs mb-3"
+                      className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
                       Email
                     </label>
                     <input
                       type="email"
-                      className="border-0 px-3 py-3 placeholder-blueGray-350 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Email"
+                      value={email}
+                      onChange={(e) => {setEmail,(e.target.value);}}
                     />
                   </div>
 
                   <div className="relative w-full mb-3">
                     <label
-                      className="block uppercase text-blueGray-400 text-xs mb-3"
+                      className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
                       Password
                     </label>
                     <input
                       type="password"
-                      className="border-0 px-3 py-3 placeholder-blueGray-350 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="password"
+                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                      placeholder="Password"
+                      value={password}
+                      onChange={(e) => {setPassword(e.target.value);}}
                     />
                   </div>
                   {/* <div>
@@ -95,7 +104,7 @@ export default function Login() {
                 </form>
               </div>
             </div>
-            <div className="flex flex-wrap mt-6 relative">
+            <div className="flex flex-wrap mt-6 relative ">
               {/* <div className="w-1/2">
                 <a
                   href="#pablo"
@@ -105,7 +114,7 @@ export default function Login() {
                   <medium>Forgot password?</medium>
                 </a>
               </div> */}
-              <div className="w-1/2 text-centre">
+              <div className="text-centre mt-1">
                 <Link href="/auth/register">
                   <a href="#pablo" className="text-blueGray-500">
                     <small>Create new account</small>
