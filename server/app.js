@@ -48,7 +48,7 @@ INSERT INTO Admin VALUES('Miqdad Quettawala', 00005, 'pak007009');
 
 // Initialize tables
 app.get('/initialize-tables', (req, res) => {
-    db.query(init_db, (err, result) => {
+    db.body(init_db, (err, result) => {
         if (err) {
             console.log(err.message);
             throw err;
@@ -60,7 +60,7 @@ app.get('/initialize-tables', (req, res) => {
 
 // Initializing admins
 app.get('/initialize-admins', (req, res) => {
-    db.query(init_admins, (err, result) => {
+    db.body(init_admins, (err, result) => {
         if (err) {
             console.log(err.message);
             throw err;
@@ -72,8 +72,8 @@ app.get('/initialize-admins', (req, res) => {
 
 // Admin sign up
 app.get('/admin-signup', (req, res) => {
-    let sql = `INSERT INTO Admin VALUES(${req.query.Name}, ${req.query.Admin_ID}, ${req.query.Password})`;
-    db.query(sql, (err, result) => {
+    let sql = `INSERT INTO Admin VALUES(${req.body.Name}, ${req.body.Admin_ID}, ${req.body.Password})`;
+    db.body(sql, (err, result) => {
         if (err) {
             res.send('Admin already exists...');
             throw err;
@@ -87,8 +87,8 @@ app.get('/admin-signup', (req, res) => {
 
 // Customer sign up
 app.get('/customer-signup', (req, res) => {
-    const sql = `INSERT INTO Customers VALUES(${req.query.Customer_ID}, ${req.query.Customer_Name}, ${req.query.Address}, ${req.query.Past_Orders}, ${req.query.Email}, ${req.query.Contact_Number}, ${req.query.CNIC_Number})`;
-    db.query(sql, (err, result) => {
+    const sql = `INSERT INTO Customers VALUES(${req.body.Customer_ID}, ${req.body.Customer_Name}, ${req.body.Address}, ${req.body.Past_Orders}, ${req.body.Email}, ${req.body.Contact_Number}, ${req.body.CNIC_Number})`;
+    db.body(sql, (err, result) => {
         if (err) {
             res.send('Error in signing up the customer');
             console.log(err.message);
@@ -97,8 +97,8 @@ app.get('/customer-signup', (req, res) => {
         console.log(result);
 
         // inserting into accounts
-        const sql2 = `INSERT INTO Accounts VALUES(${req.query.Customer_ID},${req.query.Password})`;
-        db.query(sql2, (err, result) => {
+        const sql2 = `INSERT INTO Accounts VALUES(${req.body.Customer_ID},${req.body.Password})`;
+        db.body(sql2, (err, result) => {
             if (err) {
                 res.send('Error in signing up the customer');
                 console.log(err.message);
@@ -112,36 +112,36 @@ app.get('/customer-signup', (req, res) => {
     });    
 }); 
 
-// Admin login
-app.get('/admin-login', (req, res) => {
-    let sql = `Select Name from Admin where Admin_ID = ${req.query.Admin_ID} and Password = ${req.query.Password}`;
-    db.query(sql, (err, result) => {
-        if (err){
-            console.log(err.message);
-            res.send("admin credentials are wrong error message");
-            throw err;
-        }
+// // Admin login
+// app.get('/admin-login', (req, res) => {
+//     let sql = `Select Name from Admin where Admin_ID = ${req.body.Admin_ID} and Password = ${req.body.Password}`;
+//     db.body(sql, (err, result) => {
+//         if (err){
+//             console.log(err.message);
+//             res.send("admin credentials are wrong error message");
+//             throw err;
+//         }
 
-        const isEmpty = Object.keys(result).length === 0
+//         const isEmpty = Object.keys(result).length === 0
 
-        if (isEmpty) 
-        { 
-            res.send("admin credentials are wrong");
-        }
-        res.send('Admin has logged in successfully...');
+//         if (isEmpty) 
+//         { 
+//             res.send("admin credentials are wrong");
+//         }
+//         res.send('Admin has logged in successfully...');
         
-    });
-});
+//     });
+// });
 
 // // Customer and admin login
 // app.get('/login', (req, res) => {
 
-//     const Customer_ID =  req.query.IeD;
-//     const Admin_ID = req.query.IeD; 
+//     const Customer_ID =  req.body.IeD;
+//     const Admin_ID = req.body.IeD; 
 
-//     const sql =  `Select * from Accounts where Customer_ID = ${Customer_ID} and Password = ${req.query.Password}`;
+//     const sql =  `Select * from Accounts where Customer_ID = ${Customer_ID} and Password = ${req.body.Password}`;
     
-//     db.query(sql, (err, result) => {
+//     db.body(sql, (err, result) => {
 //         if (err){
 //             console.log('customer login error')
 //             console.log(err.message);
@@ -155,8 +155,8 @@ app.get('/admin-login', (req, res) => {
 //             res.send('Customer has logged in successfully...');
 //         }
 //         else{
-//             const sql2 = `Select * from Admin where Admin_ID = ${Admin_ID} and Password = ${req.query.Password}`;
-//             db.query(sql2, (err, result) => {
+//             const sql2 = `Select * from Admin where Admin_ID = ${Admin_ID} and Password = ${req.body.Password}`;
+//             db.body(sql2, (err, result) => {
 //                 if (err){
 //                     res.send("credentials are wrong");
 //                     console.log(err.message);
@@ -182,19 +182,19 @@ app.get('/admin-login', (req, res) => {
 // Customer and admin login
 app.get('/login', (req, res) => {
 
-    const Customer_ID =  req.query.IeD;
-    const Admin_ID = req.query.IeD; 
+    const Customer_ID =  req.body.IeD;
+    const Admin_ID = req.body.IeD; 
 
-    const sql =  `Select * from Accounts where Customer_ID = ${Customer_ID} and Password = ${req.query.Password}`;
+    const sql =  `Select * from Accounts where Customer_ID = ${Customer_ID} and Password = ${req.body.Password}`;
     
-    db.query(sql, (err, result) => {
+    db.body(sql, (err, result) => {
         if (err){
             res.send({
                 'isSuccessful':false,
                 'accountType':'',
                 'Name': '',
                 'error': true,
-                'message': 'error in fetching query from database'
+                'message': 'error in fetching body from database'
             });
             console.log('customer login error')
             console.log(err.message);
@@ -214,15 +214,15 @@ app.get('/login', (req, res) => {
             });
         }
         else{
-            const sql2 = `Select * from Admin where Admin_ID = ${Admin_ID} and Password = ${req.query.Password}`;
-            db.query(sql2, (err, result) => {
+            const sql2 = `Select * from Admin where Admin_ID = ${Admin_ID} and Password = ${req.body.Password}`;
+            db.body(sql2, (err, result) => {
                 if (err){
                     res.send({
                         'isSuccessful':false,
                         'accountType':'',
                         'Name': '',
                         'error': true,
-                        'message': 'error in fetching query from database'
+                        'message': 'error in fetching body from database'
                     });
                     console.log(err.message);
                     throw err;
@@ -260,7 +260,7 @@ app.get('/login', (req, res) => {
 // Create DB
 app.get('/createdb', (req, res) => {
     let sql = 'CREATE DATABASE Hacktech';
-    db.query(sql, (err, result) => {
+    db.body(sql, (err, result) => {
         if (err) throw err;
         console.log(result);
         res.send('Hacktech database created...');
@@ -270,7 +270,7 @@ app.get('/createdb', (req, res) => {
 // Create table
 app.get('/createpoststable', (req, res) => {
     let sql = 'CREATE TABLE posts(id int AUTO_INCREMENT, title VARCHAR(255), body VARCHAR(255), PRIMARY KEY (id))';
-    db.query(sql, (err, result) => {
+    db.body(sql, (err, result) => {
         if (err) console.log(err.message);
         console.log(result);
         res.send('Posts table created...');
@@ -281,7 +281,7 @@ app.get('/createpoststable', (req, res) => {
 app.get('/addpost1', (req, res) => {
     let post = {title:'Post One', body:'This is post number one'};
     let sql = 'INSERT INTO posts SET ?';
-    let query = db.query(sql, post, (err, result) => {
+    let body = db.body(sql, post, (err, result) => {
         if (err) throw err;
         console.log(result);
         res.send('Posts 1 added...');
