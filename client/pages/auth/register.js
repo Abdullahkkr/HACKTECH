@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
 
 // layout for page
 
@@ -12,10 +14,6 @@ export default function Register() {
   const [password, setPassword] = useState("")
   const [address, setAddress] = useState("")
   const [contactnumber, setContactnumber] = useState("")
-
-
-
-
   return (
     <>
       <div className="container mx-auto px-4 h-full">
