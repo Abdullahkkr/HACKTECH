@@ -27,7 +27,18 @@ const PagesDropdown = () => {
           dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover();
         }}
       >
-        Demo Pages
+      <div className="btn-wrapper text-center px-10 py-5">
+                  <button
+                    className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-6 rounded shadow hover:shadow-lg outline-black focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                    // className="bg-white active:bg-blueGray-50 text-blueGray-700 px-6 py-6 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xl ease-linear transition-all duration-150"
+                   //upr wala was original
+                    type="button"
+                   
+                  >
+                    
+                    menu ≡
+                  </button>
+                </div>
       </a>
       <div
         ref={popoverDropdownRef}
