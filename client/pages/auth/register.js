@@ -136,7 +136,6 @@ export default function Register() {
                       onChange={(e) => {setPassword(e.target.value);}}
                     />
                   </div>
-
                   <div>
                     <label className="inline-flex items-center cursor-pointer">
                       <input
@@ -165,7 +164,6 @@ export default function Register() {
                 </Link>
               </div>
             </div> */}
-
                   <div className="text-center mt-6">
                   <Link href="/auth/new_account">
                     <button

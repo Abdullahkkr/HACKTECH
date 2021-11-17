@@ -64,7 +64,6 @@ export default function Login() {
                       onChange={(e) => {setEmail,(e.target.value);}}
                     />
                   </div>
-
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
@@ -92,7 +91,6 @@ export default function Login() {
                       </span>
                     </label>
                   </div> */}
-
                   <div className="text-center mt-6">
                   <Link href="/auth/user_dashboard">
                     <button
