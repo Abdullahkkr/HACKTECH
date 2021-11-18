@@ -680,6 +680,9 @@ export default function Login() {
     login(email, password).then((response) =>{
       console.log(response.data)
       if(response.data.isSuccessful){
+        if(response.data.message === "credential are wrong"){
+          alert("Credentials are wrong")
+        }
         if(response.data.accountType === 'Admin'){
           router.push('/auth/admin_dashboard')
         }

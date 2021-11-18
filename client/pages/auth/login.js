@@ -14,6 +14,9 @@ export default function Login() {
     login(email, password).then((response) =>{
       console.log(response.data)
       if(response.data.isSuccessful){
+        if(response.data.message === 'credential are wrong'){
+          console.log("ifffinifnfi")
+        }
         if(response.data.accountType === 'Admin'){
           router.push('/auth/admin_dashboard')
         }
@@ -72,7 +75,7 @@ export default function Login() {
                     <input
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="email"
+                      placeholder="User ID"
                       value={email}
                       onChange={(e) => {setEmail(e.target.value);}}
                     />

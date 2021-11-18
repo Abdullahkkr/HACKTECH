@@ -33,7 +33,7 @@ const PagesDropdown = () => {
                     // className="bg-white active:bg-blueGray-50 text-blueGray-700 px-6 py-6 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xl ease-linear transition-all duration-150"
                    //upr wala was original
                     type="button"
-                   
+                  
                   >
                     
                     menu ≡
@@ -120,6 +120,16 @@ const PagesDropdown = () => {
             }
           >
             Sign Up
+          </a>
+        </Link>
+        <Link href="/auth/login">
+          <a
+            href="#pablo"
+            className={
+              "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+            }
+          >
+            Log Out
           </a>
         </Link>
         <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
