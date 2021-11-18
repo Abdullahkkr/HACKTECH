@@ -64,6 +64,7 @@ app.get('/initialize-tables', (req, res) => {
     });
 });
 
+
 // Initializing admins
 app.get('/initialize-admins', (req, res) => {
     db.query(init_admins, (err, result) => {
