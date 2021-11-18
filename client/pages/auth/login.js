@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { login } from '.\auth\Services-API\api.js' 
+import { login } from './Services-API/api'; 
 
 // layout for page
 
@@ -12,8 +12,8 @@ export default function Login() {
   const [password, setPassword] = useState("")
 
   const sendCreds = (e) =>{
-    e.preventDefault();
-    login(setEmail, setPassword).then((response) =>{
+    console.log(email,password);
+    login(email, password).then((response) =>{
       console.log(response.data)
     })
   }
@@ -66,9 +66,9 @@ export default function Login() {
                     <input
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Email"
+                      placeholder="email"
                       value={email}
-                      onChange={(e) => {setEmail,(e.target.value);}}
+                      onChange={(e) => {setEmail(e.target.value);}}
                     />
                   </div>
                   <div className="relative w-full mb-3">
@@ -99,15 +99,15 @@ export default function Login() {
                     </label>
                   </div> */}
                   <div className="text-center mt-6">
-                  <Link href="/auth/user_dashboard">
+                  {/* <Link href="/auth/user_dashboard"> */}
                     <button
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="button"
-                      onclick = {sendCreds}
+                      onClick = {() => {sendCreds()}}
                     >
                       Log in
                     </button>
-                    </Link>
+                    {/* </Link> */}
                   </div>
                 </form>
               </div>

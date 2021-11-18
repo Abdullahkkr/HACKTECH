@@ -1,5 +1,8 @@
 const express = require('express');
 const mysql = require('mysql');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const { urlencoded } = require('express');
 
 // Create connection
 const db = mysql.createConnection({
@@ -19,6 +22,9 @@ db.connect((err) => {
 });
 
 const app = express();
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json({extended:true}));
+app.use(cors());
 
 const init_db = `
 CREATE TABLE Admin(Name VARCHAR(50), Admin_ID int(5), Password VARCHAR(64), PRIMARY KEY (Admin_ID));
@@ -72,7 +78,7 @@ app.get('/initialize-admins', (req, res) => {
 
 // Admin sign up
 app.get('/admin-signup', (req, res) => {
-    let sql = `INSERT INTO Admin VALUES(${req.body.Name}, ${req.body.Admin_ID}, ${req.body.Password})`;
+    let sql = `INSERT INTO Admin VALUES("${req.body.Name}",${req.body.Admin_ID},"${req.body.Password}")`;
     db.query(sql, (err, result) => {
         if (err) {
             res.send({
@@ -90,7 +96,7 @@ app.get('/admin-signup', (req, res) => {
             res.send({
                 'isSuccessful':true,
                 'accountType':'Admin',
-                'Name': req.query.Name,
+                'Name': req.body.Name,
                 'error': false,
                 'message': 'Admin has signed up successfully'
             });
@@ -102,7 +108,7 @@ app.get('/admin-signup', (req, res) => {
 
 // Customer sign up
 app.get('/customer-signup', (req, res) => {
-    const sql = `INSERT INTO Customers VALUES(${req.body.Customer_ID}, ${req.body.Customer_Name}, ${req.body.Address}, ${req.body.Past_Orders}, ${req.body.Email}, ${req.body.Contact_Number}, ${req.body.CNIC_Number})`;
+    const sql = `INSERT INTO Customers VALUES(${req.body.Customer_ID},"${req.body.Customer_Name}","${req.body.Address}",${req.body.Past_Orders},"${req.body.Email}",${req.body.Contact_Number},${req.body.CNIC_Number})`;
     db.query(sql, (err, result) => {
         if (err) {
             res.send({
@@ -121,7 +127,7 @@ app.get('/customer-signup', (req, res) => {
             console.log(result);
 
             // inserting into accounts
-            const sql2 = `INSERT INTO Accounts VALUES(${req.query.Customer_ID},${req.query.Password})`;
+            const sql2 = `INSERT INTO Accounts VALUES(${req.body.Customer_ID},"${req.body.Password}")`;
             db.query(sql2, (err, result) => {
                 if (err) {
                     res.send({
@@ -142,7 +148,7 @@ app.get('/customer-signup', (req, res) => {
                     res.send({
                     'isSuccessful':true,
                     'accountType':'Customer',
-                    'Name': req.query.Customer_Name,
+                    'Name': req.body.Customer_Name,
                     'error': false,
                     'message': 'Customer has signed up successfully'
                     });
@@ -150,92 +156,18 @@ app.get('/customer-signup', (req, res) => {
             });
         }
 
-
-        // // res.send('Customer signed up successfully...');
-        // res.send({
-        //     'isSuccessful':true,
-        //     'accountType':'Customer',
-        //     'Name': result[0].Customer_Name,
-        //     'error': false,
-        //     'message': 'Customer has signed up successfully'
-        // });
     });    
 }); 
 
-// // Admin login
-// app.get('/admin-login', (req, res) => {
-//     let sql = `Select Name from Admin where Admin_ID = ${req.body.Admin_ID} and Password = ${req.body.Password}`;
-//     db.query(sql, (err, result) => {
-//         if (err){
-//             console.log(err.message);
-//             res.send("admin credentials are wrong error message");
-//             throw err;
-//         }
-
-//         const isEmpty = Object.keys(result).length === 0
-
-//         if (isEmpty) 
-//         { 
-//             res.send("admin credentials are wrong");
-//         }
-//         res.send('Admin has logged in successfully...');
-        
-//     });
-// });
-
-// // Customer and admin login
-// app.get('/login', (req, res) => {
-
-//     const Customer_ID =  req.body.IeD;
-//     const Admin_ID = req.body.IeD; 
-
-//     const sql =  `Select * from Accounts where Customer_ID = ${Customer_ID} and Password = ${req.body.Password}`;
-    
-//     db.query(sql, (err, result) => {
-//         if (err){
-//             console.log('customer login error')
-//             console.log(err.message);
-//             throw err;
-//         }
-//         console.log(result); // doubt on it as we dont know whats in result. Check by running when faraz has made tables
-//         const isEmpty = Object.keys(result).length === 0
-
-//         if (isEmpty === false)
-//         {
-//             res.send('Customer has logged in successfully...');
-//         }
-//         else{
-//             const sql2 = `Select * from Admin where Admin_ID = ${Admin_ID} and Password = ${req.body.Password}`;
-//             db.query(sql2, (err, result) => {
-//                 if (err){
-//                     res.send("credentials are wrong");
-//                     console.log(err.message);
-//                     throw err;
-//                 }
-
-//                 console.log(result); 
-//                 var isEmpty = Object.keys(result).length === 0
-
-//                 if (isEmpty === false)
-//                 {
-//                     res.send('Admin has logged in successfully...');
-//                 }
-//                 else
-//                 {
-//                     res.send('Credentials are wrong');
-//                 }
-//             });
-//         }
-//     });
-// });
 
 // Customer and admin login
-app.get('/login', (req, res) => {
+app.post('/login', (req, res) => {
 
-    const Customer_ID =  req.body.IeD;
-    const Admin_ID = req.body.IeD; 
+    console.log(req);
+    const Customer_ID =  req.body.Admin_ID;
+    const Admin_ID = req.body.Admin_ID; 
 
-    const sql =  `Select * from Accounts, Customers where Accounts.Customer_ID = Customers.Customer_ID and Accounts.Customer_ID = ${Customer_ID} and Accounts.Password = ${req.query.Password}`;
+    const sql =  `Select * from Accounts, Customers where Accounts.Customer_ID=Customers.Customer_ID and Accounts.Customer_ID=${Customer_ID} and Accounts.Password="${req.body.Password}"`;
     
     db.query(sql, (err, result) => {
         if (err){
@@ -248,7 +180,7 @@ app.get('/login', (req, res) => {
             });
             console.log('customer login error')
             console.log(err.message);
-            throw err;
+            // throw err;
         }
         console.log(result); // doubt on it as we dont know whats in result. Check by running when faraz has made tables
         const isEmpty = Object.keys(result).length === 0
@@ -264,7 +196,7 @@ app.get('/login', (req, res) => {
             });
         }
         else{
-            const sql2 = `Select * from Admin where Admin_ID = ${Admin_ID} and Password = ${req.body.Password}`;
+            const sql2 = `Select * from Admin where Admin_ID=${Admin_ID} and Password="${req.body.Password}"`;
             db.query(sql2, (err, result) => {
                 if (err){
                     res.send({
@@ -337,8 +269,8 @@ app.get('/addpost1', (req, res) => {
         res.send('Posts 1 added...');
     });
 });
-
-app.listen('3000', () => {
-    console.log("Server started on port 3000");
+let PORT = 3001;
+app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
     
 });
