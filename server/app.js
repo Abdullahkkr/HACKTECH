@@ -241,6 +241,7 @@ app.post('/login', (req, res) => {
 
 // Create DB
 app.get('/createdb', (req, res) => {
+    console.log("hellooo");
     let sql = 'CREATE DATABASE Hacktech';
     db.query(sql, (err, result) => {
         if (err) throw err;
