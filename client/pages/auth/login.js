@@ -12,11 +12,16 @@ export default function Login() {
   const router = useRouter()
   const sendCreds = (e) =>{
     login(email, password).then((response) =>{
-      console.log(response.data)
-      if(response.data.isSuccessful){
-        if(response.data.message === 'credential are wrong'){
-          console.log("ifffinifnfi")
+      if(!response.data.isSuccessful)
+      {
+        console.log(response.data.message);          
+        if(response.data.message === 'credentials are wrong'){
+          alert("Invalid Credentials");
         }
+      }
+      else if(response.data.isSuccessful)
+      { 
+        console.log("in second if ");
         if(response.data.accountType === 'Admin'){
           router.push('/auth/admin_dashboard')
         }
@@ -112,7 +117,7 @@ export default function Login() {
                     <button
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="button"
-                      onClick = {() => {sendCreds()}}
+                      onClick = {(e) => {sendCreds(e)}}
                     >
                       Log in
                     </button>

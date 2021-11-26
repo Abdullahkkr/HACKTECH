@@ -678,11 +678,18 @@ export default function Login() {
   const router = useRouter()
   const sendCreds = (e) =>{
     login(email, password).then((response) =>{
-      console.log(response.data)
-      if(response.data.isSuccessful){
-        if(response.data.message === "credential are wrong"){
-          alert("Credentials are wrong")
+      if(!response.data.isSuccessful)
+      {
+        console.log("In first if");
+        console.log(response.data.message);          
+        if(response.data.message === 'credentials are wrong'){
+          console.log("Inside if ");
+          alert("Invalid Credentials");
         }
+      }
+      else if(response.data.isSuccessful)
+      { 
+        console.log("in second if ");
         if(response.data.accountType === 'Admin'){
           router.push('/auth/admin_dashboard')
         }

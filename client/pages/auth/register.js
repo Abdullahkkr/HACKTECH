@@ -24,6 +24,17 @@ export default function Register() {
           router.push('/auth/new_account')
         }
       }
+      else
+      {
+        if(response.data.accountType === ''){
+          console.log("reached outer")
+          if (response.data.message === 'customer ID taken'){
+            console.log("reached ");
+            alert("This user ID is already taken");
+          }
+        }
+      
+      }
     })
   }
   return (
