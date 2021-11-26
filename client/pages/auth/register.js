@@ -3,6 +3,8 @@ import Link from "next/link";
 // layout for page
 
 import Auth from "layouts/Auth.js";
+import { signup } from "./Services-API/api";
+import { useRouter } from 'next/router';
 
 export default function Register() {
 
@@ -12,6 +14,18 @@ export default function Register() {
   const [password, setPassword] = useState("")
   const [address, setAddress] = useState("")
   const [contactnumber, setContactnumber] = useState("")
+  const [pastorder, setPastOrder] = useState("")
+  const router = useRouter()
+  const signUpUser = (e) =>{
+    signup(email, password, name, cnic, contactnumber, address, pastorder).then((response) =>{
+      console.log(response.data)
+      if(response.data.isSuccessful){
+        if(response.data.accountType === 'Customer'){
+          router.push('/auth/new_account')
+        }
+      }
+    })
+  }
   return (
     <>
       <div className="container mx-auto px-10 py- mt--1 h-full">
@@ -111,14 +125,14 @@ export default function Register() {
                       className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
-                      Email
+                      ID
                     </label>
                     <input
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Email"
+                      placeholder="User ID"
                       value={email}
-                      onChange={(e) => {setEmail,(e.target.value);}}
+                      onChange={(e) => {setEmail(e.target.value);}}
                     />
                   </div>
                   <div className="relative w-full mb-3">
@@ -165,14 +179,15 @@ export default function Register() {
               </div>
             </div> */}
                   <div className="text-center mt-6">
-                  <Link href="/auth/new_account">
+                  {/* <Link href="/auth/new_account"> */}
                     <button
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="button"
+                      onClick = {() => {signUpUser()}}
                     >
                       Create Account
                     </button>
-                    </Link>
+                    {/* </Link> */}
                   </div>
                 </form>
               </div>

@@ -64,6 +64,7 @@ app.get('/initialize-tables', (req, res) => {
     });
 });
 
+
 // Initializing admins
 app.get('/initialize-admins', (req, res) => {
     db.query(init_admins, (err, result) => {
@@ -107,7 +108,8 @@ app.get('/admin-signup', (req, res) => {
 
 
 // Customer sign up
-app.get('/customer-signup', (req, res) => {
+app.post('/customer-signup', (req, res) => {
+    console.log(req.body)
     const sql = `INSERT INTO Customers VALUES(${req.body.Customer_ID},"${req.body.Customer_Name}","${req.body.Address}",${req.body.Past_Orders},"${req.body.Email}",${req.body.Contact_Number},${req.body.CNIC_Number})`;
     db.query(sql, (err, result) => {
         if (err) {
@@ -118,14 +120,12 @@ app.get('/customer-signup', (req, res) => {
                 'error': true,
                 'message': err
             });
-
             console.log(err.message);
             // throw err;
         }
         else
         {
             console.log(result);
-
             // inserting into accounts
             const sql2 = `INSERT INTO Accounts VALUES(${req.body.Customer_ID},"${req.body.Password}")`;
             db.query(sql2, (err, result) => {

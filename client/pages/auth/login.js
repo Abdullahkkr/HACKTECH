@@ -1,20 +1,29 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { login } from './Services-API/api'; 
-
+import { useRouter } from 'next/router';
 // layout for page
-
 
 import Auth from "layouts/Auth.js";
 
 export default function Login() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-
+  const router = useRouter()
   const sendCreds = (e) =>{
-    console.log(email,password);
     login(email, password).then((response) =>{
       console.log(response.data)
+      if(response.data.isSuccessful){
+        if(response.data.message === 'credential are wrong'){
+          console.log("ifffinifnfi")
+        }
+        if(response.data.accountType === 'Admin'){
+          router.push('/auth/admin_dashboard')
+        }
+        else{
+          router.push('/auth/user_dashboard')
+        }
+      }
     })
   }
 
@@ -61,12 +70,12 @@ export default function Login() {
                       className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
-                      Email
+                      ID
                     </label>
                     <input
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="email"
+                      placeholder="User ID"
                       value={email}
                       onChange={(e) => {setEmail(e.target.value);}}
                     />
