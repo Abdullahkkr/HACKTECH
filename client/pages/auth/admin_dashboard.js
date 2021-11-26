@@ -5,7 +5,7 @@ import Link from "next/link";
 // layout for page
 
 
-import Auth from "layouts/Auth.js";
+import Auth from "layouts/Login.js";
 
 export default function Login() {
 
