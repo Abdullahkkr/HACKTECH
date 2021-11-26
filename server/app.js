@@ -118,7 +118,7 @@ app.post('/customer-signup', (req, res) => {
                 'accountType':'',
                 'Name': '',
                 'error': true,
-                'message': err
+                'message': 'customer ID taken'
             });
             console.log(err.message);
             // throw err;
@@ -135,7 +135,7 @@ app.post('/customer-signup', (req, res) => {
                         'accountType':'',
                         'Name': '',
                         'error': true,
-                        'message': err
+                        'message': 'account taken'
                     });
 
                     console.log(err.message);
