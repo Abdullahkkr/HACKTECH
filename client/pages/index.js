@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { login } from './auth/Services-API/api'; 
+import { login } from './auth/Services-API/api';
 import { useRouter } from 'next/router';
+import { useAtom } from 'jotai'
+import {userDataAtom} from "./userState"
 // layout for page
 
 import Auth from "layouts/Auth.js";
@@ -10,20 +12,20 @@ export default function Login() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const router = useRouter()
+  const [userData, setUserData] = useAtom(userDataAtom)
+
   const sendCreds = (e) =>{
     login(email, password).then((response) =>{
       if(!response.data.isSuccessful)
       {
-        // console.log("In first if");
         console.log(response.data.message);          
         if(response.data.message === 'credentials are wrong'){
-          // console.log("Inside if ");
           alert("Invalid Credentials");
         }
       }
       else if(response.data.isSuccessful)
       { 
-        // console.log("in second if ");
+        setUserData(response.data)
         if(response.data.accountType === 'Admin'){
           router.push('/auth/admin_dashboard')
         }

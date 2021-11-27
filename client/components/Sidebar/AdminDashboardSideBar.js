@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
 import UserDropdown from "components/Dropdowns/UserDropdown.js";
 
-export default function Sidebar2() {
+export default function AdminDashboardSideBar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
   const router = useRouter();
   return (
@@ -89,8 +89,8 @@ export default function Sidebar2() {
             {/* Navigation */}
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
-              {/* <li className="items-center">
-                <Link href="/auth/dashboard">
+              <li className="items-center">
+                <Link href="/auth/admin_dashboard">
                   <a
                     href="#pablo"
                     className={
@@ -111,14 +111,14 @@ export default function Sidebar2() {
                     Dashboard
                   </a>
                 </Link>
-              </li> */}
+              </li>
               <li className="items-center">
-                <Link href="/admin/Inventory">
+                <Link href="/admin/tables">
                   <a
                     href="#pablo"
                     className={
                       "text-xs uppercase py-3 font-bold block " +
-                      (router.pathname.indexOf("/admin/Inventory") !== -1
+                      (router.pathname.indexOf("/admin/tables") !== -1
                         ? "text-lightBlue-500 hover:text-lightBlue-600"
                         : "text-blueGray-700 hover:text-blueGray-500")
                     }
@@ -131,7 +131,7 @@ export default function Sidebar2() {
                           : "text-blueGray-300")
                       }
                     ></i>{" "}
-                    Inventory
+                    Products
                   </a>
                 </Link>
               </li>
@@ -155,7 +155,7 @@ export default function Sidebar2() {
                           : "text-blueGray-300")
                       }
                     ></i>{" "}
-                    Total Orders
+                    Past Orders
                   </a>
                 </Link>
               </li>

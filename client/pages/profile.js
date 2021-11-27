@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
 
+import { login } from './auth/Services-API/api';
+import { userDataAtom } from "./userState";
+import { useAtom } from 'jotai'
+
 export default function Profile() {
+
+  const [userData, setUserData] = useAtom(userDataAtom)
+
   return (
     <>
       <Navbar transparent />
@@ -99,7 +106,7 @@ export default function Profile() {
                 </div>
                 <div className="text-center mt-12">
                   <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-                    Customer Name
+                    {userData.Name ? userData.Name : "John Doe"}
                   </h3>
                   <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
                     <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>{" "}

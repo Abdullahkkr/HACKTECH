@@ -1,5 +1,4 @@
 import React from "react";
-
 // components
 
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
@@ -24,10 +23,12 @@ return (
     <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
     <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
     <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
     {/* <HeaderStats/> */}
     <div className="px-4 md:px-10 mx-auto w-full -m-24">
         {children}
-        <FooterAdmin />
+        {/* <FooterAdmin /> */}
     </div>
     </div>
 </div>
