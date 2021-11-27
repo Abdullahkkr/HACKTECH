@@ -65,7 +65,7 @@ export default function Profile() {
                       </button>
                     </div>
                     <div>
-                      <p>.</p>
+                    <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
                     </div>
                   </div>
                   <div className="w-full lg:w-4/12 px-4 lg:order-1">

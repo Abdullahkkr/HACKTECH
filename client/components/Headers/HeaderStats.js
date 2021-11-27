@@ -5,6 +5,22 @@ import React from "react";
 import CardStats from "components/Cards/CardStats.js";
 import Laptop from "components/Cards/Laptop.js";
 import Mobile from "components/Cards/Mobile.js";
+import Printer from "components/Cards/Printer.js";
+import Camera from "components/Cards/Camera.js";
+import Projector from "components/Cards/Projector.js";
+import Scanner from "components/Cards/Scanner.js";
+import Desktop from "components/Cards/Desktop.js";
+import Tablet from "components/Cards/Tablet.js";
+import Led from "components/Cards/Led.js";
+import Console from "components/Cards/Console.js";
+
+
+
+
+
+
+
+
 
 
 export default function HeaderStats() {
@@ -28,42 +44,42 @@ export default function HeaderStats() {
                 />
               </div>
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
-                <CardStats
+                <Camera
                   statSubtitle="Cameras"
                 />
               </div>
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
-                <CardStats
+                <Projector
                   statSubtitle="Projectors"
                 />
               </div>
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
-                <CardStats
+                <Console
                   statSubtitle="Gaming Consoles"
                 />
               </div>
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4 margin-bottom:120px">
-            <CardStats
+            <Printer
                 statSubtitle="Printer"
             />
             </div>
             <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
-            <CardStats
-                statSubtitle="Projector"
+            <Desktop
+                statSubtitle="Desktops"
             />
             </div>
             <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
-            <CardStats
+            <Scanner
                 statSubtitle="Scanner"
             />
             </div>
             <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
-            <CardStats
+            <Tablet
                 statSubtitle="Tablet"
             />
             </div>
             <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
-            <CardStats
+            <Led
                 statSubtitle="LEDs/LCDs"
             />
             </div>
