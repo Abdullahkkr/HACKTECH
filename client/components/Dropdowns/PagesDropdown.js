@@ -54,7 +54,7 @@ const PagesDropdown = () => {
         >
           Admin Layout
         </span> */}
-        {/* <Link href="/admin/dashboard">
+        <Link href="/admin/dashboard">
           <a
             href="#pablo"
             className={
@@ -63,7 +63,7 @@ const PagesDropdown = () => {
           >
             Dashboard
           </a>
-        </Link> */}
+        </Link>
         {/* <Link href="/admin/settings">
           <a
             href="#pablo"

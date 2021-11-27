@@ -47,22 +47,6 @@ export default function Login() {
                     <small>A tradition of excellent since 2021</small>
                   </h6>
                 </div>
-                {/* <div className="btn-wrapper text-center"> */}
-                  {/* <button
-                    className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                    type="button"
-                  >
-                    <img alt="..." className="w-5 mr-1" src="/img/github.svg" />
-                    Github
-                  </button> */}
-                  {/* <button
-                    className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                    type="button"
-                  >
-                    <img alt="..." className="w-5 mr-1" src="/img/google.svg" />
-                    Google
-                  </button>
-                </div> */}
                 <hr className="mt-4 border-b-1 border-blueGray-400" />
               </div>
               <div className="flex-auto px-4 lg:px-10 py-15 pt-0">
@@ -78,7 +62,7 @@ export default function Login() {
                       ID
                     </label>
                     <input
-                      type="email"
+                      type="ID"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="User ID"
                       value={email}
