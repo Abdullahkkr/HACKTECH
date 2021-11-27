@@ -14,20 +14,21 @@ export default function Login() {
     login(email, password).then((response) =>{
       if(!response.data.isSuccessful)
       {
-        console.log("In first if");
+        // console.log("In first if");
         console.log(response.data.message);          
         if(response.data.message === 'credentials are wrong'){
-          console.log("Inside if ");
+          // console.log("Inside if ");
           alert("Invalid Credentials");
         }
       }
       else if(response.data.isSuccessful)
       { 
-        console.log("in second if ");
+        // console.log("in second if ");
         if(response.data.accountType === 'Admin'){
           router.push('/auth/admin_dashboard')
         }
         else{
+          
           router.push('/auth/user_dashboard')
         }
       }

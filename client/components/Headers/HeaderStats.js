@@ -3,6 +3,9 @@ import React from "react";
 // components
 
 import CardStats from "components/Cards/CardStats.js";
+import Laptop from "components/Cards/Laptop.js";
+import Mobile from "components/Cards/Mobile.js";
+
 
 export default function HeaderStats() {
   return (
@@ -14,13 +17,13 @@ export default function HeaderStats() {
             {/* Card stats */}
             <div className="flex flex-wrap">
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4 margin-bottom:2000px">
-                <CardStats
+                <Laptop
                   statSubtitle="Laptops"
                 />
                 <div className="absolute margin-bottom:1000px"></div>
               </div>
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
-                <CardStats
+                <Mobile
                   statSubtitle="Mobiles"
                 />
               </div>
