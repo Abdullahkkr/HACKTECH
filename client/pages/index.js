@@ -28,7 +28,11 @@ export default function Login() {
           router.push('/auth/admin_dashboard')
         }
         else{
-          
+          let data = [{name: response.data.Name}]
+          this.props.history.push({
+            pathname: '/auth/profile',
+              state: data
+          })
           router.push('/auth/user_dashboard')
         }
       }
