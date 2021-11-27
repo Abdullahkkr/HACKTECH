@@ -65,6 +65,169 @@ app.get('/initialize-tables', (req, res) => {
 });
 
 
+// orders 
+app.get('/orders', (req, res) => {
+    console.log('hello is this working')
+    const sql = 'SELECT * from Orders'
+    db.query(sql, (err, result) => {
+        if (err) {
+            res.send({
+                'isSuccessful':false,
+                'accountType':'',
+                'Name': '',
+                'error': true,
+                'message': err
+            });
+        }
+        else
+        {
+            console.log(result);
+            res.send({
+                'isSuccessful': true,
+                'accountType':'',
+                'Name': '',
+                'error': false,
+                'message': result
+            });
+        }
+        
+    });
+});
+
+// input orders from users
+app.get('/orders/new-order',(req,res)=>{
+
+    const Unit_ID = req.body.Unit_ID;
+
+    const sql = `INSERT INTO ORDERS VALUES(${Unit_ID},${req.body.Order_ID},FALSE,${req.body.Order_Date},${req.body.Delivery_Date},"${req.body.Courier_Service_Name}",${req.body.Customer_ID}, "New")`;
+    db.query(sql, (err, result) => {
+        if (err) {
+            res.send({
+                'isSuccessful':false,
+                'accountType':'',
+                'Name': '',
+                'error': true,
+                'message': err
+            });
+        }
+        else
+        {
+            const sql2 = `SELECT Category FROM INVENTORY where Unit_ID = (${Unit_ID})`;
+            db.query(sql2, (err, result) => {
+                if (err) {
+                    res.send({
+                        'isSuccessful':false,
+                        'accountType':'',
+                        'Name': '',
+                        'error': true,
+                        'message': err
+                    });
+                }
+                else
+                {
+                    // result[0].Category = category
+                    Category_Name = result[0].Category;
+
+                    const sql3 = `SELECT * from INVENTORY,${Category_Name} WHERE Unit_ID = (${Unit_ID})`;
+                    db.query(sql3, (err, result) => {
+                        if (err) {
+                            res.send({
+                                'isSuccessful':false,
+                                'accountType':'',
+                                'Name': '',
+                                'error': true,
+                                'message': err
+                            });
+                        }
+                        else
+                        {
+                            const sql4 = `DELETE FROM INVENTORY,${Category_Name} WHERE Unit_ID = (${Unit_ID})`
+                            db.query(sql3, (err, result) => {
+                                if (err) {
+                                    res.send({
+                                        'isSuccessful':false,
+                                        'accountType':'',
+                                        'Name': '',
+                                        'error': true,
+                                        'message': err
+                                    });
+                                }
+                                else
+                                {
+                                    console.log('reached main3');
+                                    console.log(result);
+                                    res.send({
+                                        'isSuccessful': true,
+                                        'accountType':'',
+                                        'Name': '',
+                                        'error': false,
+                                        'message': result
+                                    });
+                                }
+                            });
+                            console.log('reached main2');
+                            console.log(result);
+                            res.send({
+                                'isSuccessful': true,
+                                'accountType':'',
+                                'Name': '',
+                                'error': false,
+                                'message': result
+                            });
+                        }
+                        
+                    });
+                    console.log('reached main1');
+                    console.log(result);
+                    res.send({
+                        'isSuccessful': true,
+                        'accountType':'',
+                        'Name': '',
+                        'error': false,
+                        'message': result
+                    });
+                }
+                
+            });
+
+            
+        }
+        
+    });
+
+});
+
+
+// allow admin to edit the orders table(Order_Confirmation bool and Order_Status)
+app.get('/orders/admin-edit', (req, res) => {
+    const sql = `UPDATE Orders SET Order_Confirmation = ${req.body.Order_Confirmation}, Order_Status = "${req.body.Order_Status}" WHERE Unit_ID = ${req.body.Unit_ID}`
+    db.query(sql, (err, result) => {
+        if (err) {
+            res.send({
+                'isSuccessful':false,
+                'accountType':'',
+                'Name': '',
+                'error': true,
+                'message': err
+            });
+        }
+        else
+        {
+            console.log(result);
+            res.send({
+                'isSuccessful': true,
+                'accountType':'',
+                'Name': '',
+                'error': false,
+                'message': result
+            });
+        }
+        
+    });
+});
+
+
+
 // Initializing admins
 app.get('/initialize-admins', (req, res) => {
     db.query(init_admins, (err, result) => {
@@ -76,6 +239,8 @@ app.get('/initialize-admins', (req, res) => {
         res.send('Founder Admins declared...');
     });
 });
+
+
 
 // Admin sign up
 app.get('/admin-signup', (req, res) => {
