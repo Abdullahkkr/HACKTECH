@@ -113,12 +113,12 @@ export default function Sidebar2() {
                 </Link>
               </li> */}
               <li className="items-center">
-                <Link href="/admin/Inventory">
+                <Link href="/auth/CategoryPage">
                   <a
                     href="#pablo"
                     className={
                       "text-xs uppercase py-3 font-bold block " +
-                      (router.pathname.indexOf("/admin/Inventory") !== -1
+                      (router.pathname.indexOf("/auth/CategoryPage") !== -1
                         ? "text-lightBlue-500 hover:text-lightBlue-600"
                         : "text-blueGray-700 hover:text-blueGray-500")
                     }
@@ -126,7 +126,7 @@ export default function Sidebar2() {
                     <i
                       className={
                         "fas fa-table mr-2 text-sm " +
-                        (router.pathname.indexOf("/admin/tables") !== -1
+                        (router.pathname.indexOf("/auth/CategoryPage") !== -1
                           ? "opacity-75"
                           : "text-blueGray-300")
                       }

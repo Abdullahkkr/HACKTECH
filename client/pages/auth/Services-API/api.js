@@ -18,3 +18,12 @@ export const signup = async(email, password, name, cnic, contactnumber, address,
         'content-type':'application/json'
     });
 }
+
+// add inventory
+export const Camera_inventory = async(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,Lens,Touch,Tripod_Compatibility) => {
+    const request = {"Unit_ID" : Unit_ID, "Brand" : Brand, "Features" : Features, "Product_Name" : Product_Name, "Colour" : Colour, "Description" : Description, "Images" : Images = null,"Cost_Price" : Cost_Price, "Selling_Price" : Selling_Price, "Admin_ID" : Admin_ID,"Category" : Category, "Lens" : Lens,"Touch" : Touch,"Tripod_Compatibility" : Tripod_Compatibility}
+    return await axios.post(`${url}/inventory/add`, request,{
+        'Accept':'application/json',
+        'content-type':'application/json'
+    });
+}
