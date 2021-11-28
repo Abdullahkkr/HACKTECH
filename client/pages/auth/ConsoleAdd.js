@@ -280,7 +280,7 @@ export default function Inventory() {
                     />
                   </div>
                         {/* Size,ram,Disc_Compatibility,ssd,Controller */}
-                       
+                      
                   {/* </div> */}
                         {/* Size,ram,Processor,ssd,Controller */}
                         

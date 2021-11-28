@@ -2,7 +2,6 @@ import React from "react";
 
 // components
 
-import CardStats from "components/Cards/CardStats.js";
 import Laptop from "components/Cards/Laptop.js";
 import Mobile from "components/Cards/Mobile.js";
 import Printer from "components/Cards/Printer.js";

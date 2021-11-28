@@ -131,7 +131,7 @@ export default function Sidebar2() {
                           : "text-blueGray-300")
                       }
                     ></i>{" "}
-                    Inventory
+                    Add an Item
                   </a>
                 </Link>
               </li>

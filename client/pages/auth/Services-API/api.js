@@ -109,7 +109,7 @@ export const ProjectorEdit_inventory = async(Unit_ID, Brand, Features, Product_N
 
 //add Desktop inventory
 export const Desktop_inventory = async(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,Processor,ram,Graphic_Card, psu, Memory, Cooling_System, rgb) => {
-    const request = {"Unit_ID" : Unit_ID, "Brand" : Brand, "Features" : Features, "Product_Name" : Product_Name, "Colour" : Colour, "Description" : Description, "Images" : Images = null,"Cost_Price" : Cost_Price, "Selling_Price" : Selling_Price, "Admin_ID" : Admin_ID,"Category" : Category, "Processor" : Processor,"RAM" : ram, "Graphic_Card" : Graphic_Card, "PSU" : psu, "Memory" : Memory, "Cooling_System" : Cooling_System, "RGB" : rgb}
+    const request = {"Unit_ID" : Unit_ID, "Brand" : Brand, "Features" : Features, "Product_Name" : Product_Name, "Colour" : Colour, "Description" : Description, "Images" : Images = null,"Cost_Price" : Cost_Price, "Selling_Price" : Selling_Price, "Admin_ID" : Admin_ID,"Category" : Category, "Processor" : Processor,"ram" : ram, "Graphic_Card" : Graphic_Card, "psu" : psu, "Memory" : Memory, "Cooling_System" : Cooling_System, "rgb" : rgb}
     return await axios.post(`${url}/inventory/add`, request,{
         'Accept':'application/json',
         'content-type':'application/json'
@@ -118,7 +118,7 @@ export const Desktop_inventory = async(Unit_ID, Brand, Features, Product_Name, C
 
 //edit Desktop inventory
 export const DesktopEdit_inventory = async(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,Processor,ram,Graphic_Card, psu, Memory, Cooling_System, rgb) => {
-    const request = {"Unit_ID" : Unit_ID, "Brand" : Brand, "Features" : Features, "Product_Name" : Product_Name, "Colour" : Colour, "Description" : Description, "Images" : Images = null,"Cost_Price" : Cost_Price, "Selling_Price" : Selling_Price, "Admin_ID" : Admin_ID,"Category" : Category, "Processor" : Processor,"RAM" : ram, "Graphic_Card" : Graphic_Card, "PSU" : psu, "Memory" : Memory, "Cooling_System" : Cooling_System, "RGB" : rgb}
+    const request = {"Unit_ID" : Unit_ID, "Brand" : Brand, "Features" : Features, "Product_Name" : Product_Name, "Colour" : Colour, "Description" : Description, "Images" : Images = null,"Cost_Price" : Cost_Price, "Selling_Price" : Selling_Price, "Admin_ID" : Admin_ID,"Category" : Category, "Processor" : Processor,"ram" : ram, "Graphic_Card" : Graphic_Card, "psu" : psu, "Memory" : Memory, "Cooling_System" : Cooling_System, "rgb" : rgb}
     return await axios.post(`${url}/inventory/edit`, request,{
         'Accept':'application/json',
         'content-type':'application/json'
@@ -135,7 +135,7 @@ export const Delete_inventory = async(Unit_ID) => {
 }
 
 export const Tablet_inventory = async(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,ram,Memory,sim) => {
-    const request = {"Unit_ID" : Unit_ID, "Brand" : Brand, "Features" : Features, "Product_Name" : Product_Name, "Colour" : Colour, "Description" : Description, "Images" : Images = null,"Cost_Price" : Cost_Price, "Selling_Price" : Selling_Price, "Admin_ID" : Admin_ID,"Category" : Category, "RAM" : ram, "Memory" : Memory, "SIM" : sim}
+    const request = {"Unit_ID" : Unit_ID, "Brand" : Brand, "Features" : Features, "Product_Name" : Product_Name, "Colour" : Colour, "Description" : Description, "Images" : Images = null,"Cost_Price" : Cost_Price, "Selling_Price" : Selling_Price, "Admin_ID" : Admin_ID,"Category" : Category, "ram" : ram, "Memory" : Memory, "sim" : sim}
     return await axios.post(`${url}/inventory/add`, request,{
         'Accept':'application/json',
         'content-type':'application/json'
@@ -143,7 +143,7 @@ export const Tablet_inventory = async(Unit_ID, Brand, Features, Product_Name, Co
 }
 
 export const TabletEdit_inventory = async(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,ram,Memory,sim) => {
-    const request = {"Unit_ID" : Unit_ID, "Brand" : Brand, "Features" : Features, "Product_Name" : Product_Name, "Colour" : Colour, "Description" : Description, "Images" : Images = null,"Cost_Price" : Cost_Price, "Selling_Price" : Selling_Price, "Admin_ID" : Admin_ID,"Category" : Category, "RAM" : ram, "Memory" : Memory, "SIM" : sim}
+    const request = {"Unit_ID" : Unit_ID, "Brand" : Brand, "Features" : Features, "Product_Name" : Product_Name, "Colour" : Colour, "Description" : Description, "Images" : Images = null,"Cost_Price" : Cost_Price, "Selling_Price" : Selling_Price, "Admin_ID" : Admin_ID,"Category" : Category, "ram" : ram, "Memory" : Memory, "sim" : sim}
     return await axios.post(`${url}/inventory/edit`, request,{
         'Accept':'application/json',
         'content-type':'application/json'
@@ -171,7 +171,7 @@ export const LEDEdit_inventory = async(Unit_ID, Brand, Features, Product_Name, C
 // Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,ram,Memory
 
 export const Mobile_inventory = async(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,ram,Memory) => {
-    const request = {"Unit_ID" : Unit_ID, "Brand" : Brand, "Features" : Features, "Product_Name" : Product_Name, "Colour" : Colour, "Description" : Description, "Images" : Images = null,"Cost_Price" : Cost_Price, "Selling_Price" : Selling_Price, "Admin_ID" : Admin_ID,"Category" : Category, "RAM" : ram, "Memory" : Memory}
+    const request = {"Unit_ID" : Unit_ID, "Brand" : Brand, "Features" : Features, "Product_Name" : Product_Name, "Colour" : Colour, "Description" : Description, "Images" : Images = null,"Cost_Price" : Cost_Price, "Selling_Price" : Selling_Price, "Admin_ID" : Admin_ID,"Category" : Category, "ram" : ram, "Memory" : Memory}
     return await axios.post(`${url}/inventory/add`, request,{
         'Accept':'application/json',
         'content-type':'application/json'
@@ -179,7 +179,7 @@ export const Mobile_inventory = async(Unit_ID, Brand, Features, Product_Name, Co
 }
 
 export const MobileEdit_inventory = async(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,ram,Memory) => {
-    const request = {"Unit_ID" : Unit_ID, "Brand" : Brand, "Features" : Features, "Product_Name" : Product_Name, "Colour" : Colour, "Description" : Description, "Images" : Images = null,"Cost_Price" : Cost_Price, "Selling_Price" : Selling_Price, "Admin_ID" : Admin_ID,"Category" : Category, "RAM" : ram, "Memory" : Memory}
+    const request = {"Unit_ID" : Unit_ID, "Brand" : Brand, "Features" : Features, "Product_Name" : Product_Name, "Colour" : Colour, "Description" : Description, "Images" : Images = null,"Cost_Price" : Cost_Price, "Selling_Price" : Selling_Price, "Admin_ID" : Admin_ID,"Category" : Category, "ram" : ram, "Memory" : Memory}
     return await axios.post(`${url}/inventory/edit`, request,{
         'Accept':'application/json',
         'content-type':'application/json'

@@ -20,7 +20,7 @@ const [Cost_Price, setCost_Price] = useState("")
 const [Selling_Price, setSelling_Price] = useState("")
 const [Admin_ID, setAdmin_ID] = useState("")
 const [Category, setCategory] = useState("")
-const [Bulb, setImage] = useState("")
+const [Bulb, setBulb] = useState("")
 const [Projection_Distance, setProjection_Distance] = useState("")
 const [Image_size, setImage_size] = useState("")
 

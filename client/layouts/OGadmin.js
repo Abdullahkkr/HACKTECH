@@ -3,7 +3,6 @@ import React from "react";
 
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import Sidebar2 from "components/Sidebar/SidebarAdmin.js";
-import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 export default function Admin2({ children }) {
 return (

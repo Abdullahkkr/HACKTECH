@@ -56,7 +56,7 @@ return (
                 <small>A tradition of excellent since 2021</small>
                 </h6>
                 <h6 className="text-blueGray-400 text-xl py-30 font-bold">
-                <large>Add Item to Inventory</large>
+                <large>Update Item in Inventory</large>
                 </h6>
             </div>
             <hr className="mt-2 border-b-1 border-blueGray-300" />
@@ -284,7 +284,7 @@ return (
                     type="button"
                     onClick = {() => {InventoryAdd()}}
                 >
-                    Add Item
+                    Update
                 </button>
                 {/* </Link> */}
                 </div>

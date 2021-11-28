@@ -289,12 +289,12 @@ export default function Inventory() {
                       htmlFor="grid-password"
                     >
 
-                        ssd
+                        SSD
                     </label>
                     <input
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="ssd"
+                      placeholder="SSD"
                       value={ssd}
                       onChange={(e) => {setssd(e.target.value);}}
                     />
@@ -306,25 +306,6 @@ export default function Inventory() {
                       className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
-
-                        ssd
-                    </label>
-                    <input
-                      type="email"
-                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="ssd"
-                      value={ssd}
-                      onChange={(e) => {setssd(e.target.value);}}
-                    />
-                  </div>
-                  {/* </div> */}
-                        {/* Size,ram,Processor,ssd,Generation */}
-                        <div className="relative w-full mb-3">
-                    <label
-                      className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
-                      htmlFor="grid-password"
-                    >
-
                         Generation
                     </label>
                     <input
@@ -335,7 +316,6 @@ export default function Inventory() {
                       onChange={(e) => {setGeneration(e.target.value);}}
                     />
                   </div>
-
                   <div className="text-center mt-6">
                   {/* <Link href="/auth/new_account"> */}
                     <button
