@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import Auth from "layouts/InventoryAuth";
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
-import { Camera_inventory } from "./Services-API/api";
+import { Scanner_inventory } from "./Services-API/api";
 import { useRouter } from 'next/router';
 
 // , "Cost_Price":req.body.Cost_Price, "Selling_Price":req.body.Selling_Price, "Admin_ID":req.body.Admin_ID, "Category":req.body.Category};
@@ -26,7 +26,7 @@ const [Type, setType] = useState("")
 
 const router = useRouter()
 const InventoryAdd = (e) =>{
-Camera_inventory(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,Lens,Touch,Tripod_Compatibility).then((response) =>{
+Scanner_inventory(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,Resolution,Type).then((response) =>{
     console.log(response.data)
     if(response.data.isSuccessful){
     if(response.data.error === false){

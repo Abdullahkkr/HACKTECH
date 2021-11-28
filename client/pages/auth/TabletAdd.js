@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import Auth from "layouts/InventoryAuth";
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
-import { Laptop_inventory } from "./Services-API/api";
+import { Tablet_inventory } from "./Services-API/api";
 import { useRouter } from 'next/router';
 
 // , "Cost_Price":req.body.Cost_Price, "Selling_Price":req.body.Selling_Price, "Admin_ID":req.body.Admin_ID, "Category":req.body.Category};
@@ -21,18 +21,15 @@ export default function Inventory() {
   const [Selling_Price, setSelling_Price] = useState("")
   const [Admin_ID, setAdmin_ID] = useState("")
   const [Category, setCategory] = useState("")
-  const [Size, setSize] = useState("")
   const [ram, setram] = useState("")
-  const [Processor, setProcessor] = useState("")
-  const [ssd, setssd] = useState("")
-  const [Generation, setGeneration] = useState("")
+  const [Memory, setMemory] = useState("")
+  const [sim, setsim] = useState("")
 
+//   {"Unit_ID":req.body.Unit_ID, "RAM":req.body.ram, "Memory":req.body.Memory}
 
-
-// {"Unit_ID":req.body.Unit_ID, "Size":req.body.Size, "RAM":req.body.ram, "Processor":req.body.Processor, "SSD":req.body.ssd, "Generation":req.body.Generation}
   const router = useRouter()
   const InventoryAdd = (e) =>{
-    Laptop_inventory(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,Size,ram,Processor,ssd,Generation).then((response) =>{
+    Tablet_inventory(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,ram,Memory,sim).then((response) =>{
       console.log(response.data)
       if(response.data.isSuccessful){
         if(response.data.error === false){
@@ -241,27 +238,12 @@ export default function Inventory() {
                       className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
-                    Size
+                    ram
                     </label>
                     <input
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Size"
-                      value={Size}
-                      onChange={(e) => {setSize(e.target.value);}}
-                    />
-                  </div>
-                  <div className="relative w-full mb-3">
-                    <label
-                      className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
-                      htmlFor="grid-password"
-                    >
-                    RAM
-                    </label>
-                    <input
-                      type="email"
-                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="RAM"
+                      placeholder="ram"
                       value={ram}
                       onChange={(e) => {setram(e.target.value);}}
                     />
@@ -271,68 +253,29 @@ export default function Inventory() {
                       className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
-
-                        Processor
+                    Memory
                     </label>
                     <input
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Processor"
-                      value={Processor}
-                      onChange={(e) => {setProcessor(e.target.value);}}
+                      placeholder="Memory"
+                      value={Memory}
+                      onChange={(e) => {setMemory(e.target.value);}}
                     />
                   </div>
-                        {/* Size,ram,Processor,ssd,Generation */}
-                        <div className="relative w-full mb-3">
+                  <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
-
-                        ssd
+                   SIM
                     </label>
                     <input
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="ssd"
-                      value={ssd}
-                      onChange={(e) => {setssd(e.target.value);}}
-                    />
-                  </div>
-                  {/* </div> */}
-                        {/* Size,ram,Processor,ssd,Generation */}
-                        <div className="relative w-full mb-3">
-                    <label
-                      className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
-                      htmlFor="grid-password"
-                    >
-
-                        ssd
-                    </label>
-                    <input
-                      type="email"
-                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="ssd"
-                      value={ssd}
-                      onChange={(e) => {setssd(e.target.value);}}
-                    />
-                  </div>
-                  {/* </div> */}
-                        {/* Size,ram,Processor,ssd,Generation */}
-                        <div className="relative w-full mb-3">
-                    <label
-                      className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
-                      htmlFor="grid-password"
-                    >
-
-                        Generation
-                    </label>
-                    <input
-                      type="email"
-                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Generation"
-                      value={Generation}
-                      onChange={(e) => {setGeneration(e.target.value);}}
+                      placeholder="SIM"
+                      value={sim}
+                      onChange={(e) => {setsim(e.target.value);}}
                     />
                   </div>
 

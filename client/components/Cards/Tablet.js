@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Link from "next/Link";
 
 export default function CardStats({
   statSubtitle,
@@ -13,6 +14,8 @@ export default function CardStats({
 }) {
   return (
     <>
+    <button>
+      <Link href="/auth/TabletAdd">
       <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
         <div className="flex-auto p-4">
           <div className="flex flex-wrap">
@@ -25,11 +28,12 @@ export default function CardStats({
           </div>
         </div>
       </div>
+      </Link>
+      </button>
       <div className="bg-blueGray-800"><p>.</p></div>
     </>
   );
 }
-
 
 CardStats.propTypes = {
   statSubtitle: PropTypes.string,
