@@ -89,8 +89,8 @@ export default function Sidebar2() {
             {/* Navigation */}
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
-              {/* <li className="items-center">
-                <Link href="/auth/dashboard">
+              <li className="items-center">
+                <Link href="/auth/EditCategory">
                   <a
                     href="#pablo"
                     className={
@@ -108,10 +108,10 @@ export default function Sidebar2() {
                           : "text-blueGray-300")
                       }
                     ></i>{" "}
-                    Dashboard
+                    Edit an Item
                   </a>
                 </Link>
-              </li> */}
+              </li>
               <li className="items-center">
                 <Link href="/auth/CategoryPage">
                   <a
@@ -137,7 +137,7 @@ export default function Sidebar2() {
               </li>
 
               <li className="items-center">
-                <Link href="/admin/maps">
+                <Link href="/auth/DeleteInventory">
                   <a
                     href="#pablo"
                     className={
@@ -155,7 +155,7 @@ export default function Sidebar2() {
                           : "text-blueGray-300")
                       }
                     ></i>{" "}
-                    Total Orders
+                    Delete an Item
                   </a>
                 </Link>
               </li>

@@ -14,15 +14,6 @@ import Tablet from "components/Cards/Tablet.js";
 import Led from "components/Cards/Led.js";
 import Console from "components/Cards/Console.js";
 
-
-
-
-
-
-
-
-
-
 export default function HeaderStats() {
   return (
     <>

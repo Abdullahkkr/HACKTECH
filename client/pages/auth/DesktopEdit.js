@@ -3,7 +3,7 @@ import Link from "next/link";
 // layout for page
 
 import Auth from "layouts/InventoryAuth";
-import { Desktop_inventory } from "./Services-API/api";
+import { DesktopEdit_inventory } from "./Services-API/api";
 import { useRouter } from 'next/router';
 
 // , "Cost_Price":req.body.Cost_Price, "Selling_Price":req.body.Selling_Price, "Admin_ID":req.body.Admin_ID, "Category":req.body.Category};
@@ -30,7 +30,7 @@ const [rgb, setRGB] = useState("")
 
 const router = useRouter()
 const InventoryAdd = (e) =>{
-Desktop_inventory(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,Processor,ram,Graphic_Card, psu, Memory, Cooling_System, rgb).then((response) =>{
+DesktopEdit_inventory(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,Processor,ram,Graphic_Card, psu, Memory, Cooling_System, rgb).then((response) =>{
     console.log(response.data)
     if(response.data.isSuccessful){
     if(response.data.error === false){
@@ -65,6 +65,9 @@ return (
             <hr className="mt-2 border-b-1 border-blueGray-300" />
             </div>
             <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
+            {/* <div className="text-blueGray-400 text-center mb-3 font-bold">
+                <small>Or sign up with credentials</small>
+            </div> */}
             <form>
                 <div className="relative w-full mb-2">
                 <label

@@ -3,7 +3,7 @@ import Link from "next/link";
 // layout for page
 
 import Auth from "layouts/InventoryAuth";
-import { Desktop_inventory } from "./Services-API/api";
+import { CameraEdit_inventory } from "./Services-API/api";
 import { useRouter } from 'next/router';
 
 // , "Cost_Price":req.body.Cost_Price, "Selling_Price":req.body.Selling_Price, "Admin_ID":req.body.Admin_ID, "Category":req.body.Category};
@@ -20,17 +20,14 @@ const [Cost_Price, setCost_Price] = useState("")
 const [Selling_Price, setSelling_Price] = useState("")
 const [Admin_ID, setAdmin_ID] = useState("")
 const [Category, setCategory] = useState("")
-const [Processor, setProcessor] = useState("")
-const [ram, setRAM] = useState("")
-const [Graphic_Card, setGraphic_Card] = useState("")
-const [psu, setPSU] = useState("")
-const [Memory, setMemory] = useState("")
-const [Cooling_System, setCooling_System] = useState("")
-const [rgb, setRGB] = useState("")
+const [Lens, setLens] = useState("")
+const [Touch, setTouch] = useState("")
+const [Tripod_Compatibility, setTripod_Compatibility] = useState("")
+
 
 const router = useRouter()
 const InventoryAdd = (e) =>{
-Desktop_inventory(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,Processor,ram,Graphic_Card, psu, Memory, Cooling_System, rgb).then((response) =>{
+CameraEdit_inventory(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,Lens,Touch,Tripod_Compatibility).then((response) =>{
     console.log(response.data)
     if(response.data.isSuccessful){
     if(response.data.error === false){
@@ -65,6 +62,9 @@ return (
             <hr className="mt-2 border-b-1 border-blueGray-300" />
             </div>
             <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
+            {/* <div className="text-blueGray-400 text-center mb-3 font-bold">
+                <small>Or sign up with credentials</small>
+            </div> */}
             <form>
                 <div className="relative w-full mb-2">
                 <label
@@ -236,14 +236,14 @@ return (
                     className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                 >
-                Processor
+                Lens
                 </label>
                 <input
                     type="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    placeholder="Processor"
-                    value={Processor}
-                    onChange={(e) => {setProcessor(e.target.value);}}
+                    placeholder="Lens"
+                    value={Lens}
+                    onChange={(e) => {setLens(e.target.value);}}
                 />
                 </div>
                 <div className="relative w-full mb-3">
@@ -251,14 +251,14 @@ return (
                     className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                 >
-                RAM
+                Touch
                 </label>
                 <input
                     type="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    placeholder="RAM"
-                    value={ram}
-                    onChange={(e) => {setRAM(e.target.value);}}
+                    placeholder="Touch"
+                    value={Touch}
+                    onChange={(e) => {setTouch(e.target.value);}}
                 />
                 </div>
                 <div className="relative w-full mb-3">
@@ -266,76 +266,17 @@ return (
                     className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                 >
-                Graphic Card
+                Tripod Compatibility
                 </label>
                 <input
                     type="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    placeholder="Graphic Card"
-                    value={Graphic_Card}
-                    onChange={(e) => {setGraphic_Card(e.target.value);}}
+                    placeholder="Tripod_Compatibility"
+                    value={Tripod_Compatibility}
+                    onChange={(e) => {setTripod_Compatibility(e.target.value);}}
                 />
                 </div>
-                <div className="relative w-full mb-3">
-                <label
-                    className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                >
-                PSU
-                </label>
-                <input
-                    type="email"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    placeholder="PSU"
-                    value={psu}
-                    onChange={(e) => {setPSU(e.target.value);}}
-                />
-                </div>
-                <div className="relative w-full mb-3">
-                <label
-                    className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                >
-                Memory
-                </label>
-                <input
-                    type="email"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    placeholder="Memory"
-                    value={Memory}
-                    onChange={(e) => {setMemory(e.target.value);}}
-                />
-                </div>
-                <div className="relative w-full mb-3">
-                <label
-                    className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                >
-                Cooling System
-                </label>
-                <input
-                    type="email"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    placeholder="Cooling System"
-                    value={Cooling_System}
-                    onChange={(e) => {setCooling_System(e.target.value);}}
-                />
-                </div>
-                <div className="relative w-full mb-3">
-                <label
-                    className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                >
-                RGB
-                </label>
-                <input
-                    type="email"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    placeholder="RGB"
-                    value={rgb}
-                    onChange={(e) => {setRGB(e.target.value);}}
-                />
-                </div>
+
                 <div className="text-center mt-6">
                 {/* <Link href="/auth/new_account"> */}
                 <button
