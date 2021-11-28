@@ -143,131 +143,145 @@ app.post('/orders/new-order',(req,res)=>{
         }
         else
         {
-            console.log(result[0].Unit_ID);
-            const Unit_ID = result[0].Unit_ID;
+            if(result.length>0)
+            {
+
             
-            // const Unit_ID = req.body.Unit_ID;
+                console.log(result[0].Unit_ID);
+                const Unit_ID = result[0].Unit_ID;
 
-            const sql = `INSERT INTO ORDERS VALUES(${Unit_ID},${req.body.Order_ID},FALSE,"${req.body.Order_Date}","${req.body.Delivery_Date}","${req.body.Courier_Service_Name}",${req.body.Customer_ID}, "New")`;
-            db.query(sql, (err, result) => {
-                if (err) {
-                    res.send({
-                        'isSuccessful':false,
-                        'accountType':'',
-                        'Name': '',
-                        'error': true,
-                        'message': err
-                    });
-                }
-                else
-                {
-                    const sql2 = `SELECT Category FROM INVENTORY where Unit_ID = (${Unit_ID})`;
-                    db.query(sql2, (err, result) => {
-                        if (err) {
-                            res.send({
-                                'isSuccessful':false,
-                                'accountType':'',
-                                'Name': '',
-                                'error': true,
-                                'message': err
-                            });
-                        }
-                        else
-                        {
-                            // result[0].Category = category
-                            console.log(result);
-                            // console.log(result[0]);
-                            const Category_Name = result[0].Category;
-                            console.log("category name is", Category_Name);
+                // const Unit_ID = req.body.Unit_ID;
 
-                            const sql3 = `SELECT * from INVENTORY,${result[0].Category} WHERE Inventory.Unit_ID=${Category_Name}.Unit_ID and Inventory.Unit_ID=${Unit_ID}`;
-                            db.query(sql3, (err, result) => {
-                                if (err) {
-                                    res.send({
-                                        'isSuccessful':false,
-                                        'accountType':'',
-                                        'Name': '',
-                                        'error': true,
-                                        'message': err
-                                    });
-                                }
-                                else
-                                {
-                                    const sql4 = `DELETE FROM ${Category_Name} WHERE ${Category_Name}.Unit_ID = (${Unit_ID})`
-                                    db.query(sql4, (err, result) => {
-                                        if (err) {
-                                            res.send({
-                                                'isSuccessful':false,
-                                                'accountType':'',
-                                                'Name': '',
-                                                'error': true,
-                                                'message': err
-                                            });
-                                        }
-                                        else
-                                        {
-                                            const sql5 = `DELETE FROM Inventory WHERE Inventory.Unit_ID = (${Unit_ID})`
-                                            db.query(sql5, (err, result) => {
-                                                if (err) {
-                                                    res.send({
-                                                        'isSuccessful':false,
-                                                        'accountType':'',
-                                                        'Name': '',
-                                                        'error': true,
-                                                        'message': err
-                                                    });
-                                                }
-                                                else
-                                                {
-                                                    console.log('reached main3');
-                                                    console.log(result);
-                                                    res.send({
-                                                        'isSuccessful': true,
-                                                        'accountType':'',
-                                                        'Name': '',
-                                                        'error': false,
-                                                        'message': 'Order placed successfully and product removed from inventory and category table'
-                                                    });
-                                                }
-                                            });
-                                        }
-                                    });
-                                    console.log('reached main2');
-                                    console.log(result);
-                                    // res.send({
-                                    //     'isSuccessful': true,
-                                    //     'accountType':'',
-                                    //     'Name': '',
-                                    //     'error': false,
-                                    //     'message': result
-                                    // });
-                                }
+                const sql = `INSERT INTO ORDERS VALUES(${Unit_ID},${req.body.Order_ID},FALSE,"${req.body.Order_Date}","${req.body.Delivery_Date}","${req.body.Courier_Service_Name}",${req.body.Customer_ID}, "New")`;
+                db.query(sql, (err, result) => {
+                    if (err) {
+                        res.send({
+                            'isSuccessful':false,
+                            'accountType':'',
+                            'Name': '',
+                            'error': true,
+                            'message': err
+                        });
+                    }
+                    else
+                    {
+                        const sql2 = `SELECT Category FROM INVENTORY where Unit_ID = (${Unit_ID})`;
+                        db.query(sql2, (err, result) => {
+                            if (err) {
+                                res.send({
+                                    'isSuccessful':false,
+                                    'accountType':'',
+                                    'Name': '',
+                                    'error': true,
+                                    'message': err
+                                });
+                            }
+                            else
+                            {
+                                // result[0].Category = category
+                                console.log(result);
+                                // console.log(result[0]);
+                                const Category_Name = result[0].Category;
+                                console.log("category name is", Category_Name);
+
+                                const sql3 = `SELECT * from INVENTORY,${result[0].Category} WHERE Inventory.Unit_ID=${Category_Name}.Unit_ID and Inventory.Unit_ID=${Unit_ID}`;
+                                db.query(sql3, (err, result) => {
+                                    if (err) {
+                                        res.send({
+                                            'isSuccessful':false,
+                                            'accountType':'',
+                                            'Name': '',
+                                            'error': true,
+                                            'message': err
+                                        });
+                                    }
+                                    else
+                                    {
+                                        const sql4 = `DELETE FROM ${Category_Name} WHERE ${Category_Name}.Unit_ID = (${Unit_ID})`
+                                        db.query(sql4, (err, result) => {
+                                            if (err) {
+                                                res.send({
+                                                    'isSuccessful':false,
+                                                    'accountType':'',
+                                                    'Name': '',
+                                                    'error': true,
+                                                    'message': err
+                                                });
+                                            }
+                                            else
+                                            {
+                                                const sql5 = `DELETE FROM Inventory WHERE Inventory.Unit_ID = (${Unit_ID})`
+                                                db.query(sql5, (err, result) => {
+                                                    if (err) {
+                                                        res.send({
+                                                            'isSuccessful':false,
+                                                            'accountType':'',
+                                                            'Name': '',
+                                                            'error': true,
+                                                            'message': err
+                                                        });
+                                                    }
+                                                    else
+                                                    {
+                                                        console.log('reached main3');
+                                                        console.log(result);
+                                                        res.send({
+                                                            'isSuccessful': true,
+                                                            'accountType':'',
+                                                            'Name': '',
+                                                            'error': false,
+                                                            'message': 'Order placed successfully and product removed from inventory and category table'
+                                                        });
+                                                    }
+                                                });
+                                            }
+                                        });
+                                        console.log('reached main2');
+                                        console.log(result);
+                                        // res.send({
+                                        //     'isSuccessful': true,
+                                        //     'accountType':'',
+                                        //     'Name': '',
+                                        //     'error': false,
+                                        //     'message': result
+                                        // });
+                                    }
+                                    
+                                });
+                                console.log('reached main1');
+                                console.log(result);
+                                // res.send({
+                                //     'isSuccessful': true,
+                                //     'accountType':'',
+                                //     'Name': '',
+                                //     'error': false,
+                                //     'message': result
+                                // });
                                 
-                            });
-                            console.log('reached main1');
-                            console.log(result);
-                            // res.send({
-                            //     'isSuccessful': true,
-                            //     'accountType':'',
-                            //     'Name': '',
-                            //     'error': false,
-                            //     'message': result
-                            // });
+                            }
                             
-                        }
+                        });
+
                         
-                    });
-
+                    }
                     
-                }
-                
-            });
+                });
+            }
 
+            else
+            {
+                return res.send({
+                    'isSuccessful':false,
+                    'accountType':'Customer',
+                    'error': true,
+                    'message': "The product is Out of Stock, Please select another product"
+                });
+            }
 
         }
     });    
-
 });
+
 
 
 // allow admin to edit the orders table(Order_Confirmation bool and Order_Status) 
