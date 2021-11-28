@@ -3,7 +3,6 @@ import Link from "next/link";
 // layout for page
 
 import Auth from "layouts/InventoryAuth";
-import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import { Camera_inventory } from "./Services-API/api";
 import { useRouter } from 'next/router';
 
