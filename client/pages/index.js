@@ -12,7 +12,7 @@ export default function Login() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const router = useRouter()
-  // const [userData, setUserData] = useAtom(userDataAtom)
+  const [userData, setUserData] = useAtom(userDataAtom)
 
   const sendCreds = (e) =>{
     login(email, password).then((response) =>{
@@ -25,7 +25,7 @@ export default function Login() {
       }
       else if(response.data.isSuccessful)
       { 
-        // setUserData(response.data)
+        setUserData(response.data)
         if(response.data.accountType === 'Admin'){
           router.push('/auth/admin_dashboard')
         }
