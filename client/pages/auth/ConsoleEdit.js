@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import Auth from "layouts/InventoryAuth";
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
-import { Console_inventory } from "./Services-API/api";
+import { ConsoleEdit_inventory } from "./Services-API/api";
 import { useRouter } from 'next/router';
 
 // , "Cost_Price":req.body.Cost_Price, "Selling_Price":req.body.Selling_Price, "Admin_ID":req.body.Admin_ID, "Category":req.body.Category};
@@ -30,7 +30,7 @@ export default function Inventory() {
 // {"Unit_ID":req.body.Unit_ID, "Memory":req.body.Memory, "RAM":req.body.ram, "Disc_Compatibility":req.body.Disc_Compatibility, "SSD":req.body.ssd, "Controller":req.body.Controller}
   const router = useRouter()
   const InventoryAdd = (e) =>{
-    Console_inventory(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,Memory,Disc_Compatibility,Controller).then((response) =>{
+    ConsoleEdit_inventory(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,Memory,Disc_Compatibility,Controller).then((response) =>{
       console.log(response.data)
       if(response.data.isSuccessful){
         if(response.data.error === false){

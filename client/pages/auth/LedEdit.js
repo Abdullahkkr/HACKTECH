@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import Auth from "layouts/InventoryAuth";
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
-import { Console_inventory } from "./Services-API/api";
+import { LEDEdit_inventory } from "./Services-API/api";
 import { useRouter } from 'next/router';
 
 // , "Cost_Price":req.body.Cost_Price, "Selling_Price":req.body.Selling_Price, "Admin_ID":req.body.Admin_ID, "Category":req.body.Category};
@@ -21,16 +21,15 @@ export default function Inventory() {
   const [Selling_Price, setSelling_Price] = useState("")
   const [Admin_ID, setAdmin_ID] = useState("")
   const [Category, setCategory] = useState("")
-  const [Memory, setMemory] = useState("")
-  const [Disc_Compatibility, setDisc_Compatibility] = useState("")
-  const [Controller, setController] = useState("")
+  const [Screen_Size, setScreen_Size] = useState("")
+  const [Smart, setSmart] = useState("")
+  const [Screen_Type, setScreen_Type] = useState("")
 
-//   "Unit_ID":req.body.Unit_ID, "Memory":req.body.Memory, "Disc_Compatibility": req.body.Disc_Compatibility, "Controller":req.body.Controller};
-
-// {"Unit_ID":req.body.Unit_ID, "Memory":req.body.Memory, "RAM":req.body.ram, "Disc_Compatibility":req.body.Disc_Compatibility, "SSD":req.body.ssd, "Controller":req.body.Controller}
+//   {"Unit_ID":req.body.Unit_ID, "RAM":req.body.ram, "Memory":req.body.Memory}x
+// {"Unit_ID":req.body.Unit_ID, "Screen_Size":req.body.Screen_Size, "Smart":req.body.Smart, "Screen_Type":req.body.Screen_Type}
   const router = useRouter()
   const InventoryAdd = (e) =>{
-    Console_inventory(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,Memory,Disc_Compatibility,Controller).then((response) =>{
+    LEDEdit_inventory(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,Screen_Size,Smart,Screen_Type).then((response) =>{
       console.log(response.data)
       if(response.data.isSuccessful){
         if(response.data.error === false){
@@ -234,34 +233,19 @@ export default function Inventory() {
                       onChange={(e) => {setCategory(e.target.value);}}
                     />
                   </div>
-                  {/* <div className="relative w-full mb-3">
-                    <label
-                      className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
-                      htmlFor="grid-password"
-                    >
-                    Size
-                    </label>
-                    <input
-                      type="email"
-                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Size"
-                      value={Size}
-                      onChange={(e) => {setSize(e.target.value);}}
-                    />
-                  </div> */}
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
-                    Memory
+                    Screen_Size
                     </label>
                     <input
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Memory"
-                      value={Memory}
-                      onChange={(e) => {setMemory(e.target.value);}}
+                      placeholder="Screen_Size"
+                      value={Screen_Size}
+                      onChange={(e) => {setScreen_Size(e.target.value);}}
                     />
                   </div>
                   <div className="relative w-full mb-3">
@@ -269,37 +253,29 @@ export default function Inventory() {
                       className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
-                        Disc Compatibility
+                    Smart
                     </label>
                     <input
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Disc Compatibility"
-                      value={Disc_Compatibility}
-                      onChange={(e) => {setDisc_Compatibility(e.target.value);}}
+                      placeholder="Smart"
+                      value={Smart}
+                      onChange={(e) => {setSmart(e.target.value);}}
                     />
                   </div>
-                        {/* Size,ram,Disc_Compatibility,ssd,Controller */}
-                       
-                  {/* </div> */}
-                        {/* Size,ram,Processor,ssd,Controller */}
-                        
-                  {/* </div> */}
-                        {/* Size,ram,Processor,ssd,Controller */}
-                        <div className="relative w-full mb-3">
+                  <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
-
-                        Controller
+                   Screen Type
                     </label>
                     <input
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Controller"
-                      value={Controller}
-                      onChange={(e) => {setController(e.target.value);}}
+                      placeholder="Screen Type"
+                      value={Screen_Type}
+                      onChange={(e) => {setScreen_Type(e.target.value);}}
                     />
                   </div>
 
