@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Link from "next/link";
 // layout for page
 
 import Auth from "layouts/Auth.js";
