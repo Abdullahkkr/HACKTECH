@@ -3,7 +3,7 @@ import Link from "next/link";
 // layout for page
 
 import Auth from "layouts/InventoryAuth";
-import { Printer_inventory } from "./Services-API/api";
+import { Projector_inventory } from "./Services-API/api";
 import { useRouter } from 'next/router';
 
 // , "Cost_Price":req.body.Cost_Price, "Selling_Price":req.body.Selling_Price, "Admin_ID":req.body.Admin_ID, "Category":req.body.Category};
@@ -20,13 +20,13 @@ const [Cost_Price, setCost_Price] = useState("")
 const [Selling_Price, setSelling_Price] = useState("")
 const [Admin_ID, setAdmin_ID] = useState("")
 const [Category, setCategory] = useState("")
-const [Wireless, setWireless] = useState("")
-const [Type, setType] = useState("")
-const [Portable, setPortable] = useState("")
+const [Bulb, setImage] = useState("")
+const [Projection_Distance, setProjection_Distance] = useState("")
+const [Image_size, setImage_size] = useState("")
 
 const router = useRouter()
 const InventoryAdd = (e) =>{
-Printer_inventory(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,Wireless, Type, Portable).then((response) =>{
+Projector_inventory(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,Bulb, Projection_Distance, Image_size).then((response) =>{
     console.log(response.data)
     if(response.data.isSuccessful){
     if(response.data.error === false){
@@ -235,14 +235,14 @@ return (
                     className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                 >
-                Wireless
+                Bulb
                 </label>
                 <input
                     type="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    placeholder="Wireless"
-                    value={Wireless}
-                    onChange={(e) => {setWireless(e.target.value);}}
+                    placeholder="Bulb"
+                    value={Bulb}
+                    onChange={(e) => {setBulb(e.target.value);}}
                 />
                 </div>
                 <div className="relative w-full mb-3">
@@ -250,14 +250,14 @@ return (
                     className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                 >
-                Type
+                Projection Distance
                 </label>
                 <input
-                    type="email"
+                    Projection_Distance="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    placeholder="Type"
-                    value={Type}
-                    onChange={(e) => {setType(e.target.value);}}
+                    placeholder="Projection Distance"
+                    value={Projection_Distance}
+                    onChange={(e) => {setProjection_Distance(e.target.value);}}
                 />
                 </div>
                 <div className="relative w-full mb-3">
@@ -265,14 +265,14 @@ return (
                     className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                 >
-                Portable
+                Image Size
                 </label>
                 <input
                     type="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    placeholder="Portable"
-                    value={Portable}
-                    onChange={(e) => {setPortable(e.target.value);}}
+                    placeholder="Image Size"
+                    value={Image_size}
+                    onChange={(e) => {setImage_size(e.target.value);}}
                 />
                 </div>
                 <div className="text-center mt-6">

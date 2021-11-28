@@ -3,7 +3,7 @@ import Link from "next/link";
 // layout for page
 
 import Auth from "layouts/InventoryAuth";
-import { Printer_inventory } from "./Services-API/api";
+import { Desktop_inventory } from "./Services-API/api";
 import { useRouter } from 'next/router';
 
 // , "Cost_Price":req.body.Cost_Price, "Selling_Price":req.body.Selling_Price, "Admin_ID":req.body.Admin_ID, "Category":req.body.Category};
@@ -20,13 +20,17 @@ const [Cost_Price, setCost_Price] = useState("")
 const [Selling_Price, setSelling_Price] = useState("")
 const [Admin_ID, setAdmin_ID] = useState("")
 const [Category, setCategory] = useState("")
-const [Wireless, setWireless] = useState("")
-const [Type, setType] = useState("")
-const [Portable, setPortable] = useState("")
+const [Processor, setProcessor] = useState("")
+const [ram, setRAM] = useState("")
+const [Graphic_Card, setGraphic_Card] = useState("")
+const [psu, setPSU] = useState("")
+const [Memory, setMemory] = useState("")
+const [Cooling_System, setCooling_System] = useState("")
+const [rgb, setRGB] = useState("")
 
 const router = useRouter()
 const InventoryAdd = (e) =>{
-Printer_inventory(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,Wireless, Type, Portable).then((response) =>{
+Desktop_inventory(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,Processor,ram,Graphic_Card, psu, Memory, Cooling_System, rgb).then((response) =>{
     console.log(response.data)
     if(response.data.isSuccessful){
     if(response.data.error === false){
@@ -235,14 +239,14 @@ return (
                     className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                 >
-                Wireless
+                Processor
                 </label>
                 <input
                     type="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    placeholder="Wireless"
-                    value={Wireless}
-                    onChange={(e) => {setWireless(e.target.value);}}
+                    placeholder="Processor"
+                    value={Processor}
+                    onChange={(e) => {setProcessor(e.target.value);}}
                 />
                 </div>
                 <div className="relative w-full mb-3">
@@ -250,14 +254,14 @@ return (
                     className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                 >
-                Type
+                RAM
                 </label>
                 <input
                     type="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    placeholder="Type"
-                    value={Type}
-                    onChange={(e) => {setType(e.target.value);}}
+                    placeholder="RAM"
+                    value={ram}
+                    onChange={(e) => {setRAM(e.target.value);}}
                 />
                 </div>
                 <div className="relative w-full mb-3">
@@ -265,17 +269,78 @@ return (
                     className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                 >
-                Portable
+                Graphic Card
                 </label>
                 <input
                     type="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    placeholder="Portable"
-                    value={Portable}
-                    onChange={(e) => {setPortable(e.target.value);}}
+                    placeholder="Graphic Card"
+                    value={Graphic_Card}
+                    onChange={(e) => {setGraphic_Card(e.target.value);}}
+                />
+                </div>
+                <div className="relative w-full mb-3">
+                <label
+                    className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                >
+                PSU
+                </label>
+                <input
+                    type="email"
+                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    placeholder="PSU"
+                    value={psu}
+                    onChange={(e) => {setPSU(e.target.value);}}
+                />
+                </div>
+                <div className="relative w-full mb-3">
+                <label
+                    className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                >
+                Memory
+                </label>
+                <input
+                    type="email"
+                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    placeholder="Memory"
+                    value={Memory}
+                    onChange={(e) => {setMemory(e.target.value);}}
+                />
+                </div>
+                <div className="relative w-full mb-3">
+                <label
+                    className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                >
+                Cooling System
+                </label>
+                <input
+                    type="email"
+                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    placeholder="Cooling System"
+                    value={Cooling_System}
+                    onChange={(e) => {setCooling_System(e.target.value);}}
+                />
+                </div>
+                <div className="relative w-full mb-3">
+                <label
+                    className="block uppercase text-blueGray-500 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                >
+                RGB
+                </label>
+                <input
+                    type="email"
+                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    placeholder="RGB"
+                    value={rgb}
+                    onChange={(e) => {setRGB(e.target.value);}}
                 />
                 </div>
                 <div className="text-center mt-6">
+                {/* <Link href="/auth/new_account"> */}
                 <button
                     className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                     type="button"
@@ -283,6 +348,7 @@ return (
                 >
                     Add Item
                 </button>
+                {/* </Link> */}
                 </div>
             </form>
             </div>

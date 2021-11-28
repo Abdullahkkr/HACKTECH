@@ -46,47 +46,18 @@ export const Printer_inventory = async(Unit_ID, Brand, Features, Product_Name, C
     });
 }
 
-//add Mobile inventory
-export const Mobile_inventory = async(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,ram, memory) => {
-    const request = {"Unit_ID" : Unit_ID, "Brand" : Brand, "Features" : Features, "Product_Name" : Product_Name, "Colour" : Colour, "Description" : Description, "Images" : Images = null,"Cost_Price" : Cost_Price, "Selling_Price" : Selling_Price, "Admin_ID" : Admin_ID,"Category" : Category, "RAM" : ram,"Memory" : memory}
+//add projector inventory
+export const Projector_inventory = async(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,Bulb, Projection_Distance, Image_size) => {
+    const request = {"Unit_ID" : Unit_ID, "Brand" : Brand, "Features" : Features, "Product_Name" : Product_Name, "Colour" : Colour, "Description" : Description, "Images" : Images = null,"Cost_Price" : Cost_Price, "Selling_Price" : Selling_Price, "Admin_ID" : Admin_ID,"Category" : Category, "Bulb" : Bulb,"Projection_Distance" : Projection_Distance, "Image_size" : Image_size}
     return await axios.post(`${url}/inventory/add`, request,{
         'Accept':'application/json',
         'content-type':'application/json'
     });
 }
 
-//add Mobile inventory
-export const Tablet_inventory = async(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,ram,Memory,sim) => {
-    const request = {"Unit_ID" : Unit_ID, "Brand" : Brand, "Features" : Features, "Product_Name" : Product_Name, "Colour" : Colour, "Description" : Description, "Images" : Images = null,"Cost_Price" : Cost_Price, "Selling_Price" : Selling_Price, "Admin_ID" : Admin_ID,"Category" : Category, "RAM" : ram,"Memory" : Memory,"SIM":sim}
-    return await axios.post(`${url}/inventory/add`, request,{
-        'Accept':'application/json',
-        'content-type':'application/json'
-    });
-}
-
-//add Mobile inventory
-export const LED_inventory = async(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,Screen_Size,Smart,Screen_Type) => {
-    const request = {"Unit_ID" : Unit_ID, "Brand" : Brand, "Features" : Features, "Product_Name" : Product_Name, "Colour" : Colour, "Description" : Description, "Images" : Images = null,"Cost_Price" : Cost_Price, "Selling_Price" : Selling_Price, "Admin_ID" : Admin_ID,"Category" : Category, "Screen_Size" : Screen_Size,"Smart" : Smart,"Screen_Type":Screen_Type}
-    return await axios.post(`${url}/inventory/add`, request,{
-        'Accept':'application/json',
-        'content-type':'application/json'
-    });
-}
-
-// Size,ram,Processor,ssd,Generation
-//add Mobile inventory
-export const Laptop_inventory = async(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,Size,ram,Processor,ssd,Generation) => {
-    const request = {"Unit_ID" : Unit_ID, "Brand" : Brand, "Features" : Features, "Product_Name" : Product_Name, "Colour" : Colour, "Description" : Description, "Images" : Images = null,"Cost_Price" : Cost_Price, "Selling_Price" : Selling_Price, "Admin_ID" : Admin_ID,"Category" : Category, "Size" : Size,"RAM" : ram,"Processor":Processor,"SSD":ssd,"Generation":Generation}
-    return await axios.post(`${url}/inventory/add`, request,{
-        'Accept':'application/json',
-        'content-type':'application/json'
-    });
-}
-
-// Size,ram,Processor,ssd,Generation
-//add Mobile inventory
-export const Console_inventory = async(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,Memory,Disc_Compatibility,Controller) => {
-    const request = {"Unit_ID" : Unit_ID, "Brand" : Brand, "Features" : Features, "Product_Name" : Product_Name, "Colour" : Colour, "Description" : Description, "Images" : Images = null,"Cost_Price" : Cost_Price, "Selling_Price" : Selling_Price, "Admin_ID" : Admin_ID,"Category" : Category, "Memory" : Memory,"Disc_Compatibility" : Disc_Compatibility,"Controller":Controller}
+//add Desktop inventory
+export const Desktop_inventory = async(Unit_ID, Brand, Features, Product_Name, Colour, Description, Images,Cost_Price,Selling_Price,Admin_ID,Category,Processor,ram,Graphic_Card, psu, Memory, Cooling_System, rgb) => {
+    const request = {"Unit_ID" : Unit_ID, "Brand" : Brand, "Features" : Features, "Product_Name" : Product_Name, "Colour" : Colour, "Description" : Description, "Images" : Images = null,"Cost_Price" : Cost_Price, "Selling_Price" : Selling_Price, "Admin_ID" : Admin_ID,"Category" : Category, "Processor" : Processor,"RAM" : ram, "Graphic_Card" : Graphic_Card, "PSU" : psu, "Memory" : Memory, "Cooling_System" : Cooling_System, "RGB" : rgb}
     return await axios.post(`${url}/inventory/add`, request,{
         'Accept':'application/json',
         'content-type':'application/json'
