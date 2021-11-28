@@ -204,3 +204,11 @@ export const ConsoleEdit_inventory = async(Unit_ID, Brand, Features, Product_Nam
     });
 }
 
+export const allInventory = async() => {
+    const request = {}
+    return await axios.post(`${url}/inventory`, request,{
+        'Accept':'application/json',
+        'content-type':'application/json'
+    });
+}
+

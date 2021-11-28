@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 // layout for page
 
-import Auth from "layouts/Auth.js";
+import Auth from "layouts/InventoryAuth.js";
 import { Delete_inventory } from "./Services-API/api";
 import { useRouter } from 'next/router';
 
@@ -63,13 +63,13 @@ return (
                     className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
                     />
                     <span className="ml-2 text-sm font-semibold text-blueGray-600">
-                    I agree with the{" "}
+                    Please confrim{" "}
                     <a
                         href="#pablo"
                         className="text-lightBlue-500"
                         onClick={(e) => e.preventDefault()}
                     >
-                        Privacy Policy
+                        the deletion
                     </a>
                     </span>
                 </label>

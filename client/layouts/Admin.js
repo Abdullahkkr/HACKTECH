@@ -14,11 +14,11 @@ export default function Admin({ children }) {
       className="absolute top-0 w-full h-full bg-blueGray-800 bg-full"
           >
       <Sidebar />
-      <div className="relative md:ml-64 bg-blueGray-100">
+      <div  className="relative md:ml-64 bg-blueGray-100">
         <AdminNavbar />
         <HeaderStats />
         <div className="px-4 md:px-10 mx-auto w-full -m-24">
-          {children}
+        
           <FooterAdmin />
         </div>
       </div>
