@@ -178,7 +178,7 @@ export default function Sidebar() {
               </li>
             </ul>
 
-            <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
+            {/* <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
               <li className="items-center">
                 <Link href="/profile">
                   <a
@@ -190,7 +190,7 @@ export default function Sidebar() {
                   </a>
                 </Link>
               </li>
-            </ul>
+            </ul> */}
             {/* Divider */}
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
