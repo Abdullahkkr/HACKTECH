@@ -314,68 +314,6 @@ app.get('/initialize-admins', (req, res) => {
     });
 });
 
-// get Payments of the orders
-
-app.post('/admin/payments',(req,res)=>{
-
-    const sql = `select Inventory.Cost_Price,Inventory.Selling_Price,Orders.Order_Date from Inventory,Orders where Orders.Unit_ID = Inventory.Unit_ID and distinct(Inventory.Unit_ID)`;
-
-    db.query(sql, (err, result) => {
-        if (err) {
-            return res.send({
-                'isSuccessful':false,
-                'accountType':'Customer',
-                'error': true,
-                'message': err
-            });
-        }
-        else
-        {
-            const number_of_orders = Object.keys(result).length
-
-            let Total_Cost = 0;
-            let Total_Revenue = 0;
-            let Profit_Loss = 0;
-            let Order_Date = new Date();
-            let Month_Ago = new Date();
-
-            for (let i = 0; i < number_of_orders; i++) {
-                
-                Total_Cost += result[i].Cost_Price;
-                Total_Revenue += result[i].Selling_Price;
-                Order_Date = result[i].Order_Date.toLocaleDateString();
-                Month_ago = result[i].Order_Date;
-                Month_Ago.setMonth(Month_Ago.getMonth() - 1);
-                console.log('Order_Date--->',Order_Date);
-                console.log('Month ago --->',Month_Ago.toLocaleDateString());
-            }
-            
-            Profit_Loss = Total_Revenue - Total_Cost;
-            console.log('Total Cost is--->',Total_Cost);
-            console.log('Total Revenue is--->',Total_Revenue);
-            if (Profit_Loss >= 0)
-            {
-                console.log('Profit is -->',Profit_Loss)
-            }
-            else if(Profit_Loss == 0)
-            {
-                console.log('Break even');
-            }
-            else
-            {
-                console.log('Loss is --->',-Profit_Loss);
-            }
-
-            return res.send({
-                'isSuccessful':true,
-                'accountType':'Customer',
-                'error': false,
-                'message': result
-            });
-        }
-    });    
-
-});
 
 // Admin sign up
 app.get('/admin-signup', (req, res) => {
