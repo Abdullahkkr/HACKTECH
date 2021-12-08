@@ -1387,6 +1387,34 @@ app.post('/inventory/specific-product', (req, res) => {
     });    
 });
 
+
+// inventory merged with category for specific category, will send all the products for this category
+// see a specific product
+app.post('/inventory/category', (req, res) => {
+    const sql = `select * from Inventory,${req.body.Category} where Inventory.Unit_ID=${req.body.Category}.Unit_ID`; 
+
+    db.query(sql, (err, result) => {
+        if (err) {
+            return res.send({
+                'isSuccessful':false,
+                'accountType':'Customer',
+                'error': true,
+                'message': err
+            });
+        }
+        else
+        {
+            return res.send({
+                'isSuccessful':true,
+                'accountType':'Customer',
+                'error': false,
+                'message': result
+            });
+        }
+    });    
+});
+
+
 // COD 
 app.post('/cod/amountowe', (req, res) => {
     const sql = `SELECT SUM(Selling_Price - 100) AS Total FROM Orders WHERE Order_Status ='Delivered'`;
