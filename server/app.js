@@ -29,21 +29,21 @@ app.use(bodyParser.json({extended:true}));
 app.use(cors());
 
 const init_db = `
-CREATE TABLE Admin(Name VARCHAR(3000), Admin_ID int(5), Password VARCHAR(3000), PRIMARY KEY (Admin_ID));
-CREATE TABLE Orders(Unit_ID bigint(200), Order_ID bigint(200), Order_Confirmation bool, Order_Date date, Delivery_Date date, Courier_Service_Name VARCHAR(3000), Customer_ID int(8), Order_Status VARCHAR(3000), PRIMARY KEY (Order_ID));
-CREATE TABLE Inventory(Unit_ID bigint(200), Brand VARCHAR(3000), Features VARCHAR(5000), Product_Name VARCHAR(3000), Colour VARCHAR(2000), Description VARCHAR(5000), Images VARCHAR(3000), Cost_Price int(20), Selling_Price int(20), Admin_ID int(5), Category VARCHAR(5000), PRIMARY KEY (Unit_ID), FOREIGN KEY (Admin_ID) REFERENCES Admin(Admin_ID));
-CREATE TABLE Customers(Customer_ID int(8), Customer_Name VARCHAR(3000), Address VARCHAR(3000), Past_Orders int(200), Email VARCHAR(50), Contact_Number bigint(200), CNIC_Number bigint(200), PRIMARY KEY (Customer_ID));
-CREATE TABLE Accounts(Customer_ID int(8), Password VARCHAR(3000), PRIMARY KEY (Customer_ID), FOREIGN KEY (Customer_ID) REFERENCES Customers(Customer_ID));
-CREATE TABLE Printer(Unit_ID bigint(200), Wireless VARCHAR(3000), Type VARCHAR(3000), Portable VARCHAR(3000), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
-CREATE TABLE Camera(Unit_ID bigint(200), Lens VARCHAR(3000), Touch VARCHAR(1000), Tripod_Compatibility VARCHAR(1000), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
-CREATE TABLE Scanner(Unit_ID bigint(200), Resolution VARCHAR(1000), Type VARCHAR(1000), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
-CREATE TABLE VG_Console(Unit_ID bigint(200), Memory VARCHAR(2000), Disc_Compatibility VARCHAR(1000), Controller VARCHAR(1000), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
-CREATE TABLE Projector(Unit_ID bigint(200), Bulb VARCHAR(1000), Projection_Distance int(20), Image_size int(20), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
-CREATE TABLE TV(Unit_ID bigint(200), Screen_Size VARCHAR(1000), Smart VARCHAR(1000), Screen_Type VARCHAR(2000), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
-CREATE TABLE Tablet(Unit_ID bigint(200), RAM VARCHAR(1000), Memory VARCHAR(1000), SIM VARCHAR(1000), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
-CREATE TABLE Mobile_Phone(Unit_ID bigint(200), RAM VARCHAR(1000), Memory VARCHAR(1000), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
-CREATE TABLE Desktop(Unit_ID bigint(200), Processor VARCHAR(1000), RAM VARCHAR(1000), Graphic_Card VARCHAR(2000), PSU VARCHAR(2000), Memory VARCHAR(1000), Cooling_System VARCHAR(1000), RGB VARCHAR(1000), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
-CREATE TABLE Laptop(Unit_ID bigint(200), Size VARCHAR(1000), RAM VARCHAR(1000), Processor VARCHAR(1000), SSD VARCHAR(1000), Generation VARCHAR(1000), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
+CREATE TABLE Admin(Name VARCHAR(300), Admin_ID int(5), Password VARCHAR(300), PRIMARY KEY (Admin_ID));
+CREATE TABLE Orders(Unit_ID bigint(200), Order_ID bigint(200), Order_Confirmation bool, Order_Date date, Delivery_Date date, Courier_Service_Name VARCHAR(300), Customer_ID int(8), Order_Status VARCHAR(300), PRIMARY KEY (Order_ID));
+CREATE TABLE Inventory(Unit_ID bigint(200), Brand VARCHAR(300), Features VARCHAR(5000), Product_Name VARCHAR(300), Colour VARCHAR(200), Description VARCHAR(5000), Images VARCHAR(300), Cost_Price int(20), Selling_Price int(20), Admin_ID int(5), Category VARCHAR(5000), PRIMARY KEY (Unit_ID), FOREIGN KEY (Admin_ID) REFERENCES Admin(Admin_ID));
+CREATE TABLE Customers(Customer_ID int(8), Customer_Name VARCHAR(300), Address VARCHAR(300), Past_Orders int(200), Email VARCHAR(50), Contact_Number bigint(200), CNIC_Number bigint(200), PRIMARY KEY (Customer_ID));
+CREATE TABLE Accounts(Customer_ID int(8), Password VARCHAR(300), PRIMARY KEY (Customer_ID), FOREIGN KEY (Customer_ID) REFERENCES Customers(Customer_ID));
+CREATE TABLE Printer(Unit_ID bigint(200), Wireless VARCHAR(300), Type VARCHAR(300), Portable VARCHAR(300), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
+CREATE TABLE Camera(Unit_ID bigint(200), Lens VARCHAR(300), Touch VARCHAR(500), Tripod_Compatibility VARCHAR(500), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
+CREATE TABLE Scanner(Unit_ID bigint(200), Resolution VARCHAR(500), Type VARCHAR(500), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
+CREATE TABLE VG_Console(Unit_ID bigint(200), Memory VARCHAR(200), Disc_Compatibility VARCHAR(500), Controller VARCHAR(500), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
+CREATE TABLE Projector(Unit_ID bigint(200), Bulb VARCHAR(500), Projection_Distance int(20), Image_size int(20), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
+CREATE TABLE TV(Unit_ID bigint(200), Screen_Size VARCHAR(500), Smart VARCHAR(500), Screen_Type VARCHAR(200), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
+CREATE TABLE Tablet(Unit_ID bigint(200), RAM VARCHAR(500), Memory VARCHAR(500), SIM VARCHAR(500), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
+CREATE TABLE Mobile_Phone(Unit_ID bigint(200), RAM VARCHAR(500), Memory VARCHAR(500), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
+CREATE TABLE Desktop(Unit_ID bigint(200), Processor VARCHAR(500), RAM VARCHAR(500), Graphic_Card VARCHAR(200), PSU VARCHAR(200), Memory VARCHAR(500), Cooling_System VARCHAR(500), RGB VARCHAR(500), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
+CREATE TABLE Laptop(Unit_ID bigint(200), Size VARCHAR(500), RAM VARCHAR(500), Processor VARCHAR(500), SSD VARCHAR(500), Generation VARCHAR(500), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
 `;
 
 const init_admins = `
@@ -128,123 +128,156 @@ app.post('/orders/each-customer', (req, res) => {
 // input orders from users
 app.post('/orders/new-order',(req,res)=>{
 
-    const Unit_ID = req.body.Unit_ID;
+    const sql_temp = `select Inventory.Unit_ID from Inventory,${req.body.Category} where Inventory.Unit_ID=${req.body.Category}.Unit_ID and Inventory.Product_Name="${req.body.Product_Name}" and Inventory.Unit_ID=(Select MAX(Inventory.Unit_ID) from Inventory,${req.body.Category} where Inventory.Unit_ID=${req.body.Category}.Unit_ID)`;
 
-    const sql = `INSERT INTO ORDERS VALUES(${Unit_ID},${req.body.Order_ID},FALSE,"${req.body.Order_Date}","${req.body.Delivery_Date}","${req.body.Courier_Service_Name}",${req.body.Customer_ID}, "New")`;
-    db.query(sql, (err, result) => {
+    db.query(sql_temp, (err, result) => {
         if (err) {
-            res.send({
+            return res.send({
                 'isSuccessful':false,
-                'accountType':'',
-                'Name': '',
+                'accountType':'Customer',
                 'error': true,
                 'message': err
             });
         }
         else
         {
-            const sql2 = `SELECT Category FROM INVENTORY where Unit_ID = (${Unit_ID})`;
-            db.query(sql2, (err, result) => {
-                if (err) {
-                    res.send({
-                        'isSuccessful':false,
-                        'accountType':'',
-                        'Name': '',
-                        'error': true,
-                        'message': err
-                    });
-                }
-                else
-                {
-                    // result[0].Category = category
-                    console.log(result);
-                    // console.log(result[0]);
-                    const Category_Name = result[0].Category;
-                    console.log("category name is", Category_Name);
-
-                    const sql3 = `SELECT * from INVENTORY,${result[0].Category} WHERE Inventory.Unit_ID=${Category_Name}.Unit_ID and Inventory.Unit_ID=${Unit_ID}`;
-                    db.query(sql3, (err, result) => {
-                        if (err) {
-                            res.send({
-                                'isSuccessful':false,
-                                'accountType':'',
-                                'Name': '',
-                                'error': true,
-                                'message': err
-                            });
-                        }
-                        else
-                        {
-                            const sql4 = `DELETE FROM ${Category_Name} WHERE ${Category_Name}.Unit_ID = (${Unit_ID})`
-                            db.query(sql4, (err, result) => {
-                                if (err) {
-                                    res.send({
-                                        'isSuccessful':false,
-                                        'accountType':'',
-                                        'Name': '',
-                                        'error': true,
-                                        'message': err
-                                    });
-                                }
-                                else
-                                {
-                                    const sql5 = `DELETE FROM Inventory WHERE Inventory.Unit_ID = (${Unit_ID})`
-                                    db.query(sql5, (err, result) => {
-                                        if (err) {
-                                            res.send({
-                                                'isSuccessful':false,
-                                                'accountType':'',
-                                                'Name': '',
-                                                'error': true,
-                                                'message': err
-                                            });
-                                        }
-                                        else
-                                        {
-                                            console.log('reached main3');
-                                            console.log(result);
-                                            res.send({
-                                                'isSuccessful': true,
-                                                'accountType':'',
-                                                'Name': '',
-                                                'error': false,
-                                                'message': 'Order placed successfully and product removed from inventory and category table'
-                                            });
-                                        }
-                                    });
-                                }
-                            });
-                            console.log('reached main2');
-                            console.log(result);
-                            // res.send({
-                            //     'isSuccessful': true,
-                            //     'accountType':'',
-                            //     'Name': '',
-                            //     'error': false,
-                            //     'message': result
-                            // });
-                        }
-                        
-                    });
-                    console.log('reached main1');
-                    console.log(result);
-                    // res.send({
-                    //     'isSuccessful': true,
-                    //     'accountType':'',
-                    //     'Name': '',
-                    //     'error': false,
-                    //     'message': result
-                    // });
-                    
-                }
-                
-            });
+            if(result.length>0)
+            {
 
             
-        }
-        
-    });
+                console.log(result[0].Unit_ID);
+                const Unit_ID = result[0].Unit_ID;
 
+                // const Unit_ID = req.body.Unit_ID;
+
+                const sql = `INSERT INTO ORDERS VALUES(${Unit_ID},${req.body.Order_ID},FALSE,"${req.body.Order_Date}","${req.body.Delivery_Date}","${req.body.Courier_Service_Name}",${req.body.Customer_ID}, "New")`;
+                db.query(sql, (err, result) => {
+                    if (err) {
+                        res.send({
+                            'isSuccessful':false,
+                            'accountType':'',
+                            'Name': '',
+                            'error': true,
+                            'message': err
+                        });
+                    }
+                    else
+                    {
+                        const sql2 = `SELECT Category FROM INVENTORY where Unit_ID = (${Unit_ID})`;
+                        db.query(sql2, (err, result) => {
+                            if (err) {
+                                res.send({
+                                    'isSuccessful':false,
+                                    'accountType':'',
+                                    'Name': '',
+                                    'error': true,
+                                    'message': err
+                                });
+                            }
+                            else
+                            {
+                                // result[0].Category = category
+                                console.log(result);
+                                // console.log(result[0]);
+                                const Category_Name = result[0].Category;
+                                console.log("category name is", Category_Name);
+
+                                const sql3 = `SELECT * from INVENTORY,${result[0].Category} WHERE Inventory.Unit_ID=${Category_Name}.Unit_ID and Inventory.Unit_ID=${Unit_ID}`;
+                                db.query(sql3, (err, result) => {
+                                    if (err) {
+                                        res.send({
+                                            'isSuccessful':false,
+                                            'accountType':'',
+                                            'Name': '',
+                                            'error': true,
+                                            'message': err
+                                        });
+                                    }
+                                    else
+                                    {
+                                        const sql4 = `DELETE FROM ${Category_Name} WHERE ${Category_Name}.Unit_ID = (${Unit_ID})`
+                                        db.query(sql4, (err, result) => {
+                                            if (err) {
+                                                res.send({
+                                                    'isSuccessful':false,
+                                                    'accountType':'',
+                                                    'Name': '',
+                                                    'error': true,
+                                                    'message': err
+                                                });
+                                            }
+                                            else
+                                            {
+                                                const sql5 = `DELETE FROM Inventory WHERE Inventory.Unit_ID = (${Unit_ID})`
+                                                db.query(sql5, (err, result) => {
+                                                    if (err) {
+                                                        res.send({
+                                                            'isSuccessful':false,
+                                                            'accountType':'',
+                                                            'Name': '',
+                                                            'error': true,
+                                                            'message': err
+                                                        });
+                                                    }
+                                                    else
+                                                    {
+                                                        console.log('reached main3');
+                                                        console.log(result);
+                                                        res.send({
+                                                            'isSuccessful': true,
+                                                            'accountType':'',
+                                                            'Name': '',
+                                                            'error': false,
+                                                            'message': 'Order placed successfully and product removed from inventory and category table'
+                                                        });
+                                                    }
+                                                });
+                                            }
+                                        });
+                                        console.log('reached main2');
+                                        console.log(result);
+                                        // res.send({
+                                        //     'isSuccessful': true,
+                                        //     'accountType':'',
+                                        //     'Name': '',
+                                        //     'error': false,
+                                        //     'message': result
+                                        // });
+                                    }
+                                    
+                                });
+                                console.log('reached main1');
+                                console.log(result);
+                                // res.send({
+                                //     'isSuccessful': true,
+                                //     'accountType':'',
+                                //     'Name': '',
+                                //     'error': false,
+                                //     'message': result
+                                // });
+                                
+                            }
+                            
+                        });
+
+                        
+                    }
+                    
+                });
+            }
+
+            else
+            {
+                return res.send({
+                    'isSuccessful':false,
+                    'accountType':'Customer',
+                    'error': true,
+                    'message': "The product is Out of Stock, Please select another product"
+                });
+            }
+
+        }
+    });    
 });
 
 
@@ -489,7 +522,7 @@ app.post('/inventory', (req, res) => {
                 'result': result
             });
         }
-    });    
+    });
 });
 
 // adding in the inventory
@@ -1255,6 +1288,31 @@ app.post('/order/confirmation', (req, res) => {
 // see order status 
 app.post('/order/status', (req, res) => {
     const sql = `select Order_Status from Orders where Order_ID=${req.body.Order_ID}`;
+
+    db.query(sql, (err, result) => {
+        if (err) {
+            return res.send({
+                'isSuccessful':false,
+                'accountType':'Customer',
+                'error': true,
+                'message': err
+            });
+        }
+        else
+        {
+            return res.send({
+                'isSuccessful':true,
+                'accountType':'Customer',
+                'error': false,
+                'message': result
+            });
+        }
+    });    
+});
+
+// see a specific product
+app.post('/inventory/specific-product', (req, res) => {
+    const sql = `select * from Inventory,${req.body.Category} where Inventory.Unit_ID=${req.body.Category}.Unit_ID and Inventory.Product_Name="${req.body.Product_Name}" and Inventory.Unit_ID=(Select MAX(Inventory.Unit_ID) from Inventory,${req.body.Category} where Inventory.Unit_ID=${req.body.Category}.Unit_ID)`;
 
     db.query(sql, (err, result) => {
         if (err) {
