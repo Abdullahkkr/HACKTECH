@@ -212,3 +212,11 @@ export const allInventory = async() => {
     });
 }
 
+export const ShowSpecificInventory = async(Category) => {
+    const request = {Category}
+    return await axios.post(`${url}/inventory/category`, request,{
+        'Accept':'application/json',
+        'content-type':'application/json'
+    });
+}
+
