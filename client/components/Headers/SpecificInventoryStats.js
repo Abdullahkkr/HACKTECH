@@ -35,7 +35,8 @@ function closeModal() {
 setIsOpen(false);
 }
 return (
-<div className="mb-24 " >
+
+<div className="mb-24">
     <ol className="flex flex-wrap" >
     {products
         ? products.map((item, i) => {

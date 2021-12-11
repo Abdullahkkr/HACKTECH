@@ -465,7 +465,6 @@ app.get('/initialize-admins', (req, res) => {
 });
 
 
-
 // Admin sign up
 app.get('/admin-signup', (req, res) => {
     let sql = `INSERT INTO Admin VALUES("${req.body.Name}",${req.body.Admin_ID},"${req.body.Password}")`;
