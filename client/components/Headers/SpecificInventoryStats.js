@@ -21,21 +21,23 @@ const printcat = (item) =>
     console.log(item.Category)
 }
 return (
-<div className="mb-24 " >
+
+<div className="mb-24">
     <ol className="flex flex-wrap" >
     {products
         ? products.map((item, i) => {
-            return (
+            return ( 
             <button>
-            <li key={i} className="flex-auto p-4 m-4 bg-lightBlue-200">
+            <li key={i} className="flex-auto p-4 m-4 bg-lightBlue-200 ">
                 <button>
-                <p>{item.Category}</p>
-                <p>{item.Brand}</p>
-                <p>{item.Product_Name}</p>
-                <p>{item.Colour}</p>
-                <p>{item.Features}</p>
+                {Object.keys(item).map(key => {
+                    const notInclude = ["Cost_Price","Admin_ID","Unit_ID"]
+                    if (notInclude.indexOf(key) !== -1) return;
+                    return (
+                        <p align="left"><b>{key}:</b>  {item[key]}</p>
+                    )
+                })}
                 {printcat(item)}
-                <p>_____________</p>
                 </button>
             </li>
             </button>

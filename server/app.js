@@ -270,11 +270,8 @@ app.post('/orders/new-order',(req,res)=>{
 });
 
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> e50b702e300dad1ed7d367f78c7d8d016711437a
 // allow admin to edit the orders table(Order_Confirmation bool and Order_Status)
 app.post('/orders/admin-edit', (req, res) => {
     const sql = `UPDATE Orders SET Order_Confirmation = ${req.body.Order_Confirmation}, Order_Status = "${req.body.Order_Status}" WHERE Unit_ID = ${req.body.Unit_ID}`
@@ -317,9 +314,7 @@ app.get('/initialize-admins', (req, res) => {
 });
 
 // get Payments of the orders
-<<<<<<< HEAD
 app.post('/admin/payments',(req,res)=>{
-
     const sql = `select Inventory.Cost_Price,Inventory.Selling_Price,Orders.Order_Date from Inventory,Orders where Orders.Unit_ID = Inventory.Unit_ID and distinct(Inventory.Unit_ID)`;
 
     db.query(sql, (err, result) => {
@@ -377,68 +372,6 @@ app.post('/admin/payments',(req,res)=>{
         }
     });    
 
-=======
-
-app.post('/admin/payments',(req,res)=>{
-
-    const sql = `select Inventory.Cost_Price,Inventory.Selling_Price,Orders.Order_Date from Inventory,Orders where Orders.Unit_ID = Inventory.Unit_ID and distinct(Inventory.Unit_ID)`;
-
-    db.query(sql, (err, result) => {
-        if (err) {
-            return res.send({
-                'isSuccessful':false,
-                'accountType':'Customer',
-                'error': true,
-                'message': err
-            });
-        }
-        else
-        {
-            const number_of_orders = Object.keys(result).length
-
-            let Total_Cost = 0;
-            let Total_Revenue = 0;
-            let Profit_Loss = 0;
-            let Order_Date = new Date();
-            let Month_Ago = new Date();
-
-            for (let i = 0; i < number_of_orders; i++) {
-                
-                Total_Cost += result[i].Cost_Price;
-                Total_Revenue += result[i].Selling_Price;
-                Order_Date = result[i].Order_Date.toLocaleDateString();
-                Month_ago = result[i].Order_Date;
-                Month_Ago.setMonth(Month_Ago.getMonth() - 1);
-                console.log('Order_Date--->',Order_Date);
-                console.log('Month ago --->',Month_Ago.toLocaleDateString());
-            }
-            
-            Profit_Loss = Total_Revenue - Total_Cost;
-            console.log('Total Cost is--->',Total_Cost);
-            console.log('Total Revenue is--->',Total_Revenue);
-            if (Profit_Loss >= 0)
-            {
-                console.log('Profit is -->',Profit_Loss)
-            }
-            else if(Profit_Loss == 0)
-            {
-                console.log('Break even');
-            }
-            else
-            {
-                console.log('Loss is --->',-Profit_Loss);
-            }
-
-            return res.send({
-                'isSuccessful':true,
-                'accountType':'Customer',
-                'error': false,
-                'message': result
-            });
-        }
-    });    
-
->>>>>>> e50b702e300dad1ed7d367f78c7d8d016711437a
 });
 
 // Admin sign up
@@ -1454,13 +1387,8 @@ app.post('/inventory/specific-product', (req, res) => {
 // inventory merged with category for specific category, will send all the products for this category
 // see a specific product
 app.post('/inventory/category', (req, res) => {
-<<<<<<< HEAD
-    const sql = `select * from Inventory,${req.body.Category} where Inventory.Unit_ID=${req.body.Category}.Unit_ID`; 
-
-=======
     let categoryName = req.body.Category
     const sql = `select * from Inventory,${categoryName} where Inventory.Unit_ID=${categoryName}.Unit_ID`; 
->>>>>>> e50b702e300dad1ed7d367f78c7d8d016711437a
     db.query(sql, (err, result) => {
         if (err) {
             return res.send({

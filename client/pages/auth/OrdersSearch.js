@@ -13,7 +13,7 @@ const specificOrder = (e) =>{
 Find_Orders(Unit_ID).then((response) =>{
     console.log(response.data)
     if(response.data.isSuccessful){
-        router.push('/auth/SearchOrderBar')
+        router.push('/auth/SearchOrder')
     }
     else
     {
