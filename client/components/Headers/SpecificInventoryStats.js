@@ -6,7 +6,6 @@ import { ShowSpecificInventory } from "pages/auth/Services-API/api";
 import { getCategoryAtom } from "pages/userState";
 import { newOrder } from "pages/auth/Services-API/api";
 import {useAtom} from 'jotai';
-import { userDataAtom } from "D:/dbproj/HACKTECH/client/pages/userState.js";
 import Modal from 'react-modal';
 import router from "next/router";
 
@@ -22,7 +21,6 @@ const customStyles = {
 };
 
 export default function HeaderStats() {
-const [userData, setUserData] = useAtom(userDataAtom)
 const [products, setProducts] = useState();
 const [getCategory, setgetCategory] = useAtom(getCategoryAtom)
 useEffect(() => {

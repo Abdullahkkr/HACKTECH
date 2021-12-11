@@ -4,13 +4,15 @@ import React, { useState } from "react";
 import Auth from "layouts/InventoryAuth.js";
 import { Find_Orders } from "./Services-API/api";
 import { useRouter } from 'next/router';
-
+import {useAtom} from 'jotai';
+import { getCustomerIDAtom } from "pages/userState";
 export default function Register() {
-
-const [Unit_ID, setUnit_ID] = useState("")
+const [getCustomerID, setgetCustomerID] = useAtom(getCustomerIDAtom)
+const [Customer_ID, setCustomer_ID] = useState("")
 const router = useRouter()
 const specificOrder = (e) =>{
-Find_Orders(Unit_ID).then((response) =>{
+setgetCustomerID(Customer_ID)
+Find_Orders(Customer_ID).then((response) =>{
     console.log(response.data)
     if(response.data.isSuccessful){
         router.push('/auth/SearchOrder')
@@ -45,14 +47,14 @@ return (
                     className="mt-2 block uppercase text-blueGray-500 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                 >
-                Unit ID
+                Customer ID
                 </label>
                 <input
                     type="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    placeholder="Unit ID"
-                    value={Unit_ID}
-                    onChange={(e) => {setUnit_ID(e.target.value);}}
+                    placeholder="Customer ID"
+                    value={Customer_ID}
+                    onChange={(e) => {setCustomer_ID(e.target.value);}}
                 />
                 </div>
                 <div>

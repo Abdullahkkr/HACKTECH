@@ -239,8 +239,8 @@ export const allOrders = async() => {
 }
 
 // Find customer orders 
-export const Find_Orders = async(Unit_ID) => {
-    const request = {"Unit_ID" : Unit_ID}
+export const Find_Orders = async(Customer_ID) => {
+    const request = {"Customer_ID" : Customer_ID}
     return await axios.post(`${url}/orders/each-customer`, request,{
         'Accept':'application/json',
         'content-type':'application/json'
@@ -248,8 +248,8 @@ export const Find_Orders = async(Unit_ID) => {
 }
 
 // Find customer orders 
-export const EditOrder = async(Unit_ID,Order_Status, Order_Confirmation) => {
-    const request = {"Unit_ID" : Unit_ID,"Order_Status":Order_Status,"Order_Confirmation":Order_Confirmation}
+export const EditOrder = async(Customer_ID,Order_Status, Order_Confirmation) => {
+    const request = {"Customer_ID" : Customer_ID,"Order_Status":Order_Status,"Order_Confirmation":Order_Confirmation}
     return await axios.post(`${url}/orders/admin-edit`, request,{
         'Accept':'application/json',
         'content-type':'application/json'
