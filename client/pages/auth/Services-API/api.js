@@ -212,10 +212,9 @@ export const allInventory = async() => {
     });
 }
 
-// shows all orders
-export const allOrders = async() => {
-    const request = {}
-    return await axios.post(`${url}/orders`, request,{
+export const ShowSpecificInventory = async(Category) => {
+    const request = {Category}
+    return await axios.post(`${url}/inventory/category`, request,{
         'Accept':'application/json',
         'content-type':'application/json'
     });

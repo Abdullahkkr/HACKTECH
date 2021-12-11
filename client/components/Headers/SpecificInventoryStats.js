@@ -2,17 +2,24 @@ import React, { useEffect, useState } from "react";
 // import CardStats from "../Cards/Camera"
 // components
 
-import { allInventory } from "pages/auth/Services-API/api";
+import { ShowSpecificInventory } from "pages/auth/Services-API/api";
+import { getCategoryAtom } from "pages/userState";
+import {useAtom} from 'jotai';
 
 export default function HeaderStats() {
 const [products, setProducts] = useState();
-
+const [getCategory, setgetCategory] = useAtom(getCategoryAtom)
 useEffect(() => {
-allInventory().then((response) => {
-    setProducts(response.data.result);
+    ShowSpecificInventory(getCategory).then((response) => {
+    setProducts(response.data.message);
     console.log(response.data);
 });
 }, []);
+const printcat = (item) =>
+{
+    console.log("cat called")
+    console.log(item.Category)
+}
 return (
 <div className="mb-24 " >
     <ol className="flex flex-wrap" >
@@ -27,6 +34,7 @@ return (
                 <p>{item.Product_Name}</p>
                 <p>{item.Colour}</p>
                 <p>{item.Features}</p>
+                {printcat(item)}
                 <p>_____________</p>
                 </button>
             </li>
