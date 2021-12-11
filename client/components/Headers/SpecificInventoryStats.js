@@ -48,7 +48,7 @@ setIsOpen(false);
 const placeOrder = (e) =>{
     newOrder(getCategory, productName, today, deliver, getCustomerID).then((response)=>{
         if(response.data.isSuccessful){
-            router.push('/auth/')
+            router.push('/auth/pastOrders')
         }
     })
 }

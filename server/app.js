@@ -30,7 +30,7 @@ app.use(cors());
 
 const init_db = `
 CREATE TABLE Admin(Name VARCHAR(300), Admin_ID int(5), Password VARCHAR(300), PRIMARY KEY (Admin_ID));
-CREATE TABLE Orders(Unit_ID bigint(200), Order_ID bigint(200), Order_Confirmation bool, Order_Date VARCHAR(300), Delivery_Date VARCHAR(300), Courier_Service_Name VARCHAR(300), Customer_ID int(8), Order_Status VARCHAR(300), Cost_Price int(20), Selling_Price int(20), PRIMARY KEY (Order_ID));
+CREATE TABLE Orders(Unit_ID bigint(200), Order_ID bigint(200), Order_Confirmation bool, Order_Date date, Delivery_Date date, Courier_Service_Name VARCHAR(300), Customer_ID int(8), Order_Status VARCHAR(300), Cost_Price int(20), Selling_Price int(20), PRIMARY KEY (Order_ID));
 CREATE TABLE Inventory(Unit_ID bigint(200), Brand VARCHAR(300), Features VARCHAR(5000), Product_Name VARCHAR(300), Colour VARCHAR(200), Description VARCHAR(5000), Images VARCHAR(300), Cost_Price int(20), Selling_Price int(20), Admin_ID int(5), Category VARCHAR(5000), PRIMARY KEY (Unit_ID), FOREIGN KEY (Admin_ID) REFERENCES Admin(Admin_ID));
 CREATE TABLE Customers(Customer_ID int(8), Customer_Name VARCHAR(300), Address VARCHAR(300), Past_Orders int(200), Email VARCHAR(50), Contact_Number bigint(200), CNIC_Number bigint(200), PRIMARY KEY (Customer_ID));
 CREATE TABLE Accounts(Customer_ID int(8), Password VARCHAR(300), PRIMARY KEY (Customer_ID), FOREIGN KEY (Customer_ID) REFERENCES Customers(Customer_ID));
@@ -278,7 +278,7 @@ app.post('/orders/new-order',(req,res)=>{
 
 // allow admin to edit the orders table(Order_Confirmation bool and Order_Status)
 app.post('/orders/admin-edit', (req, res) => {
-    const sql = `UPDATE Orders SET Order_Confirmation = ${req.body.Order_Confirmation}, Order_Status = "${req.body.Order_Status}" WHERE Unit_ID = ${req.body.Unit_ID}`
+    const sql = `UPDATE Orders SET Order_Confirmation = ${req.body.Order_Confirmation}, Order_Status = "${req.body.Order_Status}" WHERE Order_ID = ${req.body.Order_ID}`
     db.query(sql, (err, result) => {
         if (err) {
             res.send({
@@ -1378,7 +1378,7 @@ app.post('/cod/amountowe', (req, res) => {
                 'accountType':'Admin',
                 'error': false,
                 'amount Courier service owe to Hacktech':  result[0].Total,
-                'message': result
+                'message': result[0].Total
             });
         }
     });    
@@ -1457,6 +1457,7 @@ app.post('/admin/payments',(req,res)=>{ // Order status must be Completed
 app.post('/admin/payments-month',(req,res)=>{
 
     const sql = `select Cost_Price,Selling_Price from Orders where Order_Status = 'Completed' and month(Order_Date) = ${req.body.Month} and year(Order_Date) = ${req.body.Year}`;
+    console.log(month(Order_Date));
     
     db.query(sql, (err, result) => {
         if (err) {

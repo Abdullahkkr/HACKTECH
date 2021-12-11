@@ -5,18 +5,25 @@ import Link from "next/link";
 import Auth from "layouts/InventoryAuth";
 import { EditOrder } from "./Services-API/api";
 import { useRouter } from 'next/router';
-
-// , "Cost_Price":req.body.Cost_Price, "Selling_Price":req.body.Selling_Price, "Admin_ID":req.body.Admin_ID, "Category":req.body.Category};
+import { getOrderConfirmAtom } from "pages/userState";
+import { getOrderStatusAtom } from "pages/userState";
+import { getOrderIDAtom } from "pages/userState";
+import { useAtom } from "jotai";
 
 export default function Inventory() {
-const [Unit_ID, setUnit_ID] = useState("")
+const [Order_ID, setOrder_ID] = useState("")
 const [Order_Status, setOrder_Status] = useState("")
 const [Order_Confirmation, setOrder_Confirmation] = useState("")
+const [getOrderConfirmation, setgetOrderConfirmation] = useAtom(getOrderConfirmAtom)
+const [getOrderStatus, setgetOrderStatus] = useAtom(getOrderStatusAtom)
+const [getOrderID, setgetOrderID] = useAtom(getOrderIDAtom)
 
 const router = useRouter()
 const EditOrderDasboard = (e) =>{
-EditOrder(Unit_ID, Order_Status, Order_Confirmation).then((response) =>{
-    console.log(response.data)
+    // setgetOrderConfirmation(Order_Confirmation)
+    // setgetOrderStatus(Order_Status)
+    // setgetOrderID(Order_ID)
+    EditOrder(Order_ID, Order_Status, Order_Confirmation).then((response) =>{
     if(response.data.isSuccessful){
     if(response.data.error === false){
         router.push('/auth/admin_dashboard')
@@ -56,14 +63,14 @@ return (
                     className="mt-2 block uppercase text-blueGray-500 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                 >
-                Unit_ID
+                Order_ID
                 </label>
                 <input
                     type="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    placeholder="Unit_ID"
-                    value={Unit_ID}
-                    onChange={(e) => {setUnit_ID(e.target.value);}}
+                    placeholder="Order_ID"
+                    value={Order_ID}
+                    onChange={(e) => {setOrder_ID(e.target.value);}}
                 />
                 </div>
                 <div className="relative w-full mb-3">

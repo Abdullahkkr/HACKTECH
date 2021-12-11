@@ -229,7 +229,7 @@ export default function Sidebar2() {
                 </Link>
               </li>
               <li className="items-center">
-                <Link href="/auth/EditOrderPage">
+                <Link href="/auth/OrderConfirmationPage">
                   <a
                     href="#pablo"
                     className={
@@ -252,7 +252,30 @@ export default function Sidebar2() {
                 </Link>
               </li>
               <li className="items-center">
-                <Link href="/auth/EditOrderPage">
+                <Link href="/auth/OrderStatusPage">
+                  <a
+                    href="#pablo"
+                    className={
+                      "text-xs uppercase py-3 font-bold block " +
+                      (router.pathname.indexOf("/admin/maps") !== -1
+                        ? "text-lightBlue-500 hover:text-lightBlue-600"
+                        : "text-blueGray-700 hover:text-blueGray-500")
+                    }
+                  >
+                    <i
+                      className={
+                        "fas fa-map-marked mr-2 text-sm " +
+                        (router.pathname.indexOf("/admin/maps") !== -1
+                          ? "opacity-75"
+                          : "text-blueGray-300")
+                      }
+                    ></i>{" "}
+                    Order Status
+                  </a>
+                </Link>
+              </li>
+              <li className="items-center">
+                <Link href="/auth/PaymentsPage">
                   <a
                     href="#pablo"
                     className={
@@ -275,7 +298,7 @@ export default function Sidebar2() {
                 </Link>
               </li>
               <li className="items-center">
-                <Link href="/auth/EditOrderPage">
+                <Link href="/auth/AmountsOwePage">
                   <a
                     href="#pablo"
                     className={
@@ -293,59 +316,12 @@ export default function Sidebar2() {
                           : "text-blueGray-300")
                       }
                     ></i>{" "}
-                    Amount Owe
+                    Amount Owe to COD
                   </a>
                 </Link>
               </li>
-              <li className="items-center">
-                <Link href="/auth/EditOrderPage">
-                  <a
-                    href="#pablo"
-                    className={
-                      "text-xs uppercase py-3 font-bold block " +
-                      (router.pathname.indexOf("/admin/maps") !== -1
-                        ? "text-lightBlue-500 hover:text-lightBlue-600"
-                        : "text-blueGray-700 hover:text-blueGray-500")
-                    }
-                  >
-                    <i
-                      className={
-                        "fas fa-map-marked mr-2 text-sm " +
-                        (router.pathname.indexOf("/admin/maps") !== -1
-                          ? "opacity-75"
-                          : "text-blueGray-300")
-                      }
-                    ></i>{" "}
-                    Payments Month
-                  </a>
-                </Link>
-              </li>
+             
 
-              <li className="items-center">
-                <Link href="/auth/EditOrderPage">
-                  <a
-                    href="#pablo"
-                    className={
-                      "text-xs uppercase py-3 font-bold block " +
-                      (router.pathname.indexOf("/admin/maps") !== -1
-                        ? "text-lightBlue-500 hover:text-lightBlue-600"
-                        : "text-blueGray-700 hover:text-blueGray-500")
-                    }
-                  >
-                    <i
-                      className={
-                        "fas fa-map-marked mr-2 text-sm " +
-                        (router.pathname.indexOf("/admin/maps") !== -1
-                          ? "opacity-75"
-                          : "text-blueGray-300")
-                      }
-                    ></i>{" "}
-                    Payments Year
-                  </a>
-                </Link>
-              </li>
-              
-              
               
               
             </ul>
