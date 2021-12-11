@@ -56,8 +56,8 @@ var dd = String(today.getDate()).padStart(2, '0');
 var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
 var yyyy = today.getFullYear();
 var deliver = new Date();
-today = yyyy + '/' + mm + '/' + dd;
-deliver = yyyy + '/'+ mm + '/' + dd+5;
+today = yyyy + '-' + mm + '-' + dd;
+deliver = yyyy + '-'+ mm + '-' + dd+5;
 return (
 <div className="mb-24">
     <ol className="flex flex-wrap" >

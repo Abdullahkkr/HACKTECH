@@ -255,3 +255,48 @@ export const EditOrder = async(Customer_ID,Order_Status, Order_Confirmation) => 
         'content-type':'application/json'
     });
 }
+
+// find order confirmation
+export const Order_Confirmation = async(Order_ID) => {
+    const request = {"Order_ID" : Order_ID}
+    return await axios.post(`${url}/order/confirmation`, request,{
+        'Accept':'application/json',
+        'content-type':'application/json'
+    });
+}
+
+// find order Status
+export const Order_Status = async(Order_ID) => {
+    const request = {"Order_ID" : Order_ID}
+    return await axios.post(`${url}/order/status`, request,{
+        'Accept':'application/json',
+        'content-type':'application/json'
+    });
+}
+
+// '/admin/payments'
+export const payments = async() => {
+    const request = {}
+    return await axios.post(`${url}/admin/payments`, request,{
+        'Accept':'application/json',
+        'content-type':'application/json'
+    });
+}
+
+// amounts owe
+export const AmountsOwe = async() => {
+    const request = {}
+    return await axios.post(`${url}/cod/amountowe`, request,{
+        'Accept':'application/json',
+        'content-type':'application/json'
+    });
+}
+
+// amounts owe
+export const month = async() => {
+    const request = {}
+    return await axios.post(`${url}/admin/payments-month`, request,{
+        'Accept':'application/json',
+        'content-type':'application/json'
+    });
+}
