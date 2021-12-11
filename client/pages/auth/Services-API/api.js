@@ -220,9 +220,19 @@ export const ShowSpecificInventory = async(Category) => {
     });
 }
 
-export const newOrder = async(Category) => {
-    const request = {Category}
-    return await axios.post(`${url}/inventory/category`, request,{
+export const newOrder = async(Category, Product_Name, Order_Date, Delivery_Date, Customer_ID) => {
+    console.log("api-hittt")
+    console.log(Category, Product_Name, Order_Date, Delivery_Date, Customer_ID)
+    const request = {"Category": Category, "Product_Name": Product_Name, "Order_Date": Order_Date, "Delivery_Date": Delivery_Date, "Customer_ID": Customer_ID}
+    return await axios.post(`${url}/orders/new-order`, request,{
+        'Accept':'application/json',
+        'content-type':'application/json'
+    });
+}
+
+export const allOrders = async() => {
+    const request = {}
+    return await axios.post(`${url}/orders`, request,{
         'Accept':'application/json',
         'content-type':'application/json'
     });

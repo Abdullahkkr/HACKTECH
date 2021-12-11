@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
-import 'reactjs-popup/dist/index.css';
+// import CardStats from "../Cards/Camera"
+// components
+
 import { ShowSpecificInventory } from "pages/auth/Services-API/api";
 import { getCategoryAtom } from "pages/userState";
+import { newOrder } from "pages/auth/Services-API/api";
 import {useAtom} from 'jotai';
+import { userDataAtom } from "D:/dbproj/HACKTECH/client/pages/userState.js";
 import Modal from 'react-modal';
+import router from "next/router";
+
 const customStyles = {
     content: {
     top: '50%',
@@ -14,7 +20,9 @@ const customStyles = {
     transform: 'translate(-50%, -50%)',
 },
 };
+
 export default function HeaderStats() {
+const [userData, setUserData] = useAtom(userDataAtom)
 const [products, setProducts] = useState();
 const [getCategory, setgetCategory] = useAtom(getCategoryAtom)
 useEffect(() => {
@@ -25,42 +33,63 @@ useEffect(() => {
 }, []);
 let subtitle;
 const [modalIsOpen, setIsOpen] = React.useState(false);
+let productName;
 function openModal() {
-    setIsOpen(true);
+setIsOpen(true);
 }
+
 function afterOpenModal() {
+// references are now sync'd and can be accessed.
 subtitle.style.color = '#f00';
 }
 function closeModal() {
 setIsOpen(false);
 }
+const placeOrder = (e) =>{
+    newOrder(getCategory, productName, today, deliver, 69).then((response)=>{
+        if(response.data.isSuccessful){
+            console.log("hereee")
+            router.push('/auth/user_dashboard')
+        }
+    })
+}
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today.getFullYear();
+var deliver = new Date();
+today = yyyy + '/' + mm + '/' + dd;
+deliver = yyyy + '/'+ mm + '/' + dd+5;
 return (
-
 <div className="mb-24">
     <ol className="flex flex-wrap" >
     {products
         ? products.map((item, i) => {
-            return (
-            <button onClick={openModal}>
-            <li key={i} className="flex-auto p-4 m-4 bg-lightBlue-200">
-                <button>
-                <p>{item.Category}</p>
-                <p>{item.Brand}</p>
-                <p>{item.Product_Name}</p>
-                <p>{item.Colour}</p>
-                <p>{item.Features}</p>
-                <p>_____________</p>
+            return ( 
+            <button>
+            <li key={i} className="flex-auto p-4 m-4 bg-lightBlue-200 ">
+                <button onClick={openModal}>
+                {Object.keys(item).map(key => {
+                    const notInclude = ["Cost_Price","Admin_ID","Unit_ID"]
+                    productName = item.Product_Name;
+                    if (notInclude.indexOf(key) !== -1) return;
+                    return (
+                        <p align="left"><b>{key}:</b>  {item[key]}</p>
+                    )
+                })}
                 </button>
                 <Modal
-                isOpen={modalIsOpen}
-                onAfterOpen={afterOpenModal}
-                onRequestClose={closeModal}
-                style={customStyles}
-                >
-                <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Buy this item</h2>
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+            >
+                <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Buy this item ?</h2>
                 <button onClick={closeModal}>Close</button>
-                <button>Add to Cart and Buy</button>
-                </Modal>
+                <br></br><br></br>
+                <button onClick={(e) => {placeOrder(e)}}>Add to Cart and Buy</button>
+            </Modal>
             </li>
             </button>
             );
