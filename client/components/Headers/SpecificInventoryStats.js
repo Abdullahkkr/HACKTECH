@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 // components
 
 import { ShowSpecificInventory } from "pages/auth/Services-API/api";
+import { getCustomerIDAtom } from "pages/userState";
 import { getCategoryAtom } from "pages/userState";
 import { newOrder } from "pages/auth/Services-API/api";
 import {useAtom} from 'jotai';
@@ -23,6 +24,7 @@ const customStyles = {
 export default function HeaderStats() {
 const [products, setProducts] = useState();
 const [getCategory, setgetCategory] = useAtom(getCategoryAtom)
+const [getCustomerID, setgetCustomerID] = useAtom(getCustomerIDAtom)
 useEffect(() => {
     ShowSpecificInventory(getCategory).then((response) => {
     setProducts(response.data.message);
@@ -44,10 +46,9 @@ function closeModal() {
 setIsOpen(false);
 }
 const placeOrder = (e) =>{
-    newOrder(getCategory, productName, today, deliver, 69).then((response)=>{
+    newOrder(getCategory, productName, today, deliver, getCustomerID).then((response)=>{
         if(response.data.isSuccessful){
-            console.log("hereee")
-            router.push('/auth/user_dashboard')
+            router.push('/auth/')
         }
     })
 }
@@ -56,8 +57,8 @@ var dd = String(today.getDate()).padStart(2, '0');
 var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
 var yyyy = today.getFullYear();
 var deliver = new Date();
-today = yyyy + '/' + mm + '/' + dd;
-deliver = yyyy + '/'+ mm + '/' + dd+5;
+today = yyyy + '-' + mm + '-' + dd;
+deliver = yyyy + '-'+ mm + '-' + dd;
 return (
 <div className="mb-24">
     <ol className="flex flex-wrap" >

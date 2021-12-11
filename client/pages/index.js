@@ -4,6 +4,7 @@ import { login } from './auth/Services-API/api';
 import { useRouter } from 'next/router';
 import { useAtom } from 'jotai'
 import {userDataAtom} from "./userState"
+import { getCustomerIDAtom } from "./userState";
 // layout for page
 
 import Auth from "layouts/Auth.js";
@@ -13,9 +14,10 @@ export default function Login() {
   const [password, setPassword] = useState("")
   const router = useRouter()
   const [userData, setUserData] = useAtom(userDataAtom)
-
+  const [cutomerID, setgetCustomerID]= useAtom(getCustomerIDAtom)
   const sendCreds = (e) =>{
     login(email, password).then((response) =>{
+      setgetCustomerID(email)
       if(!response.data.isSuccessful)
       {
         console.log(response.data.message);          

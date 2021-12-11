@@ -112,7 +112,7 @@ export default function Sidebar() {
                   </a>
                 </Link>
               </li>
-              <li className="items-center">
+              {/* <li className="items-center">
                 <Link href="/admin/tables">
                   <a
                     href="#pablo"
@@ -134,10 +134,10 @@ export default function Sidebar() {
                     Products
                   </a>
                 </Link>
-              </li>
+              </li> */}
 
               <li className="items-center">
-                <Link href="/admin/maps">
+                <Link href="/auth/pastOrders">
                   <a
                     href="#pablo"
                     className={
