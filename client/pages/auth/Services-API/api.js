@@ -212,3 +212,29 @@ export const allInventory = async() => {
     });
 }
 
+// shows all orders
+export const allOrders = async() => {
+    const request = {}
+    return await axios.post(`${url}/orders`, request,{
+        'Accept':'application/json',
+        'content-type':'application/json'
+    });
+}
+
+// Find customer orders 
+export const Find_Orders = async(Unit_ID) => {
+    const request = {"Unit_ID" : Unit_ID}
+    return await axios.post(`${url}/orders/each-customer`, request,{
+        'Accept':'application/json',
+        'content-type':'application/json'
+    });
+}
+
+// Find customer orders 
+export const EditOrder = async(Unit_ID,Order_Status, Order_Confirmation) => {
+    const request = {"Unit_ID" : Unit_ID,"Order_Status":Order_Status,"Order_Confirmation":Order_Confirmation}
+    return await axios.post(`${url}/orders/admin-edit`, request,{
+        'Accept':'application/json',
+        'content-type':'application/json'
+    });
+}
