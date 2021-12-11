@@ -220,6 +220,14 @@ export const ShowSpecificInventory = async(Category) => {
     });
 }
 
+export const newOrder = async(Category) => {
+    const request = {Category}
+    return await axios.post(`${url}/inventory/category`, request,{
+        'Accept':'application/json',
+        'content-type':'application/json'
+    });
+}
+
 // Find customer orders 
 export const Find_Orders = async(Unit_ID) => {
     const request = {"Unit_ID" : Unit_ID}

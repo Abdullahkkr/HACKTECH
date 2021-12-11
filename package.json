@@ -1,5 +1,9 @@
 {
   "dependencies": {
-    "jotai": "^1.4.5"
+    "jotai": "^1.4.5",
+    "react-hooks-use-modal": "^2.1.0",
+    "react-modal": "^3.14.4",
+    "react-router-dom": "^6.1.0",
+    "reactjs-popup": "^2.0.5"
   }
 }

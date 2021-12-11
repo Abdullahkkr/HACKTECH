@@ -5,13 +5,14 @@ const bodyParser = require('body-parser');
 const { urlencoded } = require('express');
 const { raw } = require('body-parser');
 const e = require('express');
+const util = require('util')
 
 // Create connection
 const db = mysql.createConnection({
     host : 'localhost',
     user : 'root',
     password : '',
-    database : 'Hacktech',
+    database : 'hacktech',
     multipleStatements :true
 });
 
@@ -30,8 +31,8 @@ app.use(cors());
 
 const init_db = `
 CREATE TABLE Admin(Name VARCHAR(300), Admin_ID int(5), Password VARCHAR(300), PRIMARY KEY (Admin_ID));
-CREATE TABLE Orders(Unit_ID bigint(200), Order_ID bigint(200), Order_Confirmation bool, Order_Date date, Delivery_Date date, Courier_Service_Name VARCHAR(300), Customer_ID int(8), Order_Status VARCHAR(300), Cost_Price int(20), Selling_Price int(20), PRIMARY KEY (Order_ID));
-CREATE TABLE Inventory(Unit_ID bigint(200), Brand VARCHAR(300), Features VARCHAR(5000), Product_Name VARCHAR(300), Colour VARCHAR(200), Description VARCHAR(5000), Images VARCHAR(300), Cost_Price int(20), Selling_Price int(20), Admin_ID int(5), Category VARCHAR(5000), PRIMARY KEY (Unit_ID), FOREIGN KEY (Admin_ID) REFERENCES Admin(Admin_ID));
+CREATE TABLE Orders(Unit_ID bigint(200), Order_ID bigint(200), Order_Confirmation bool, Order_Date date, Delivery_Date date, Courier_Service_Name VARCHAR(300), Customer_ID int(8), Order_Status VARCHAR(300), PRIMARY KEY (Order_ID));
+CREATE TABLE Inventory(Unit_ID bigint(200), Brand VARCHAR(300), Features VARCHAR(500), Product_Name VARCHAR(300), Colour VARCHAR(200), Description VARCHAR(500), Images VARCHAR(300), Cost_Price int(20), Selling_Price int(20), Admin_ID int(5), Category VARCHAR(500), PRIMARY KEY (Unit_ID), FOREIGN KEY (Admin_ID) REFERENCES Admin(Admin_ID));
 CREATE TABLE Customers(Customer_ID int(8), Customer_Name VARCHAR(300), Address VARCHAR(300), Past_Orders int(200), Email VARCHAR(50), Contact_Number bigint(200), CNIC_Number bigint(200), PRIMARY KEY (Customer_ID));
 CREATE TABLE Accounts(Customer_ID int(8), Password VARCHAR(300), PRIMARY KEY (Customer_ID), FOREIGN KEY (Customer_ID) REFERENCES Customers(Customer_ID));
 CREATE TABLE Printer(Unit_ID bigint(200), Wireless VARCHAR(300), Type VARCHAR(300), Portable VARCHAR(300), PRIMARY KEY (Unit_ID), FOREIGN KEY (Unit_ID) REFERENCES Inventory(Unit_ID));
@@ -54,6 +55,143 @@ INSERT INTO Admin VALUES('Khuzaima Saeed', 00004, 'pak007007');
 INSERT INTO Admin VALUES('Miqdad Quettawala', 00005, 'pak007009');
 `;
 
+function sqlCallbackToPromise(sqlQuery){
+    return new Promise(function(resolve, reject) {
+        db.query(sqlQuery, (err, rows) => {
+            if (err) {
+                return reject(err);
+            }
+            resolve(rows);
+        });
+    });
+}
+
+app.get('/delete-all', (req, res) => {
+    const deletion =   `
+    DELETE FROM Printer;
+    DELETE FROM Camera;
+    DELETE FROM Scanner;
+    DELETE FROM VG_Console;
+    DELETE FROM Projector;
+    DELETE FROM TV;
+    DELETE FROM Tablet;
+    DELETE FROM Mobile_Phone;
+    DELETE FROM Desktop;
+    DELETE FROM Laptop;
+    DELETE FROM Inventory;
+    `;
+    db.query(deletion, (err, result) => {
+        if(err)
+        {
+            throw err;
+        }
+        res.send("Deleted all items successfully");
+    });
+});
+// populating database
+app.get('/mass-populate', (req, res) => {
+    let printer_count = 0;
+    let camera_count = 1000;
+    let scanner_count = 2000;
+    let vg_count = 3000;
+    let projector_count = 4000;
+    let tv_count = 5000;
+    let tablet_count = 6000;
+    let mobile_count = 7000;
+    let desktop_count = 8000;
+    let laptop_count = 9000;
+
+    let printer_name = '';
+    let camera_name = ''; 
+    let scanner_name = ''; 
+    let vg_name = ''; 
+    let projector_name = ''; 
+    let tv_name = ''; 
+    let tablet_name = ''; 
+    let mobile_name = ''; 
+    let desktop_name = ''; 
+    let laptop_name = '';
+    
+    let promiseList = []
+    for(let i = 0; i < 1000 ; i++)
+    {
+        printer_name = 'HP_Printer' + printer_count;
+        camera_name = 'Canon_cam' + camera_count;
+        scanner_name = 'HP_scanner' + scanner_count;
+        vg_name = 'Sony_vg' + vg_count;
+        projector_name = 'HP_Projector' + projector_count;
+        tv_name = 'LG_TV' + tv_count;
+        tablet_name = 'SamsungTablet' + tablet_count;
+        mobile_name = 'Pixel9999' + mobile_count;
+        desktop_name = 'Lenovo_desktop' + desktop_count;
+        laptop_name = 'DELL' + laptop_count;
+
+        const printer_sql = `INSERT INTO Inventory VALUES('${printer_count}', 'HP', 'xyz', '${printer_name}', 'Black', '-', 'nothing', 2000, 3000, 5, 'Printer')`;
+        const printer_sql1 = `INSERT INTO Printer VALUES('${printer_count}', 'x', 'x', 'x')`;
+        promiseList.push(sqlCallbackToPromise(printer_sql));
+        promiseList.push(sqlCallbackToPromise(printer_sql1));
+
+        const camera_sql = `INSERT INTO Inventory VALUES('${camera_count}', 'Canon', 'latest_features', '${camera_name}', 'Black', '-', 'nothing', 2000, 3000, 5, 'Camera')`;
+        const camera_sql1 = `INSERT INTO Camera VALUES('${camera_count}', 'x', 'x', 'x')`;
+        promiseList.push(sqlCallbackToPromise(camera_sql));
+        promiseList.push(sqlCallbackToPromise(camera_sql1));
+
+        const scanner_sql = `INSERT INTO Inventory VALUES('${scanner_count}', 'HP', 'xyz', '${scanner_name}', 'Black', '-', 'nothing', 2000, 3000, 5, 'Scanner')`;
+        const scanner_sql1 = `INSERT INTO Scanner VALUES('${scanner_count}', 'x', 'x')`;
+        promiseList.push(sqlCallbackToPromise(scanner_sql));
+        promiseList.push(sqlCallbackToPromise(scanner_sql1));
+
+        const vg_sql = `INSERT INTO Inventory VALUES('${vg_count}', 'HP', 'xyz', '${vg_name}', 'Black', '-', 'nothing', 2000, 3000, 5, 'VG_Console')`;
+        const vg_sql1 = `INSERT INTO VG_Console VALUES('${vg_count}', 'x', 'x', 'x')`;
+        promiseList.push(sqlCallbackToPromise(vg_sql));
+        promiseList.push(sqlCallbackToPromise(vg_sql1));
+
+        const projector_sql = `INSERT INTO Inventory VALUES('${projector_count}', 'HP', 'xyz', '${projector_name}', 'Black', '-', 'nothing', 2000, 3000, 5, 'Projector')`;
+        const projector_sql1 = `INSERT INTO Projector VALUES('${projector_count}', 'x', 'x', 'x')`;
+        promiseList.push(sqlCallbackToPromise(projector_sql));
+        promiseList.push(sqlCallbackToPromise(projector_sql1));
+
+        const tv_sql = `INSERT INTO Inventory VALUES('${tv_count}', 'HP', 'xyz', '${tv_name}', 'Black', '-', 'nothing', 2000, 3000, 5, 'TV')`;
+        const tv_sql1 = `INSERT INTO TV VALUES('${tv_count}', 'x', 'x', 'x')`;
+        promiseList.push(sqlCallbackToPromise(tv_sql));
+        promiseList.push(sqlCallbackToPromise(tv_sql1));
+
+        const tablet_sql = `INSERT INTO Inventory VALUES('${tablet_count}', 'HP', 'xyz', '${tablet_name}', 'Black', '-', 'nothing', 2000, 3000, 5, 'Tablet')`;
+        const tablet_sql1 = `INSERT INTO Tablet VALUES('${tablet_count}', 'x', 'x', 'x')`;
+        promiseList.push(sqlCallbackToPromise(tablet_sql));
+        promiseList.push(sqlCallbackToPromise(tablet_sql1));
+
+        const mobile_sql = `INSERT INTO Inventory VALUES('${mobile_count}', 'HP', 'xyz', '${mobile_name}', 'Black', '-', 'nothing', 2000, 3000, 5, 'Mobile_Phone')`;
+        const mobile_sql1 = `INSERT INTO Mobile_Phone VALUES('${mobile_count}', 'x', 'x')`;
+        promiseList.push(sqlCallbackToPromise(mobile_sql));
+        promiseList.push(sqlCallbackToPromise(mobile_sql1));
+
+        const desktop_sql = `INSERT INTO Inventory VALUES('${desktop_count}', 'HP', 'xyz', '${desktop_name}', 'Black', '-', 'nothing', 2000, 3000, 5, 'Desktop')`;
+        const desktop_sql1 = `INSERT INTO Desktop VALUES('${desktop_count}', 'x', 'x', 'x', 'x', 'x', 'x', 'x')`;
+        promiseList.push(sqlCallbackToPromise(desktop_sql));
+        promiseList.push(sqlCallbackToPromise(desktop_sql1));
+
+        const laptop_sql = `INSERT INTO Inventory VALUES('${laptop_count}', 'DELL', 'xyz', '${laptop_name}', 'Black', '-', 'nothing', 2000, 3000, 5, 'Laptop')`;
+        const laptop_sql1 = `INSERT INTO Laptop VALUES('${laptop_count}', '17', '8GB', 'vvbigprocessor', 'chonkmemory', 'latest')`;
+        promiseList.push(sqlCallbackToPromise(laptop_sql));
+        promiseList.push(sqlCallbackToPromise(laptop_sql1));
+
+        printer_count++;
+        camera_count++;
+        scanner_count++;
+        vg_count++;
+        projector_count++;
+        tv_count++;
+        tablet_count++;
+        mobile_count++;
+        desktop_count++;
+        laptop_count++;
+    }  
+    Promise.all(promiseList).then((values)=>{
+        res.send("The inventory table has been populated with 10000 entries while each sub category table has been populated with 1000 entries");
+    });    
+});
+
 // Initialize tables
 app.get('/initialize-tables', (req, res) => {
     db.query(init_db, (err, result) => {
@@ -66,8 +204,8 @@ app.get('/initialize-tables', (req, res) => {
     });
 });
 
-
 // orders 
+// All orders for Admins
 app.post('/orders', (req, res) => {
     console.log('hello is this working')
     const sql = 'SELECT * from Orders'
@@ -97,6 +235,7 @@ app.post('/orders', (req, res) => {
 });
 
 // orders 
+// order history for each customer
 app.post('/orders/each-customer', (req, res) => {
     const sql = `SELECT * from Orders where Customer_ID=${req.body.Customer_ID}`
     db.query(sql, (err, result) => {
@@ -126,9 +265,10 @@ app.post('/orders/each-customer', (req, res) => {
 });
 
 // input orders from users
+// new order 
 app.post('/orders/new-order',(req,res)=>{
 
-    const sql_temp = `select Inventory.Unit_ID, Inventory.Cost_Price, Inventory.Selling_Price from Inventory,${req.body.Category} where Inventory.Unit_ID=${req.body.Category}.Unit_ID and Inventory.Product_Name="${req.body.Product_Name}" and Inventory.Unit_ID=(Select MAX(Inventory.Unit_ID) from Inventory,${req.body.Category} where Inventory.Unit_ID=${req.body.Category}.Unit_ID)`;
+    const sql_temp = `select Inventory.Unit_ID from Inventory,${req.body.Category} where Inventory.Unit_ID=${req.body.Category}.Unit_ID and Inventory.Product_Name="${req.body.Product_Name}" and Inventory.Unit_ID=(Select MAX(Inventory.Unit_ID) from Inventory,${req.body.Category} where Inventory.Unit_ID=${req.body.Category}.Unit_ID)`;
 
     db.query(sql_temp, (err, result) => {
         if (err) {
@@ -143,13 +283,17 @@ app.post('/orders/new-order',(req,res)=>{
         {
             if(result.length>0)
             {
+
+            
+                console.log(result[0].Unit_ID);
                 const Unit_ID = result[0].Unit_ID;
-                const cp = result[0].Cost_Price
-                const sp = result[0].Selling_Price
-                const sql = `INSERT INTO ORDERS VALUES(${Unit_ID},${req.body.Order_ID},FALSE,"${req.body.Order_Date}","${req.body.Delivery_Date}","${req.body.Courier_Service_Name}",${req.body.Customer_ID}, "New", ${cp}, ${sp})`;
+
+                // const Unit_ID = req.body.Unit_ID;
+
+                const sql = `INSERT INTO ORDERS VALUES(${Unit_ID},${req.body.Order_ID},FALSE,"${req.body.Order_Date}","${req.body.Delivery_Date}","${req.body.Courier_Service_Name}",${req.body.Customer_ID}, "New")`;
                 db.query(sql, (err, result) => {
                     if (err) {
-                        return res.send({
+                        res.send({
                             'isSuccessful':false,
                             'accountType':'',
                             'Name': '',
@@ -162,7 +306,7 @@ app.post('/orders/new-order',(req,res)=>{
                         const sql2 = `SELECT Category FROM INVENTORY where Unit_ID = (${Unit_ID})`;
                         db.query(sql2, (err, result) => {
                             if (err) {
-                                return res.send({
+                                res.send({
                                     'isSuccessful':false,
                                     'accountType':'',
                                     'Name': '',
@@ -172,13 +316,16 @@ app.post('/orders/new-order',(req,res)=>{
                             }
                             else
                             {
+                                // result[0].Category = category
+                                console.log(result);
+                                // console.log(result[0]);
                                 const Category_Name = result[0].Category;
                                 console.log("category name is", Category_Name);
 
                                 const sql3 = `SELECT * from INVENTORY,${result[0].Category} WHERE Inventory.Unit_ID=${Category_Name}.Unit_ID and Inventory.Unit_ID=${Unit_ID}`;
                                 db.query(sql3, (err, result) => {
                                     if (err) {
-                                        return res.send({
+                                        res.send({
                                             'isSuccessful':false,
                                             'accountType':'',
                                             'Name': '',
@@ -191,7 +338,7 @@ app.post('/orders/new-order',(req,res)=>{
                                         const sql4 = `DELETE FROM ${Category_Name} WHERE ${Category_Name}.Unit_ID = (${Unit_ID})`
                                         db.query(sql4, (err, result) => {
                                             if (err) {
-                                                return res.send({
+                                                res.send({
                                                     'isSuccessful':false,
                                                     'accountType':'',
                                                     'Name': '',
@@ -204,7 +351,7 @@ app.post('/orders/new-order',(req,res)=>{
                                                 const sql5 = `DELETE FROM Inventory WHERE Inventory.Unit_ID = (${Unit_ID})`
                                                 db.query(sql5, (err, result) => {
                                                     if (err) {
-                                                        return res.send({
+                                                        res.send({
                                                             'isSuccessful':false,
                                                             'accountType':'',
                                                             'Name': '',
@@ -216,7 +363,7 @@ app.post('/orders/new-order',(req,res)=>{
                                                     {
                                                         console.log('reached main3');
                                                         console.log(result);
-                                                        return res.send({
+                                                        res.send({
                                                             'isSuccessful': true,
                                                             'accountType':'',
                                                             'Name': '',
@@ -229,9 +376,10 @@ app.post('/orders/new-order',(req,res)=>{
                                         });
                                         console.log('reached main2');
                                         console.log(result);
-                                        // return res.send({
+                                        // res.send({
                                         //     'isSuccessful': true,
-                                        //     'accountType':'Customer',
+                                        //     'accountType':'',
+                                        //     'Name': '',
                                         //     'error': false,
                                         //     'message': result
                                         // });
@@ -251,10 +399,13 @@ app.post('/orders/new-order',(req,res)=>{
                             }
                             
                         });
+
+                        
                     }
                     
                 });
             }
+
             else
             {
                 return res.send({
@@ -270,12 +421,8 @@ app.post('/orders/new-order',(req,res)=>{
 });
 
 
-<<<<<<< HEAD
-=======
 
-
->>>>>>> e50b702e300dad1ed7d367f78c7d8d016711437a
-// allow admin to edit the orders table(Order_Confirmation bool and Order_Status)
+// allow admin to edit the orders table(Order_Confirmation bool and Order_Status) 
 app.post('/orders/admin-edit', (req, res) => {
     const sql = `UPDATE Orders SET Order_Confirmation = ${req.body.Order_Confirmation}, Order_Status = "${req.body.Order_Status}" WHERE Unit_ID = ${req.body.Unit_ID}`
     db.query(sql, (err, result) => {
@@ -304,6 +451,7 @@ app.post('/orders/admin-edit', (req, res) => {
 });
 
 
+
 // Initializing admins
 app.get('/initialize-admins', (req, res) => {
     db.query(init_admins, (err, result) => {
@@ -316,130 +464,7 @@ app.get('/initialize-admins', (req, res) => {
     });
 });
 
-// get Payments of the orders
-<<<<<<< HEAD
-app.post('/admin/payments',(req,res)=>{
 
-    const sql = `select Inventory.Cost_Price,Inventory.Selling_Price,Orders.Order_Date from Inventory,Orders where Orders.Unit_ID = Inventory.Unit_ID and distinct(Inventory.Unit_ID)`;
-
-    db.query(sql, (err, result) => {
-        if (err) {
-            return res.send({
-                'isSuccessful':false,
-                'accountType':'Customer',
-                'error': true,
-                'message': err
-            });
-        }
-        else
-        {
-            const number_of_orders = Object.keys(result).length
-
-            let Total_Cost = 0;
-            let Total_Revenue = 0;
-            let Profit_Loss = 0;
-            let Order_Date = new Date();
-            let Month_Ago = new Date();
-
-            for (let i = 0; i < number_of_orders; i++) {
-                
-                Total_Cost += result[i].Cost_Price;
-                Total_Revenue += result[i].Selling_Price;
-                Order_Date = result[i].Order_Date.toLocaleDateString();
-                Month_ago = result[i].Order_Date;
-                Month_Ago.setMonth(Month_Ago.getMonth() - 1);
-                console.log('Order_Date--->',Order_Date);
-                console.log('Month ago --->',Month_Ago.toLocaleDateString());
-            }
-            
-            Profit_Loss = Total_Revenue - Total_Cost;
-            console.log('Total Cost is--->',Total_Cost);
-            console.log('Total Revenue is--->',Total_Revenue);
-            if (Profit_Loss >= 0)
-            {
-                console.log('Profit is -->',Profit_Loss)
-            }
-            else if(Profit_Loss == 0)
-            {
-                console.log('Break even');
-            }
-            else
-            {
-                console.log('Loss is --->',-Profit_Loss);
-            }
-
-            return res.send({
-                'isSuccessful':true,
-                'accountType':'Customer',
-                'error': false,
-                'message': result
-            });
-        }
-    });    
-
-=======
-
-app.post('/admin/payments',(req,res)=>{
-
-    const sql = `select Inventory.Cost_Price,Inventory.Selling_Price,Orders.Order_Date from Inventory,Orders where Orders.Unit_ID = Inventory.Unit_ID and distinct(Inventory.Unit_ID)`;
-
-    db.query(sql, (err, result) => {
-        if (err) {
-            return res.send({
-                'isSuccessful':false,
-                'accountType':'Customer',
-                'error': true,
-                'message': err
-            });
-        }
-        else
-        {
-            const number_of_orders = Object.keys(result).length
-
-            let Total_Cost = 0;
-            let Total_Revenue = 0;
-            let Profit_Loss = 0;
-            let Order_Date = new Date();
-            let Month_Ago = new Date();
-
-            for (let i = 0; i < number_of_orders; i++) {
-                
-                Total_Cost += result[i].Cost_Price;
-                Total_Revenue += result[i].Selling_Price;
-                Order_Date = result[i].Order_Date.toLocaleDateString();
-                Month_ago = result[i].Order_Date;
-                Month_Ago.setMonth(Month_Ago.getMonth() - 1);
-                console.log('Order_Date--->',Order_Date);
-                console.log('Month ago --->',Month_Ago.toLocaleDateString());
-            }
-            
-            Profit_Loss = Total_Revenue - Total_Cost;
-            console.log('Total Cost is--->',Total_Cost);
-            console.log('Total Revenue is--->',Total_Revenue);
-            if (Profit_Loss >= 0)
-            {
-                console.log('Profit is -->',Profit_Loss)
-            }
-            else if(Profit_Loss == 0)
-            {
-                console.log('Break even');
-            }
-            else
-            {
-                console.log('Loss is --->',-Profit_Loss);
-            }
-
-            return res.send({
-                'isSuccessful':true,
-                'accountType':'Customer',
-                'error': false,
-                'message': result
-            });
-        }
-    });    
-
->>>>>>> e50b702e300dad1ed7d367f78c7d8d016711437a
-});
 
 // Admin sign up
 app.get('/admin-signup', (req, res) => {
@@ -468,6 +493,7 @@ app.get('/admin-signup', (req, res) => {
         }
     });
 });
+
 
 
 // Customer sign up
@@ -637,7 +663,7 @@ app.post('/inventory', (req, res) => {
                 'result': result
             });
         }
-    });
+    });    
 });
 
 // adding in the inventory
@@ -785,6 +811,7 @@ app.post('/inventory/add', (req, res) => {
             }
             else if (req.body.Category === "Camera")
             {
+                console.log("yahan aaya cam me");
                 let post_new = {"Unit_ID":req.body.Unit_ID, "Lens":req.body.Lens, "Touch":req.body.Touch, "Tripod_Compatibility":req.body.Tripod_Compatibility}
                 const sql_new = 'INSERT INTO Camera SET ?';
                 let body = db.query(sql_new, post_new, (err, result) => {
@@ -927,9 +954,6 @@ app.post('/inventory/delete', (req, res) => {
         }
         else
         {
-            console.log(result)
-            console.log(result[0])
-
             const sql_temp = `DELETE from ${result[0].Category} where Unit_ID=${req.body.Unit_ID}`;
             db.query(sql_temp, (err, result) => {
                 if (err) {
@@ -1449,263 +1473,6 @@ app.post('/inventory/specific-product', (req, res) => {
         }
     });    
 });
-
-
-// inventory merged with category for specific category, will send all the products for this category
-// see a specific product
-app.post('/inventory/category', (req, res) => {
-<<<<<<< HEAD
-    const sql = `select * from Inventory,${req.body.Category} where Inventory.Unit_ID=${req.body.Category}.Unit_ID`; 
-
-=======
-    let categoryName = req.body.Category
-    const sql = `select * from Inventory,${categoryName} where Inventory.Unit_ID=${categoryName}.Unit_ID`; 
->>>>>>> e50b702e300dad1ed7d367f78c7d8d016711437a
-    db.query(sql, (err, result) => {
-        if (err) {
-            return res.send({
-                'isSuccessful':false,
-                'accountType':'Customer',
-                'error': true,
-                'message': err
-            });
-        }
-        else
-        {
-            return res.send({
-                'isSuccessful':true,
-                'accountType':'Customer',
-                'error': false,
-                'message': result
-            });
-        }
-    });    
-});
-
-
-// COD 
-app.post('/cod/amountowe', (req, res) => {
-    const sql = `SELECT SUM(Selling_Price - 100) AS Total FROM Orders WHERE Order_Status ='Delivered'`;
-
-    db.query(sql, (err, result) => {
-    
-        if (err) {
-            return res.send({
-                'isSuccessful':false,
-                'accountType':'Admin',
-                'error': true,
-                'message': err
-            });
-        }
-        else
-        {
-            return res.send({
-                'isSuccessful':true,
-                'accountType':'Admin',
-                'error': false,
-                'amount Courier service owe to Hacktech':  result[0].Total,
-                'message': result
-            });
-        }
-    });    
-});
-
-// gets payments of the order
-app.post('/admin/payments',(req,res)=>{ // Order status must be Completed
-
-    const sql = `select Cost_Price,Selling_Price from Orders where Order_Status = 'Completed'`;
-
-
-    db.query(sql, (err, result) => {
-        if (err) {
-            return res.send({
-                'isSuccessful':false,
-                'accountType':'Customer',
-                'error': true,
-                'message': err
-            });
-        }
-        else
-        {
-            const number_of_orders = Object.keys(result).length
-
-            let Total_Cost = 0;
-            let Total_Revenue = 0;
-            let Profit_Loss = 0;
-
-            for (let i = 0; i < number_of_orders; i++) {
-                
-                Total_Cost += result[i].Cost_Price;
-                Total_Revenue += result[i].Selling_Price;
-            }
-            
-            Profit_Loss = Total_Revenue - Total_Cost;
-            console.log('Total Cost is--->',Total_Cost);
-            console.log('Total Revenue is--->',Total_Revenue);
-            if (Profit_Loss >= 0)
-            {
-                console.log('Profit is -->',Profit_Loss)
-
-                return res.send({
-                    'isSuccessful':true,
-                    'accountType':'Customer',
-                    'error': false,
-                    'message': 'Profit was earnt',
-                    'Profit': Profit_Loss
-                });
-            }
-            else if(Profit_Loss == 0)
-            {
-                console.log('Break even');
-                return res.send({
-                    'isSuccessful':true,
-                    'accountType':'Customer',
-                    'error': false,
-                    'message': 'HackTech Broke Even',
-                });
-            }
-            else
-            {
-                console.log('Loss is --->',-Profit_Loss);
-                return res.send({
-                    'isSuccessful':true,
-                    'accountType':'Customer',
-                    'error': false,
-                    'message': 'Loss was dealt',
-                    'Loss': -Profit_Loss
-                });
-            }
-        }
-    });    
-
-});
-
-app.post('/admin/payments-month',(req,res)=>{
-
-    const sql = `select Cost_Price,Selling_Price from Orders where Order_Status = 'Completed' and month(Order_Date) = ${req.body.Month} and year(Order_Date) = ${req.body.Year}`;
-    
-    db.query(sql, (err, result) => {
-        if (err) {
-            console.log(err.message);
-            throw err;
-        }
-        else
-        {
-            const number_of_orders = Object.keys(result).length
-
-            let Total_Cost = 0;
-            let Total_Revenue = 0;
-            let Profit_Loss = 0;
-
-            for (let i = 0; i < number_of_orders; i++) {
-                
-                Total_Cost += result[i].Cost_Price;
-                Total_Revenue += result[i].Selling_Price;
-            }
-            
-            Profit_Loss = Total_Revenue - Total_Cost;
-            console.log('Total Cost is--->',Total_Cost);
-            console.log('Total Revenue is--->',Total_Revenue);
-            if (Profit_Loss >= 0)
-            {
-                console.log('Profit is -->',Profit_Loss)
-
-                return res.send({
-                    'isSuccessful':true,
-                    'accountType':'Customer',
-                    'error': false,
-                    'message': 'Profit was earnt',
-                    'Profit': Profit_Loss
-                });
-            }
-            else if(Profit_Loss == 0)
-            {
-                console.log('Break even');
-                return res.send({
-                    'isSuccessful':true,
-                    'accountType':'Customer',
-                    'error': false,
-                    'message': 'HackTech Broke Even',
-                });
-            }
-            else
-            {
-                console.log('Loss is --->',-Profit_Loss);
-                return res.send({
-                    'isSuccessful':true,
-                    'accountType':'Customer',
-                    'error': false,
-                    'message': 'Loss was dealt',
-                    'Loss': -Profit_Loss
-                });
-            }
-        }
-    });
-});
-
-app.post('/admin/payments-year',(req,res)=>{
-
-    const sql = `select Cost_Price,Selling_Price from Orders where Order_Status = 'Completed' and year(Order_Date) = ${req.body.Year}`;
-    
-    db.query(sql, (err, result) => {
-        if (err) {
-            console.log(err.message);
-            throw err;
-        }
-        else
-        {
-            const number_of_orders = Object.keys(result).length
-
-            let Total_Cost = 0;
-            let Total_Revenue = 0;
-            let Profit_Loss = 0;
-
-            for (let i = 0; i < number_of_orders; i++) {
-                
-                Total_Cost += result[i].Cost_Price;
-                Total_Revenue += result[i].Selling_Price;
-            }
-            
-            Profit_Loss = Total_Revenue - Total_Cost;
-            console.log('Total Cost is--->',Total_Cost);
-            console.log('Total Revenue is--->',Total_Revenue);
-            if (Profit_Loss >= 0)
-            {
-                console.log('Profit is -->',Profit_Loss)
-
-                return res.send({
-                    'isSuccessful':true,
-                    'accountType':'Customer',
-                    'error': false,
-                    'message': 'Profit was earnt',
-                    'Profit': Profit_Loss
-                });
-            }
-            else if(Profit_Loss == 0)
-            {
-                console.log('Break even');
-                return res.send({
-                    'isSuccessful':true,
-                    'accountType':'Customer',
-                    'error': false,
-                    'message': 'HackTech Broke Even',
-                });
-            }
-            else
-            {
-                console.log('Loss is --->',-Profit_Loss);
-                return res.send({
-                    'isSuccessful':true,
-                    'accountType':'Customer',
-                    'error': false,
-                    'message': 'Loss was dealt',
-                    'Loss': -Profit_Loss
-                });
-            }
-        }
-    });
-});
-
 
 // Create DB
 app.get('/createdb', (req, res) => {
