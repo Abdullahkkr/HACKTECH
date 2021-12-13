@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import Navbar from "components/Navbars/AuthNavbar.js";
 
-import { userDataAtom } from "./userState";
+import { userDataAtom } from "../Services-API/userState";
 import { useAtom } from 'jotai'
 
 export default function Profile() {

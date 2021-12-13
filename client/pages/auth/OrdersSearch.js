@@ -5,7 +5,7 @@ import Auth from "layouts/InventoryAuth.js";
 import { Find_Orders } from "../../Services-API/api";
 import { useRouter } from 'next/router';
 import {useAtom} from 'jotai';
-import { getCustomerIDAtom } from "pages/userState";
+import { getCustomerIDAtom } from "Services-API/userState";
 export default function Register() {
 const [getCustomerID, setgetCustomerID] = useAtom(getCustomerIDAtom)
 const [Customer_ID, setCustomer_ID] = useState("")

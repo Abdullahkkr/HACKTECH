@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 // components
 
 import { ShowSpecificInventory } from "Services-API/api";
-import { getCustomerIDAtom } from "pages/userState";
-import { getCategoryAtom } from "pages/userState";
+import { getCustomerIDAtom } from "Services-API/userState";
+import { getCategoryAtom } from "Services-API/userState";
 import { newOrder } from "Services-API/api";
 import {useAtom} from 'jotai';
 import Modal from 'react-modal';
