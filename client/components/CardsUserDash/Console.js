@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Link from "next/Link";
+import Link from "next/link";
 import { useAtom } from "jotai";
 import { getCategoryAtom } from "pages/userState";
 
