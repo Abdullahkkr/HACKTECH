@@ -16,6 +16,7 @@ const PagesDropdown = () => {
   const closeDropdownPopover = () => {
     setDropdownPopoverShow(false);
   };
+  
   return (
     <>
       <a
@@ -54,7 +55,7 @@ const PagesDropdown = () => {
         >
           Admin Layout
         </span> */}
-        {/* <Link href="/admin/dashboard">
+        <Link href="/admin/dashboard">
           <a
             href="#pablo"
             className={
@@ -63,7 +64,7 @@ const PagesDropdown = () => {
           >
             Dashboard
           </a>
-        </Link> */}
+        </Link>
         {/* <Link href="/admin/settings">
           <a
             href="#pablo"
@@ -94,15 +95,15 @@ const PagesDropdown = () => {
             Maps
           </a>
         </Link> */}
-        <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
-        <span
+        {/* <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" /> */}
+        {/* <span
           className={
             "text-sm pt-2 pb-0 px-4 font-bold block w-full whitespace-nowrap bg-transparent text-blueGray-400"
           }
         >
           Options:
-        </span>
-        <Link href="/auth/login">
+        </span> */}
+        {/* <Link href="/auth/login">
           <a
             href="#pablo"
             className={
@@ -111,8 +112,8 @@ const PagesDropdown = () => {
           >
             Login
           </a>
-        </Link>
-        <Link href="/auth/register">
+        </Link> */}
+        {/* <Link href="/auth/register">
           <a
             href="#pablo"
             className={
@@ -121,8 +122,8 @@ const PagesDropdown = () => {
           >
             Sign Up
           </a>
-        </Link>
-        <Link href="/auth/login">
+        </Link> */}
+        {/* <Link href="/auth/login">
           <a
             href="#pablo"
             className={
@@ -131,8 +132,8 @@ const PagesDropdown = () => {
           >
             Log Out
           </a>
-        </Link>
-        <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
+        </Link> */}
+        {/* <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" /> */}
         {/* <span
           className={
             "text-sm pt-2 pb-0 px-4 font-bold block w-full whitespace-nowrap bg-transparent text-blueGray-400"

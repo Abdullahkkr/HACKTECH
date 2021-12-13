@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Link from "next/link";
 // layout for page
 
 import Auth from "layouts/Auth.js";
@@ -23,6 +22,17 @@ export default function Register() {
         if(response.data.accountType === 'Customer'){
           router.push('/auth/new_account')
         }
+      }
+      else
+      {
+        if(response.data.accountType === ''){
+          console.log("reached outer")
+          if (response.data.message === 'customer ID taken'){
+            console.log("reached ");
+            alert("This user ID is already taken");
+          }
+        }
+      
       }
     })
   }

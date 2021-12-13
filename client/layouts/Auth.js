@@ -16,7 +16,6 @@ export default function Auth({ children }) {
             style={{
               backgroundImage: "url('/img/register_bg_2.png')",
               backgroundSize: "105w 130vh"
-              
             }}
           ></div>
           {children}
