@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Order_Confirmation } from "pages/auth/Services-API/api";
+import { Order_Confirmation } from "Services-API/api";
 
 import { useAtom } from "jotai"; //this
 import { getOrderIDAtom } from "pages/userState";//this

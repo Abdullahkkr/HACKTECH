@@ -3,7 +3,7 @@ import Link from "next/link";
 // layout for page
 
 import Auth from "layouts/InventoryAuth";
-import { Camera_inventory } from "./Services-API/api";
+import { Camera_inventory } from "../../Services-API/api";
 import { useRouter } from 'next/router';
 
 // , "Cost_Price":req.body.Cost_Price, "Selling_Price":req.body.Selling_Price, "Admin_ID":req.body.Admin_ID, "Category":req.body.Category};

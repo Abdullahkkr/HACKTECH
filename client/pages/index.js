@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { login } from './auth/Services-API/api';
+import { login } from '../Services-API/api';
 import { useRouter } from 'next/router';
 import { useAtom } from 'jotai'
 import {userDataAtom} from "./userState"

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 // import CardStats from "../Cards/Camera"
 // components
 
-import { allInventory } from "pages/auth/Services-API/api";
+import { allInventory } from "Services-API/api";
 
 export default function HeaderStats() {
 const [products, setProducts] = useState();

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 // layout for page
 
 import Auth from "layouts/InventoryAuth.js";
-import { Delete_inventory } from "./Services-API/api";
+import { Delete_inventory } from "../../Services-API/api";
 import { useRouter } from 'next/router';
 
 export default function Register() {

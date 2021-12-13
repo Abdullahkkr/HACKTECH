@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { allOrders } from "pages/auth/Services-API/api";
+import { allOrders } from "Services-API/api";
 
 export default function HeaderStats() {
 const [products, setProducts] = useState();

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 // layout for page
 
 import Auth from "layouts/InventoryAuth.js";
-import { month } from "./Services-API/api";
+import { month } from "../../Services-API/api";
 import { useRouter } from 'next/router';
 import {useAtom} from 'jotai';
 import { getMonthAtom } from "pages/userState";

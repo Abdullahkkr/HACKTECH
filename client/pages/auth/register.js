@@ -2,7 +2,7 @@ import React, { useState } from "react";
 // layout for page
 
 import Auth from "layouts/Auth.js";
-import { signup } from "./Services-API/api";
+import { signup } from "../../Services-API/api";
 import { useRouter } from 'next/router';
 
 export default function Register() {

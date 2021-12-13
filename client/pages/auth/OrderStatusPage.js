@@ -2,7 +2,7 @@ import React, { useState } from "react";
 // layout for page
 
 import Auth from "layouts/Auth.js";
-import { Order_Status } from "./Services-API/api";
+import { Order_Status } from "../../Services-API/api";
 import { useRouter } from 'next/router';
 
 import { useAtom } from "jotai"; //this

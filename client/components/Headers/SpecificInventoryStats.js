@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 // import CardStats from "../Cards/Camera"
 // components
 
-import { ShowSpecificInventory } from "pages/auth/Services-API/api";
+import { ShowSpecificInventory } from "Services-API/api";
 import { getCustomerIDAtom } from "pages/userState";
 import { getCategoryAtom } from "pages/userState";
-import { newOrder } from "pages/auth/Services-API/api";
+import { newOrder } from "Services-API/api";
 import {useAtom} from 'jotai';
 import Modal from 'react-modal';
 import router from "next/router";

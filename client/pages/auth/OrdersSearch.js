@@ -2,7 +2,7 @@ import React, { useState } from "react";
 // layout for page
 
 import Auth from "layouts/InventoryAuth.js";
-import { Find_Orders } from "./Services-API/api";
+import { Find_Orders } from "../../Services-API/api";
 import { useRouter } from 'next/router';
 import {useAtom} from 'jotai';
 import { getCustomerIDAtom } from "pages/userState";

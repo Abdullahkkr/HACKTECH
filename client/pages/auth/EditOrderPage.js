@@ -3,7 +3,7 @@ import Link from "next/link";
 // layout for page
 
 import Auth from "layouts/InventoryAuth";
-import { EditOrder } from "./Services-API/api";
+import { EditOrder } from "../../Services-API/api";
 import { useRouter } from 'next/router';
 import { getOrderConfirmAtom } from "pages/userState";
 import { getOrderStatusAtom } from "pages/userState";
