@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
 import UserDropdown from "components/Dropdowns/UserDropdown.js";
 
-export default function SidebarAdmin() {
+export default function SidebarAdminNew() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
   const router = useRouter();
   return (

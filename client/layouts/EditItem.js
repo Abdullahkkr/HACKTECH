@@ -3,7 +3,7 @@ import React from "react";
 // components
 
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
-import SidebarAdmin from "components/Sidebar/SidebarAdmin.js";
+import SidebarAdminNew from "components/Sidebar/SidebarAdminNew.js";
 import HeaderStats from "components/Headers/EditHeaderStats.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
@@ -13,7 +13,7 @@ return (
 <div
     className="absolute top-0 w-full h-full bg-blueGray-800 bg-full"
         >
-    <SidebarAdmin />
+    <SidebarAdminNew />
     <div className="relative md:ml-64 bg-blueGray-100">
     <AdminNavbar />
     <HeaderStats />
