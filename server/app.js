@@ -8,9 +8,9 @@ const e = require('express');
 
 // Create connection
 const db = mysql.createConnection({
-    host : 'localhost',
+    host : '34.124.181.136',
     user : 'root',
-    password : '',
+    password : '123',
     database : 'hacktech',
     multipleStatements :true
 });
