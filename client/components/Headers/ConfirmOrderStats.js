@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Order_Confirmation } from "Services-API/api";
 
 import { useAtom } from "jotai"; //this
-import { getOrderIDAtom } from "pages/userState";//this
+import { getOrderIDAtom } from "Services-API/userState";//this
 
 export default function HeaderStats() {
 const [getOrderID, setgetOrderIDAtom] = useAtom(getOrderIDAtom)//this

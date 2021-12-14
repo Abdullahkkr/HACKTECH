@@ -5,9 +5,9 @@ import Link from "next/link";
 import Auth from "layouts/InventoryAuth";
 import { EditOrder } from "../../Services-API/api";
 import { useRouter } from 'next/router';
-import { getOrderConfirmAtom } from "pages/userState";
-import { getOrderStatusAtom } from "pages/userState";
-import { getOrderIDAtom } from "pages/userState";
+import { getOrderConfirmAtom } from "Services-API/userState";
+import { getOrderStatusAtom } from "Services-API/userState";
+import { getOrderIDAtom } from "Services-API/userState";
 import { useAtom } from "jotai";
 
 export default function Inventory() {

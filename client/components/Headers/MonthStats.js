@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { month } from "Services-API/api";
 
 import { useAtom } from "jotai"; //this
-import { getMonthAtom } from "pages/userState";//this
-import { getYearAtom } from "pages/userState";//this
+import { getMonthAtom } from "Services-API/userState";//this
+import { getYearAtom } from "Services-API/userState";//this
 
 export default function HeaderStats() {
 

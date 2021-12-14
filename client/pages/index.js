@@ -3,8 +3,8 @@ import Link from "next/link";
 import { login } from '../Services-API/api';
 import { useRouter } from 'next/router';
 import { useAtom } from 'jotai'
-import {userDataAtom} from "./userState"
-import { getCustomerIDAtom } from "./userState";
+import {userDataAtom} from "../Services-API/userState"
+import { getCustomerIDAtom } from "../Services-API/userState";
 // layout for page
 
 import Auth from "layouts/Auth.js";

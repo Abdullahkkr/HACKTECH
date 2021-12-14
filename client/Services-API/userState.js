@@ -16,5 +16,3 @@ export const getMonthAtom = atom({})
 
 export const getYearAtom = atom({})
 
-
-

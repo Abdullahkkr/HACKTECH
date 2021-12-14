@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import Link from "next/link";
 import { useAtom } from "jotai";
-import { getCategoryAtom } from "pages/userState";
+import { getCategoryAtom } from "Services-API/userState";
 
 export default function CardStats({
   statSubtitle,

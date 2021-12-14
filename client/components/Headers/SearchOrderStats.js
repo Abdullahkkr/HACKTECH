@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Find_Orders } from "Services-API/api";
 import {useAtom} from 'jotai';
-import { getCustomerIDAtom } from "pages/userState";
+import { getCustomerIDAtom } from "Services-API/userState";
 export default function HeaderStats() {
 const [getCustomerID, setgetCustomerID] = useAtom(getCustomerIDAtom)
 const [products, setProducts] = useState();

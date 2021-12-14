@@ -6,7 +6,7 @@ import { Order_Status } from "../../Services-API/api";
 import { useRouter } from 'next/router';
 
 import { useAtom } from "jotai"; //this
-import { getOrderIDAtom } from "pages/userState";//this
+import { getOrderIDAtom } from "Services-API/userState";//this
 
 export default function Register() {
   const [getOrderID, setgetOrderID] = useAtom(getOrderIDAtom)//this
