@@ -9,7 +9,10 @@ import { getCustomerIDAtom } from "../Services-API/userState";
 
 import Auth from "layouts/Auth.js";
 
+
 export default function Login() {
+  console.log("2.0 version")
+
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const router = useRouter()
