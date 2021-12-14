@@ -16,7 +16,7 @@ export default function CardStats({
   const [getCategory,setgetCategory] = useAtom(getCategoryAtom)
   return (
     <>
-      <button onClick={() => setgetCategory('projector')}>
+      <button onClick={() => setgetCategory('Projector')}>
       <Link href="/auth/SpecificInventory">
       <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
         <div className="flex-auto p-4">

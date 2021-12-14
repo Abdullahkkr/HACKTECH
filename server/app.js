@@ -90,29 +90,21 @@ app.get('/delete-all', (req, res) => {
     });
 });
 
-let printer_count = 0;
-let camera_count = 1000;
-let scanner_count = 2000;
-let vg_count = 3000;
-let projector_count = 4000;
-let tv_count = 5000;
-let tablet_count = 6000;
-let mobile_count = 7000;
-let desktop_count = 8000;
-let laptop_count = 9000;
-
 // populating database
 app.get('/mass-populate', (req, res) => {
-    // let printer_count = 0;
-    // let camera_count = 1000;
-    // let scanner_count = 2000;
-    // let vg_count = 3000;
-    // let projector_count = 4000;
-    // let tv_count = 5000;
-    // let tablet_count = 6000;
-    // let mobile_count = 7000;
-    // let desktop_count = 8000;
-    // let laptop_count = 9000;
+
+    const random_starting_index = Math.floor(Math.random() * (100 + 1)) * 2000;
+
+    let printer_count = random_starting_index;
+    let camera_count = random_starting_index + 200;
+    let scanner_count = random_starting_index + 400;
+    let vg_count = random_starting_index + 600;
+    let projector_count = random_starting_index + 800;
+    let tv_count = random_starting_index + 1000;
+    let tablet_count = random_starting_index + 1200;
+    let mobile_count = random_starting_index + 1400;
+    let desktop_count = random_starting_index + 1600;
+    let laptop_count = random_starting_index + 1800;
 
     let printer_name = '';
     let camera_name = ''; 
@@ -126,7 +118,7 @@ app.get('/mass-populate', (req, res) => {
     let laptop_name = '';
     
     let promiseList = []
-    for(let i = 0; i < 100 ; i++)
+    for(let i = 0; i < 200 ; i++)
     {
         printer_name = 'HP_Printer' + printer_count;
         camera_name = 'Canon_cam' + camera_count;
@@ -160,7 +152,7 @@ app.get('/mass-populate', (req, res) => {
         promiseList.push(sqlCallbackToPromise(vg_sql1));
 
         const projector_sql = `INSERT INTO Inventory VALUES('${projector_count}', 'HP', 'xyz', '${projector_name}', 'Black', '-', 'nothing', 2000, 3000, 5, 'Projector')`;
-        const projector_sql1 = `INSERT INTO Projector VALUES('${projector_count}', 'x', 'x', 'x')`;
+        const projector_sql1 = `INSERT INTO Projector VALUES('${projector_count}', 'x', 25, 40)`;
         promiseList.push(sqlCallbackToPromise(projector_sql));
         promiseList.push(sqlCallbackToPromise(projector_sql1));
 
@@ -708,7 +700,7 @@ app.post('/inventory/add', (req, res) => {
 
     let post = {"Unit_ID":req.body.Unit_ID, "Brand":req.body.Brand, "Features":req.body.Features, "Product_Name":req.body.Product_Name, "Colour":req.body.Colour, "Description":req.body.Description, "Images":req.body.Images, "Cost_Price":req.body.Cost_Price, "Selling_Price":req.body.Selling_Price, "Admin_ID":req.body.Admin_ID, "Category":req.body.Category};
 
-    const sql = 'INSERT INTO inventory SET ?';
+    const sql = 'INSERT INTO Inventory SET ?';
     let body = db.query(sql, post, (err, result) => {
         if (err) {
             return res.send({
