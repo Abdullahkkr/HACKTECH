@@ -324,7 +324,7 @@ app.post('/orders/new-order',(req,res)=>{
                 const cp = result[0].Cost_Price
                 const sp = result[0].Selling_Price
                 const magic_number = Math.floor(Math.random() * (1000000 - 2 + 1)) + 2;
-                const sql = `INSERT INTO ORDERS VALUES(${Unit_ID},${magic_number},FALSE,"${req.body.Order_Date}","${req.body.Delivery_Date}","tcs",${req.body.Customer_ID}, "New", ${cp}, ${sp})`;
+                const sql = `INSERT INTO Orders VALUES(${Unit_ID},${magic_number},FALSE,"${req.body.Order_Date}","${req.body.Delivery_Date}","tcs",${req.body.Customer_ID}, "New", ${cp}, ${sp})`;
                 // const sql = `INSERT INTO ORDERS VALUES(${Unit_ID},${req.body.Order_ID},FALSE,"${req.body.Order_Date}","${req.body.Delivery_Date}","${req.body.Courier_Service_Name}",${req.body.Customer_ID}, "New", ${cp}, ${sp})`;
                 db.query(sql, (err, result) => {
                     if (err) {
@@ -338,7 +338,7 @@ app.post('/orders/new-order',(req,res)=>{
                     }
                     else
                     {
-                        const sql2 = `SELECT Category FROM INVENTORY where Unit_ID = (${Unit_ID})`;
+                        const sql2 = `SELECT Category FROM Inventory where Unit_ID = (${Unit_ID})`;
                         db.query(sql2, (err, result) => {
                             if (err) {
                                 return res.send({
@@ -354,7 +354,7 @@ app.post('/orders/new-order',(req,res)=>{
                                 const Category_Name = result[0].Category;
                                 console.log("category name is", Category_Name);
 
-                                const sql3 = `SELECT * from INVENTORY,${result[0].Category} WHERE Inventory.Unit_ID=${Category_Name}.Unit_ID and Inventory.Unit_ID=${Unit_ID}`;
+                                const sql3 = `SELECT * from Inventory,${result[0].Category} WHERE Inventory.Unit_ID=${Category_Name}.Unit_ID and Inventory.Unit_ID=${Unit_ID}`;
                                 db.query(sql3, (err, result) => {
                                     if (err) {
                                         return res.send({
