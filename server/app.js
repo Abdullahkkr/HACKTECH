@@ -8,7 +8,8 @@ const e = require('express');
 
 // Create connection
 const db = mysql.createConnection({
-    host : '34.124.181.136',
+    // host : '34.124.181.136',
+    socketPath: '/cloudsql/lms-project-332221:asia-southeast1:lms-sql-project',
     user : 'root',
     password : '123',
     database : 'hacktech',
@@ -54,6 +55,162 @@ INSERT INTO Admin VALUES('Khuzaima Saeed', 00004, 'pak007007');
 INSERT INTO Admin VALUES('Miqdad Quettawala', 00005, 'pak007009');
 `;
 
+// scripting code
+function sqlCallbackToPromise(sqlQuery){
+    return new Promise(function(resolve, reject) {
+        db.query(sqlQuery, (err, rows) => {
+            if (err) {
+                return reject(err);
+            }
+            resolve(rows);
+        });
+    });
+}
+
+app.get('/delete-all', (req, res) => {
+    const deletion =   `
+    DELETE FROM Printer;
+    DELETE FROM Camera;
+    DELETE FROM Scanner;
+    DELETE FROM VG_Console;
+    DELETE FROM Projector;
+    DELETE FROM TV;
+    DELETE FROM Tablet;
+    DELETE FROM Mobile_Phone;
+    DELETE FROM Desktop;
+    DELETE FROM Laptop;
+    DELETE FROM Inventory;
+    `;
+    db.query(deletion, (err, result) => {
+        if(err)
+        {
+            throw err;
+        }
+        res.send("Deleted all items successfully");
+    });
+});
+
+let printer_count = 0;
+let camera_count = 1000;
+let scanner_count = 2000;
+let vg_count = 3000;
+let projector_count = 4000;
+let tv_count = 5000;
+let tablet_count = 6000;
+let mobile_count = 7000;
+let desktop_count = 8000;
+let laptop_count = 9000;
+
+// populating database
+app.get('/mass-populate', (req, res) => {
+    // let printer_count = 0;
+    // let camera_count = 1000;
+    // let scanner_count = 2000;
+    // let vg_count = 3000;
+    // let projector_count = 4000;
+    // let tv_count = 5000;
+    // let tablet_count = 6000;
+    // let mobile_count = 7000;
+    // let desktop_count = 8000;
+    // let laptop_count = 9000;
+
+    let printer_name = '';
+    let camera_name = ''; 
+    let scanner_name = ''; 
+    let vg_name = ''; 
+    let projector_name = ''; 
+    let tv_name = ''; 
+    let tablet_name = ''; 
+    let mobile_name = ''; 
+    let desktop_name = ''; 
+    let laptop_name = '';
+    
+    let promiseList = []
+    for(let i = 0; i < 100 ; i++)
+    {
+        printer_name = 'HP_Printer' + printer_count;
+        camera_name = 'Canon_cam' + camera_count;
+        scanner_name = 'HP_scanner' + scanner_count;
+        vg_name = 'Sony_vg' + vg_count;
+        projector_name = 'HP_Projector' + projector_count;
+        tv_name = 'LG_TV' + tv_count;
+        tablet_name = 'SamsungTablet' + tablet_count;
+        mobile_name = 'Pixel9999' + mobile_count;
+        desktop_name = 'Lenovo_desktop' + desktop_count;
+        laptop_name = 'DELL' + laptop_count;
+
+        const printer_sql = `INSERT INTO Inventory VALUES('${printer_count}', 'HP', 'xyz', '${printer_name}', 'Black', '-', 'nothing', 2000, 3000, 5, 'Printer')`;
+        const printer_sql1 = `INSERT INTO Printer VALUES('${printer_count}', 'x', 'x', 'x')`;
+        promiseList.push(sqlCallbackToPromise(printer_sql));
+        promiseList.push(sqlCallbackToPromise(printer_sql1));
+
+        const camera_sql = `INSERT INTO Inventory VALUES('${camera_count}', 'Canon', 'latest_features', '${camera_name}', 'Black', '-', 'nothing', 2000, 3000, 5, 'Camera')`;
+        const camera_sql1 = `INSERT INTO Camera VALUES('${camera_count}', 'x', 'x', 'x')`;
+        promiseList.push(sqlCallbackToPromise(camera_sql));
+        promiseList.push(sqlCallbackToPromise(camera_sql1));
+
+        const scanner_sql = `INSERT INTO Inventory VALUES('${scanner_count}', 'HP', 'xyz', '${scanner_name}', 'Black', '-', 'nothing', 2000, 3000, 5, 'Scanner')`;
+        const scanner_sql1 = `INSERT INTO Scanner VALUES('${scanner_count}', 'x', 'x')`;
+        promiseList.push(sqlCallbackToPromise(scanner_sql));
+        promiseList.push(sqlCallbackToPromise(scanner_sql1));
+
+        const vg_sql = `INSERT INTO Inventory VALUES('${vg_count}', 'HP', 'xyz', '${vg_name}', 'Black', '-', 'nothing', 2000, 3000, 5, 'VG_Console')`;
+        const vg_sql1 = `INSERT INTO VG_Console VALUES('${vg_count}', 'x', 'x', 'x')`;
+        promiseList.push(sqlCallbackToPromise(vg_sql));
+        promiseList.push(sqlCallbackToPromise(vg_sql1));
+
+        const projector_sql = `INSERT INTO Inventory VALUES('${projector_count}', 'HP', 'xyz', '${projector_name}', 'Black', '-', 'nothing', 2000, 3000, 5, 'Projector')`;
+        const projector_sql1 = `INSERT INTO Projector VALUES('${projector_count}', 'x', 'x', 'x')`;
+        promiseList.push(sqlCallbackToPromise(projector_sql));
+        promiseList.push(sqlCallbackToPromise(projector_sql1));
+
+        const tv_sql = `INSERT INTO Inventory VALUES('${tv_count}', 'HP', 'xyz', '${tv_name}', 'Black', '-', 'nothing', 2000, 3000, 5, 'TV')`;
+        const tv_sql1 = `INSERT INTO TV VALUES('${tv_count}', 'x', 'x', 'x')`;
+        promiseList.push(sqlCallbackToPromise(tv_sql));
+        promiseList.push(sqlCallbackToPromise(tv_sql1));
+
+        const tablet_sql = `INSERT INTO Inventory VALUES('${tablet_count}', 'HP', 'xyz', '${tablet_name}', 'Black', '-', 'nothing', 2000, 3000, 5, 'Tablet')`;
+        const tablet_sql1 = `INSERT INTO Tablet VALUES('${tablet_count}', 'x', 'x', 'x')`;
+        promiseList.push(sqlCallbackToPromise(tablet_sql));
+        promiseList.push(sqlCallbackToPromise(tablet_sql1));
+
+        const mobile_sql = `INSERT INTO Inventory VALUES('${mobile_count}', 'HP', 'xyz', '${mobile_name}', 'Black', '-', 'nothing', 2000, 3000, 5, 'Mobile_Phone')`;
+        const mobile_sql1 = `INSERT INTO Mobile_Phone VALUES('${mobile_count}', 'x', 'x')`;
+        promiseList.push(sqlCallbackToPromise(mobile_sql));
+        promiseList.push(sqlCallbackToPromise(mobile_sql1));
+
+        const desktop_sql = `INSERT INTO Inventory VALUES('${desktop_count}', 'HP', 'xyz', '${desktop_name}', 'Black', '-', 'nothing', 2000, 3000, 5, 'Desktop')`;
+        const desktop_sql1 = `INSERT INTO Desktop VALUES('${desktop_count}', 'x', 'x', 'x', 'x', 'x', 'x', 'x')`;
+        promiseList.push(sqlCallbackToPromise(desktop_sql));
+        promiseList.push(sqlCallbackToPromise(desktop_sql1));
+
+        const laptop_sql = `INSERT INTO Inventory VALUES('${laptop_count}', 'DELL', 'xyz', '${laptop_name}', 'Black', '-', 'nothing', 2000, 3000, 5, 'Laptop')`;
+        const laptop_sql1 = `INSERT INTO Laptop VALUES('${laptop_count}', '17', '8GB', 'vvbigprocessor', 'chonkmemory', 'latest')`;
+        promiseList.push(sqlCallbackToPromise(laptop_sql));
+        promiseList.push(sqlCallbackToPromise(laptop_sql1));
+
+        printer_count++;
+        camera_count++;
+        scanner_count++;
+        vg_count++;
+        projector_count++;
+        tv_count++;
+        tablet_count++;
+        mobile_count++;
+        desktop_count++;
+        laptop_count++;
+    }  
+    Promise.all(promiseList).then((values)=>{
+        res.send("The inventory table has been populated with 10000 entries while each sub category table has been populated with 1000 entries");
+    });    
+});
+//
+
+// Get version of db
+app.get('/', (req, res) => {
+    res.send("Version Number 2.91")
+})
+
 // Initialize tables
 app.get('/initialize-tables', (req, res) => {
     db.query(init_db, (err, result) => {
@@ -66,6 +223,33 @@ app.get('/initialize-tables', (req, res) => {
     });
 });
 
+
+// counting number of entries in inventory
+app.get('/number-of-inventories', (req, res) => {
+    const sql = `select COUNT(*) from Inventory`;
+
+    db.query(sql, (err, result) => {
+        if (err) {
+            // console.log(err.message);
+            // throw err;
+            res.send({
+                'isSuccessful':false,
+                'accountType':'Admin',
+                'error': true,
+                'message': err
+            });
+        }
+        else
+        {
+            res.send({
+                'isSuccessful':true,
+                'accountType':'Admin',
+                'error': false,
+                'message': result[0]
+            });
+        }
+    });
+});
 
 // orders 
 app.post('/orders', (req, res) => {
@@ -1612,7 +1796,7 @@ app.get('/addpost1', (req, res) => {
         res.send('Posts 1 added...');
     });
 });
-let PORT = 3001;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
     
